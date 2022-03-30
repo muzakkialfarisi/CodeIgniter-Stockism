@@ -1,4 +1,4 @@
-<section class="py-5 landing-bg text-white" id="ContactUs">
+<section class="py-5 bg-stockism text-white" id="ContactUs">
     <div class="container">
         <div class="row">
 

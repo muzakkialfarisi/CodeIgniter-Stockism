@@ -20,11 +20,11 @@
                     <label class="control-label">Kata Sandi</label>
                     <input type="password" class="form-control form-control-lg">
                 </div>
-                <a href="#" class="btn btn-sm btn-pill btn-link">Lupa Kata Sandi</a>
+                <a href="<?= site_url('Home/ForgotPassword'); ?>" class="btn btn-sm btn-pill btn-link">Lupa Kata Sandi</a>
             </div>
             <div class="modal-footer">
                 <div class="text-center">
-                    <button class="btn landing-bg text-white btn-lg btn-pill" type="submit">Masuk!</button>
+                    <a class="btn bg-stockism text-white btn-lg btn-pill" href="<?= site_url('Home/SignIn'); ?>">Masuk!</a>
                 </div>
             </div>
         </form>

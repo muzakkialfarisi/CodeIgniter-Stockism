@@ -30,7 +30,7 @@
                     <input type="password" class="form-control form-control-lg">
                 </div>
                 <div class="text-end">
-                    <button class="btn landing-bg text-white btn-lg btn-pill" type="submit">Simpan</button>
+                    <button class="btn bg-stockism text-white btn-lg btn-pill" type="submit">Simpan</button>
                 </div>
             </div>
 

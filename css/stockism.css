@@ -1,0 +1,12 @@
+.form-group.required .control-label:after {
+    content:"*";
+    color:red;
+}
+
+.bg-stockism{
+    background-image: linear-gradient(to right bottom, #424797, #4c2f66, #3e1e3d, #26121d, #000000);
+}
+
+.table-responsive{
+    min-height: 250px;
+}

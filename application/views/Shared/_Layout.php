@@ -15,6 +15,13 @@
     </head>
 
     <body>
+        <?php
+            if (isset($this->session->userdata['logged_in'])) {
+                $email_user = ($this->session->userdata['logged_in']['email_user']);
+            } else {
+                header("location: Home");
+            }
+        ?>
 
         <div class="wrapper">
             <nav id="sidebar" class="sidebar">
@@ -28,8 +35,8 @@
                 <div class="sidebar-content">
                     <div class="sidebar-user">
                         <img src="<?= base_url(); ?>/img/avatars/avatar.jpg" class="img-fluid rounded-circle mb-2"/>
-                        <div class="fw-bold">Muzakki Ahmad Al Farisi</div>
-                        <small>Full-stack Developer</small>
+                        <div class="fw-bold"><?= ucfirst($this->session->userdata['logged_in']['email_user']) ?></div>
+                        <small><?= ucfirst($this->session->userdata['logged_in']['id_usertype']) ?></small>
                     </div>
 
                     <!-- Sidebar -->
@@ -77,6 +84,8 @@
                 });
             });
         </script>
+
+        <?php $this->load->view("Home/_Notification.php") ?> 
     </body>
 
 </html>

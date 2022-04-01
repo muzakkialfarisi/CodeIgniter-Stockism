@@ -23,6 +23,32 @@ class Home extends CI_Controller {
 
 	public function SignIn()
 	{
+		$this->form_validation->set_rules('email_user', 'email_user', 'required');
+		$this->form_validation->set_rules('password', 'password', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Home');
+		}
+
+		$temp = array(
+			'email_user' => $this->input->post('email_user'),
+			'password' => $this->input->post('password')
+		);
+
+		$result = $this->SecUser->GetuserByEmailPassword($temp);
+
+		if($result->row() < 1){
+			$this->session->set_flashdata('error', 'Account Not Found!');
+			redirect('Home');
+		};
+
+		$session_data = array(
+			'email_user' => $temp['email_user'],
+			'id_usertype' => $this->SecUser->GetuserByEmailPassword($temp)->row()->name,
+		);
+		
+		$this->session->set_userdata('logged_in', $session_data);
 		redirect('Dashboards');
 	}
 
@@ -46,7 +72,6 @@ class Home extends CI_Controller {
 			'username' => ''
 		);
 		$this->session->unset_userdata('logged_in', $sess_array);
-		$data['message_display'] = 'Successfully Logout';
-		redirect('/home', 'refresh');
+		redirect('Home', 'refresh');
 	}
 }

@@ -11,6 +11,11 @@
         <title>Spark - Bootstrap 5 Admin &amp; Dashboard Template</title>
 
         <link href="<?= base_url(); ?>/css/light.css" rel="stylesheet">
+        <style>
+            body {
+                opacity: 0;
+            }
+        </style>
         <link href="<?= base_url(); ?>/css/stockism.css" rel="stylesheet">
     </head>
 
@@ -24,5 +29,7 @@
         <?php $this->load->view("Home/Footer.php") ?>
 
         <script src="<?= base_url(); ?>/js/app.js"></script>
+
+        <?php $this->load->view("Home/_Notification.php") ?>    
     </body>
 </html>

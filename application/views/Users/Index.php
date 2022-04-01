@@ -4,6 +4,7 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Users</h5>
             </div>
+            <button type="button" class="btn btn-light btn-pill invisible" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
         </div>
     </div>
     <div class="card-body m-3">

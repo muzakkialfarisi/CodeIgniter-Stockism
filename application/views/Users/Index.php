@@ -13,10 +13,10 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
-                        <th>Id</th>
-                        <th>Name</th>
-                        <th>Description</th>
+                        <th>Email</th>
+                        <th>Email Confirmed</th>
                         <th>Status</th>
+                        <th>User Role</th>
                     </tr>
                 </thead>
                 <tbody>

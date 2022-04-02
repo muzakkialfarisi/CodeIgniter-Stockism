@@ -16,7 +16,7 @@ class Dashboards extends CI_Controller {
 	
 	public function Index()
 	{
-		$data['secmenu'] = $this->SecMenu->GetAll();
+		//$data['secmenu'] = $this->SecMenu->GetAll();
 		$data['menukey'] = "Dashboards";
 		$data['content'] = "Dashboards/Index";
         $this->load->view('Shared/_Layout', $data);

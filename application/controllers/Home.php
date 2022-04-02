@@ -7,10 +7,12 @@ class Home extends CI_Controller {
 	{
         parent::__construct();
 		$this->load->helper('url');
-		$this->load->helper('form');
         $this->load->library('form_validation');
+		$this->load->library('encryption');
         $this->load->library('session');
         $this->load->model('SecUser');
+		$this->load->model('SecUserRole');
+		$this->load->model('MasTenant');
 		$this->load->model('SecMenu');
     }
 	
@@ -25,29 +27,47 @@ class Home extends CI_Controller {
 	{
 		$this->form_validation->set_rules('email_user', 'email_user', 'required');
 		$this->form_validation->set_rules('password', 'password', 'required');
-
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', 'Invalid Modelstate!');
 			redirect('Home');
-		}
+		};
 
-		$temp = array(
-			'email_user' => $this->input->post('email_user'),
-			'password' => $this->input->post('password')
-		);
-
-		$result = $this->SecUser->GetuserByEmailPassword($temp);
-
-		if($result->row() < 1){
+		$secuser = $this->SecUser->GetUserByEmail($this->input->post('email_user'));
+		if($secuser->row() < 1){
 			$this->session->set_flashdata('error', 'Account Not Found!');
 			redirect('Home');
 		};
 
-		$session_data = array(
-			'email_user' => $temp['email_user'],
-			'id_usertype' => $this->SecUser->GetuserByEmailPassword($temp)->row()->name,
-		);
+		if($secuser->row()->status != "active"){
+			$this->session->set_flashdata('error', 'Inactive Account!');
+			redirect('Home');
+		};
+
+		if(!password_verify($this->input->post('password'), $secuser->row()->password)){
+			$this->session->set_flashdata('error', 'Incorect Password!');
+			redirect('Home');
+		};
+
+		$secuserrole = $this->SecUserRole->GetUserRoleById($secuser->row()->id_usertype);
+		$mastenant = $this->MasTenant->GetTenantByEmail($this->input->post('email_user'));
+
+		if($secuserrole->row()->name == "Admin"){
+			$session_data = array(
+				'email_user' => $this->input->post('email_user'),
+				'id_usertype' => $secuserrole->row()->name,
+				'secmenu' => $this->SecMenu->GetAll()
+			);
+		}else{
+			$session_data = array(
+				'email_user' => $this->input->post('email_user'),
+				'id_usertype' => $secuserrole->row()->name,
+				'name' => $mastenant->row()->name,
+				'photo' => $mastenant->row()->photo,
+				'secmenu' => $this->SecMenu->GetMenuByRole(1)
+			);
+		};
 		
+
 		$this->session->set_userdata('logged_in', $session_data);
 		redirect('Dashboards');
 	}
@@ -57,6 +77,56 @@ class Home extends CI_Controller {
 		$data['title'] = "Registration";
 		$data['content'] = "UserAuthentications/SignUp";
 		$this->load->view('Home/_Layout', $data);
+	}
+
+	public function SignUpProcess()
+	{
+		$this->form_validation->set_rules('name', 'name', 'required');
+		$this->form_validation->set_rules('email_user', 'email_user', 'required');
+		$this->form_validation->set_rules('phone_number', 'phone_number', 'required');
+		$this->form_validation->set_rules('password', 'password', 'required');
+		$this->form_validation->set_rules('password_confirmed', 'password_confirmed', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Home/SignUp');
+		}
+
+		if ($this->input->post('password') != $this->input->post('password_confirmed')){
+			$this->session->set_flashdata('error', 'Password Does Not Match!');
+			redirect('Home/SignUp');
+		}		
+
+		if ($this->SecUser->GetUserByEmail($this->input->post('email_user'))->row() > 0){
+			$this->session->set_flashdata('error', 'Account Already Exist!');
+			redirect('Home/SignUp');
+		}
+
+		$options['cost'] = 12;
+
+		$secuser = array(
+			'email_user' => $this->input->post('email_user'),
+			'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT, $options),
+			'token' => bin2hex($this->encryption->create_key(16)),
+			'email_confirmed' => 0,
+			'status' => 'active',
+			'id_usertype' => 2
+		);
+
+		$this->SecUser->Insert($secuser);
+
+		$mastenant = array(
+			'email_tenant' => $this->input->post('email_user'),
+			'name' => $this->input->post('name'),
+			'address' => "",
+			'phone_number' => "62".$this->input->post('phone_number'),
+			'photo' => "default-avatar.png"
+		);
+
+		$this->MasTenant->Insert($mastenant);
+
+		$this->session->set_flashdata('success', 'Account Registered Successfully!');
+		redirect('Home');
 	}
 
 	public function ForgotPassword()
@@ -69,7 +139,11 @@ class Home extends CI_Controller {
 	public function SignOut() 
 	{
 		$sess_array = array(
-			'username' => ''
+			'email_user' => '',
+			'id_usertype' => '',
+			'name' => '',
+			'photo' => '',
+			'secmenu' => ''
 		);
 		$this->session->unset_userdata('logged_in', $sess_array);
 		redirect('Home', 'refresh');

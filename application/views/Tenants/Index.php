@@ -30,7 +30,7 @@
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['email_tenant'] ?></td>
                             <td><?= $item['address'] ?></td>
-                            <td><?= $item['phone_nomber'] ?></td>
+                            <td><?= $item['phone_number'] ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

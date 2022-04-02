@@ -1,5 +1,7 @@
 <ul class="sidebar-nav pb-5">
-	<?php foreach($secmenu as $modul){ switch ($modul['menugroup']) { case "Module" :  ?>
+	<?php 
+	$secmenu = $this->session->userdata['logged_in']['secmenu'];
+	foreach($secmenu as $modul){ switch ($modul['menugroup']) { case "Module" :  ?>
 
 		<li class="sidebar-header">
 			<?= $modul['menuname'];?>

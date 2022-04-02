@@ -34,7 +34,12 @@
                 
                 <div class="sidebar-content">
                     <div class="sidebar-user">
-                        <img src="<?= base_url(); ?>/img/avatars/avatar.jpg" class="img-fluid rounded-circle mb-2"/>
+                        <?php if ($this->session->userdata['logged_in']['email_user'] == "admin"){ ?>
+                            <img src="<?= base_url(); ?>/img/Tenant/Avatar/admin.png" class="img-fluid rounded-circle mb-2"/>
+                        <?php } else { ?>
+                            <img src="<?= base_url(); ?>/img/Tenant/Avatar/<?= $this->session->userdata['logged_in']['photo'] ?>" class="img-fluid rounded-circle mb-2"/>
+                        <?php } ?>  
+                        
                         <div class="fw-bold"><?= ucfirst($this->session->userdata['logged_in']['email_user']) ?></div>
                         <small><?= ucfirst($this->session->userdata['logged_in']['id_usertype']) ?></small>
                     </div>
@@ -78,13 +83,8 @@
         </div>
 
         <script src="<?= base_url(); ?>/js/app.js"></script>
-        <script>
-            $(function(){ 
-                $(".table").DataTable({
-                });
-            });
-        </script>
-
+        <script src="<?= base_url(); ?>/js/main.js"></script>
+        
         <?php $this->load->view("Home/_Notification.php") ?> 
     </body>
 

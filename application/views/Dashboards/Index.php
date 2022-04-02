@@ -1,9 +1,3 @@
-<div class="header">
-	<h1 class="header-title">
-		Welcome back, <?= ucfirst($this->session->userdata['logged_in']['email_user']) ?>
-	</h1>
-</div>
-
 <div class="row">
 	<div class="col-xl-6 col-xxl-7">
 		<div class="card flex-fill w-100">

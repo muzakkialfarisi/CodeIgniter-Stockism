@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark absolute-top w-100 py-2">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="<?= current_url(); ?>">
+        <a class="navbar-brand fw-bold" href="<?= base_url(); ?>">
             <svg>
                 <use xlink:href="#ion-ios-pulse-strong"></use>
             </svg>

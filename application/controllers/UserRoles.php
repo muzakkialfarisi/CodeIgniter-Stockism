@@ -16,11 +16,41 @@ class UserRoles extends CI_Controller {
 	
 	public function Index()
 	{
-		$data['secmenu'] = $this->SecMenu->GetAll();
 		$data['menukey'] = "Security";
 		$data['content'] = "UserRoles/Index";
         $data['secuserrole'] = $this->SecUserRole->GetAll();;
         $this->load->view('Shared/_Layout', $data);
 	}
+
+	public function AddRoleProcess()
+	{
+		$this->form_validation->set_rules('name', 'name', 'required');
+		$this->form_validation->set_rules('description', 'description');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Dashboards');
+		}	
+
+		if ($this->SecUserRole->GetUserRoleByName($this->input->post('name'))->row() > 0){
+			$this->session->set_flashdata('error', 'Role Already Exist!');
+			redirect('Dashboards');
+		}
+
+		$options['cost'] = 12;
+		$data['count_userrole'] = $this->SecUserRole->GetUserRoleCountId();
+		$secuserrole = array(
+			'id_usertype' => $data['count_userrole'] + 1,
+			'name' => $this->input->post('name'),
+			'description' => $this->input->post('description'),
+			'status' => 'active'
+		);
+
+		$this->SecUserRole->InsertRole($secuserrole);
+
+		$this->session->set_flashdata('success', 'Insert Role Successfully!');
+		redirect('Dashboards');
+	}
+
 
 }

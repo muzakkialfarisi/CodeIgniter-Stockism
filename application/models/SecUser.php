@@ -14,5 +14,5 @@ class SecUser extends CI_Model{
         $query = $this->db->query("SELECT * FROM SecUser WHERE email_user = '$email_user'");
         return $query;
     }
-
+    
 }

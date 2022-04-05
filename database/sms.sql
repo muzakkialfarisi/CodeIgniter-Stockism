@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2022 at 12:24 PM
+-- Generation Time: Apr 03, 2022 at 03:55 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.28
 
@@ -321,9 +321,16 @@ CREATE TABLE `mastenant` (
   `email_tenant` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `phone_nomber` int(11) DEFAULT NULL,
+  `phone_number` varchar(255) DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mastenant`
+--
+
+INSERT INTO `mastenant` (`email_tenant`, `name`, `address`, `phone_number`, `photo`) VALUES
+('a@a', 'Faris', '', '6285329981115', 'default-avatar.png');
 
 -- --------------------------------------------------------
 
@@ -457,46 +464,46 @@ CREATE TABLE `secmenu` (
   `iconclass` varchar(255) NOT NULL,
   `menugroup` varchar(255) NOT NULL,
   `menukey` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `id_usertype` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `secmenu`
 --
 
-INSERT INTO `secmenu` (`menuid`, `parentid`, `menuname`, `menusort`, `controller`, `action`, `iconclass`, `menugroup`, `menukey`, `status`) VALUES
-('1.1', '1', 'Main', 1, '-', '-', '-\r\nfa-chart-pie\r\n-\r\nfa-shield-alt\r\n-\r\n-\r\nfa-user\r\nfa-warehouse\r\nfa-archive\r\n-\r\n-\r\n-\r\n-\r\nfa-store\r\nfa-user-tie\r\nfa-user-friends\r\nfa-users\r\n-\r\n-\r\nfa-shipping-fast\r\nfa-users\r\n-\r\nfa-cart-plus\r\nfa-truck-loading\r\n-\r\nfa-dolly-flatbed\r\nfa-boxes\r\n-\r\nfa-shopping-ba', 'Module', '-', '1'),
-('1.1.1', '1.1', 'Dashboard', 2, 'Dashboards', 'Index', 'fa-chart-pie', 'Parent', 'Dashboards', '1'),
-('1.2', '1', 'Maintenance', 3, '-', '-', '-', 'Module', '-', '1'),
-('1.2.1', '1.2', 'Security', 4, '-', '-', 'fa-shield-alt', 'Parent', 'Security', '1'),
-('1.2.1.1', '1.2.1', 'User Roles', 5, 'UserRoles', 'Index', '-', 'Child', 'Security', '1'),
-('1.2.1.2', '1.2.1', 'Users', 6, 'Users', 'Index', '-', 'Child', 'Security', '1'),
-('1.2.2', '1.2', 'Tenant', 7, 'Tenants', 'Index', 'fa-user', 'Parent', 'Tenants', '1'),
-('1.2.3', '1.2', 'Warehouse', 8, 'UnderConstructions', 'Index', 'fa-warehouse', 'Parent', 'Warehouses', '1'),
-('1.2.4', '1.2', 'Product', 9, '-', '-', 'fa-archive', 'Parent', 'Produts', '1'),
-('1.2.4.1', '1.2.4', 'Product Item', 10, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1'),
-('1.2.4.2', '1.2.4', 'Product Kategori', 11, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1'),
-('1.2.4.3', '1.2.4', 'Product Data', 12, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1'),
-('1.2.4.4', '1.2.4', 'Wholesale Products', 13, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1'),
-('1.2.5', '1.2', 'Stores', 14, 'UnderConstructions', 'Index', 'fa-city', 'Parent', 'Stores', '1'),
-('1.2.6', '1.2', 'Employees', 15, 'UnderConstructions', 'Index', 'fa-user-tie', 'Parent', 'Employees', '1'),
-('1.2.7', '1.2', 'Suppliers', 16, 'UnderConstructions', 'Index', 'fa-user-friends', 'Parent', 'Suppliers', '1'),
-('1.2.8', '1.2', 'Customer', 17, '-', '-', 'fa-users', 'Parent', 'Customers', '1'),
-('1.2.8.1', '1.2.8', 'Customer Type', 18, 'UnderConstructions', 'Index', '-', 'Child', 'Customers', '1'),
-('1.2.8.2', '1.2.8', 'Customers', 19, 'UnderConstructions', 'Index', '-', 'Child', 'Customers', '1'),
-('1.2.9', '1.2', 'Couriers', 20, 'UnderConstructions', 'Index', 'fa-shipping-fast', 'Parent', 'Couriers', '1'),
-('1.2.10', '1.2', 'Marketplaces', 21, 'UnderConstructions', 'Index', 'fa-store', 'Parent', 'Marketplaces', '1'),
-('1.3', '1', 'Incoming', 22, '-', '-', '-', 'Module', '-', '1'),
-('1.3.1', '1.3', 'Purchase Orders', 23, 'UnderConstructions', 'Index', 'fa-cart-plus', 'Parent', 'Purchase Orders', '1'),
-('1.3.2', '1.3', 'Arrival', 24, 'UnderConstructions', 'Index', 'fa-truck-loading', 'Parent', 'Arrival', '1'),
-('1.4', '1', 'Inventory', 25, '-', '-', '-', 'Module', '-', '1'),
-('1.4.1', '1.4', 'Put Away', 26, 'UnderConstructions', 'Index', 'fa-dolly-flatbed', 'Parent', 'Put Away', '1'),
-('1.4.2', '1.4', 'Stock Opname', 27, 'UnderConstructions', 'Index', 'fa-boxes', 'Parent', 'Stock Opname', '1'),
-('1.5', '1', 'Out Going', 28, '-', '-', '-', 'Module', '-', '1'),
-('1.5.1', '1.5', 'Sales Orders', 29, 'UnderConstructions', 'Index', 'fa-shopping-basket', 'Parent', 'Sales Orders', '1'),
-('1.6', '1', 'Transaction', 30, '-', '-', '-', 'Module', '-', '1'),
-('1.6.1', '1.6', 'Utang', 31, 'UnderConstructions', 'Index', '-', 'Parent', 'Utang', '1'),
-('1.6.2', '1.6', 'Piutang', 32, 'UnderConstructions', 'Index', '-', 'Parent', 'Piutang', '1');
+INSERT INTO `secmenu` (`menuid`, `parentid`, `menuname`, `menusort`, `controller`, `action`, `iconclass`, `menugroup`, `menukey`, `status`, `id_usertype`) VALUES
+('1.1', '1', 'Main', 1, '-', '-', '-\r\nfa-chart-pie\r\n-\r\nfa-shield-alt\r\n-\r\n-\r\nfa-user\r\nfa-warehouse\r\nfa-archive\r\n-\r\n-\r\n-\r\n-\r\nfa-store\r\nfa-user-tie\r\nfa-user-friends\r\nfa-users\r\n-\r\n-\r\nfa-shipping-fast\r\nfa-users\r\n-\r\nfa-cart-plus\r\nfa-truck-loading\r\n-\r\nfa-dolly-flatbed\r\nfa-boxes\r\n-\r\nfa-shopping-ba', 'Module', '-', '1', NULL),
+('1.1.1', '1.1', 'Dashboard', 2, 'Dashboards', 'Index', 'fa-chart-pie', 'Parent', 'Dashboards', '1', 1),
+('1.2', '1', 'Maintenance', 3, '-', '-', '-', 'Module', '-', '1', 1),
+('1.2.1', '1.2', 'Security', 4, '-', '-', 'fa-shield-alt', 'Parent', 'Security', '1', 0),
+('1.2.1.1', '1.2.1', 'User Roles', 5, 'UserRoles', 'Index', '-', 'Child', 'Security', '1', 0),
+('1.2.1.2', '1.2.1', 'Users', 6, 'Users', 'Index', '-', 'Child', 'Security', '1', 0),
+('1.2.2', '1.2', 'Tenant', 7, 'Tenants', 'Index', 'fa-user', 'Parent', 'Tenants', '1', 0),
+('1.2.2', '1.2', 'Tenant', 7, 'Tenants', 'Index', 'fa-user', 'Parent', 'Tenants', '1', 0),
+('1.2.3', '1.2', 'Warehouse', 8, 'UnderConstructions', 'Index', 'fa-warehouse', 'Parent', 'Warehouses', '1', 1),
+('1.2.4', '1.2', 'Product', 9, '-', '-', 'fa-archive', 'Parent', 'Produts', '1', 1),
+('1.2.4.1', '1.2.4', 'Product Item', 10, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1),
+('1.2.4.2', '1.2.4', 'Product Kategori', 11, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1),
+('1.2.4.3', '1.2.4', 'Product Data', 12, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1),
+('1.2.4.4', '1.2.4', 'Wholesale Products', 13, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1),
+('1.2.5', '1.2', 'Stores', 14, 'UnderConstructions', 'Index', 'fa-city', 'Parent', 'Stores', '1', 1),
+('1.2.6', '1.2', 'Employees', 15, 'UnderConstructions', 'Index', 'fa-user-tie', 'Parent', 'Employees', '1', 1),
+('1.2.7', '1.2', 'Suppliers', 16, 'UnderConstructions', 'Index', 'fa-user-friends', 'Parent', 'Suppliers', '1', 1),
+('1.2.8', '1.2', 'Customer', 17, '-', '-', 'fa-users', 'Parent', 'Customers', '1', 1),
+('1.2.8.1', '1.2.8', 'Customer Type', 18, 'UnderConstructions', 'Index', '-', 'Child', 'Customers', '1', 0),
+('1.2.8.2', '1.2.8', 'Customers', 19, 'UnderConstructions', 'Index', '-', 'Child', 'Customers', '1', 1),
+('1.2.9', '1.2', 'Couriers', 20, 'UnderConstructions', 'Index', 'fa-shipping-fast', 'Parent', 'Couriers', '1', 0),
+('1.2.10', '1.2', 'Marketplaces', 21, 'UnderConstructions', 'Index', 'fa-store', 'Parent', 'Marketplaces', '1', 0),
+('1.3', '1', 'Incoming', 22, '-', '-', '-', 'Module', '-', '1', 1),
+('1.3.1', '1.3', 'Purchase Orders', 23, 'UnderConstructions', 'Index', 'fa-cart-plus', 'Parent', 'Purchase Orders', '1', 1),
+('1.3.2', '1.3', 'Arrival', 24, 'UnderConstructions', 'Index', 'fa-truck-loading', 'Parent', 'Arrival', '1', 1),
+('1.4', '1', 'Inventory', 25, '-', '-', '-', 'Module', '-', '1', 1),
+('1.4.1', '1.4', 'Put Away', 26, 'UnderConstructions', 'Index', 'fa-dolly-flatbed', 'Parent', 'Put Away', '1', 1),
+('1.4.2', '1.4', 'Stock Opname', 27, 'UnderConstructions', 'Index', 'fa-boxes', 'Parent', 'Stock Opname', '1', 1),
+('1.5', '1', 'Out Going', 28, '-', '-', '-', 'Module', '-', '1', 1),
+('1.5.1', '1.5', 'Sales Orders', 29, 'UnderConstructions', 'Index', 'fa-shopping-basket', 'Parent', 'Sales Orders', '1', 1),
+('1.6', '1', 'Transaction', 30, '-', '-', '-', 'Module', '-', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -518,7 +525,8 @@ CREATE TABLE `secuser` (
 --
 
 INSERT INTO `secuser` (`email_user`, `password`, `token`, `email_confirmed`, `status`, `id_usertype`) VALUES
-('admin', 'admin', 'admin', 1, 'active', 1);
+('a@a', '$2y$12$b1egvDFCXhccONpHttt.6O3S5Pd9Okjq5/dYJXeSRs3U4biSGFV9C', 'fd94aa907f620ba891bb63807108be9e', 0, 'active', 2),
+('admin', '$2y$12$c4cd4a1f900f538b77e01un3qNM3mgZ5A.sZPfdawzeyCqwS0t2bC', 'c4cd4a1f900f538b77e0125ffa60099b', 1, 'active', 1);
 
 -- --------------------------------------------------------
 
@@ -538,7 +546,9 @@ CREATE TABLE `secuserrole` (
 --
 
 INSERT INTO `secuserrole` (`id_usertype`, `name`, `description`, `status`) VALUES
-(1, 'admin', 'admin', 'active');
+(1, 'Admin', 'admin', 'active'),
+(2, 'Tenant', 'tenant', 'active'),
+(3, 'Employee', 'employee', 'active');
 
 --
 -- Indexes for dumped tables
@@ -878,7 +888,7 @@ ALTER TABLE `outsalesorderproduct`
 -- AUTO_INCREMENT for table `secuserrole`
 --
 ALTER TABLE `secuserrole`
-  MODIFY `id_usertype` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usertype` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

@@ -16,11 +16,13 @@ class Tenants extends CI_Controller {
 	
 	public function Index()
 	{
-		$data['secmenu'] = $this->SecMenu->GetAll();
 		$data['menukey'] = "Tenants";
 		$data['content'] = "Tenants/Index";
         $data['mastenant'] = $this->MasTenant->GetAll();
         $this->load->view('Shared/_Layout', $data);
 	}
+
+	
+
 
 }

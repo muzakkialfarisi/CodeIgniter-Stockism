@@ -18,6 +18,7 @@
         <?php
             if (isset($this->session->userdata['logged_in'])) {
                 $email_user = ($this->session->userdata['logged_in']['email_user']);
+                $user_role = ($this->session->userdata['logged_in']['id_usertype']);
             } else {
                 header("location: Home");
             }
@@ -34,14 +35,14 @@
                 
                 <div class="sidebar-content">
                     <div class="sidebar-user">
-                        <?php if ($this->session->userdata['logged_in']['email_user'] == "admin"){ ?>
+                        <?php if ($email_user == "admin"){ ?>
                             <img src="<?= base_url(); ?>/img/Tenant/Avatar/admin.png" class="img-fluid rounded-circle mb-2"/>
                         <?php } else { ?>
                             <img src="<?= base_url(); ?>/img/Tenant/Avatar/<?= $this->session->userdata['logged_in']['photo'] ?>" class="img-fluid rounded-circle mb-2"/>
                         <?php } ?>  
                         
-                        <div class="fw-bold"><?= ucfirst($this->session->userdata['logged_in']['email_user']) ?></div>
-                        <small><?= ucfirst($this->session->userdata['logged_in']['id_usertype']) ?></small>
+                        <div class="fw-bold"><?= ucfirst($email_user) ?></div>
+                        <small><?= ucfirst($user_role) ?></small>
                     </div>
 
                     <!-- Sidebar -->

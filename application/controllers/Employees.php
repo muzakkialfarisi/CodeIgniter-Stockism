@@ -17,7 +17,11 @@ class Employees extends CI_Controller {
 	{
 		$data['menukey'] = "Employees";
 		$data['content'] = "Employees/Index";
-        $data['masemployees'] = $this->MasEmployee->GetAll();
+		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
+        	$data['masemployees'] = $this->MasEmployee->GetAll()->result_array();
+		}else{
+			$data['masemployees'] = $this->MasEmployee->GetEmployeeByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
+		}
         $this->load->view('Shared/_Layout', $data);
 	}
 

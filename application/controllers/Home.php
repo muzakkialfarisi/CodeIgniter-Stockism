@@ -60,6 +60,7 @@ class Home extends CI_Controller {
 		}else{
 			$session_data = array(
 				'email_user' => $this->input->post('email_user'),
+				'email_tenant' => $this->input->post('email_user'),
 				'id_usertype' => $secuserrole->row()->name,
 				'name' => $mastenant->row()->name,
 				'photo' => $mastenant->row()->photo,
@@ -146,6 +147,7 @@ class Home extends CI_Controller {
 			'secmenu' => ''
 		);
 		$this->session->unset_userdata('logged_in', $sess_array);
+		$this->session->sess_destroy();
 		redirect('Home', 'refresh');
 	}
 }

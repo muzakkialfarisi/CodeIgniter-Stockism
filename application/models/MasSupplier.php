@@ -10,8 +10,8 @@ class MasSupplier extends CI_Model{
         $this->db->insert('massupplier', $data);
     }
 
-	public function GetSupplierByEmail($email){
-		$data = $this->db->query("SELECT * FROM massupplier WHERE email = '$email'");
+	public function GetSupplierByName($name){
+		$data = $this->db->query("SELECT * FROM massupplier WHERE name = '$name'");
 		return $data;
 	}
 

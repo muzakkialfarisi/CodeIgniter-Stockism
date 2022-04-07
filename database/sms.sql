@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2022 at 03:55 PM
+-- Generation Time: Apr 07, 2022 at 08:23 PM
 -- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.28
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -181,6 +181,13 @@ CREATE TABLE `mascustomer` (
   `email_tenant` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `mascustomer`
+--
+
+INSERT INTO `mascustomer` (`id_customer`, `name`, `id_customertype`, `address`, `phone_number`, `email`, `email_tenant`) VALUES
+(1, 'Dangga', 1, 'bojong', '123123123', 'anggaagustira@gmail.com', 'anggaagustira@gmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -191,6 +198,15 @@ CREATE TABLE `mascustomertype` (
   `Id_CustomerType` int(11) NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `mascustomertype`
+--
+
+INSERT INTO `mascustomertype` (`Id_CustomerType`, `name`) VALUES
+(1, 'Reguler'),
+(2, 'Dropshiper'),
+(3, 'Distributor');
 
 -- --------------------------------------------------------
 
@@ -204,6 +220,14 @@ CREATE TABLE `masemployee` (
   `email` varchar(255) NOT NULL,
   `email_tenant` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `masemployee`
+--
+
+INSERT INTO `masemployee` (`id_employee`, `name`, `email`, `email_tenant`) VALUES
+(1, 'Dangga', 'anggaagustiraEmp@gmail.com', 'anggaagustira@gmail.com'),
+(2, 'Angga Agustira', 'anggaagustiraEmp2@gmail.com', 'anggaagustira@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -311,6 +335,13 @@ CREATE TABLE `massupplier` (
   `email_tenant` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `massupplier`
+--
+
+INSERT INTO `massupplier` (`id_supplier`, `name`, `address`, `phone_number`, `email`, `email_tenant`) VALUES
+(1, 'Dangga', 'bojong\r\n', 2147483647, 'anggaagustira@gmail.com', 'anggaagustira@gmail.com');
+
 -- --------------------------------------------------------
 
 --
@@ -330,7 +361,8 @@ CREATE TABLE `mastenant` (
 --
 
 INSERT INTO `mastenant` (`email_tenant`, `name`, `address`, `phone_number`, `photo`) VALUES
-('a@a', 'Faris', '', '6285329981115', 'default-avatar.png');
+('a@a', 'Faris', '', '6285329981115', 'default-avatar.png'),
+('anggaagustira@gmail.com', 'Angga', '', '6281395145194', 'default-avatar.png');
 
 -- --------------------------------------------------------
 
@@ -487,12 +519,12 @@ INSERT INTO `secmenu` (`menuid`, `parentid`, `menuname`, `menusort`, `controller
 ('1.2.4.2', '1.2.4', 'Product Kategori', 11, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1),
 ('1.2.4.3', '1.2.4', 'Product Data', 12, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1),
 ('1.2.4.4', '1.2.4', 'Wholesale Products', 13, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1),
-('1.2.5', '1.2', 'Stores', 14, 'UnderConstructions', 'Index', 'fa-city', 'Parent', 'Stores', '1', 1),
-('1.2.6', '1.2', 'Employees', 15, 'UnderConstructions', 'Index', 'fa-user-tie', 'Parent', 'Employees', '1', 1),
-('1.2.7', '1.2', 'Suppliers', 16, 'UnderConstructions', 'Index', 'fa-user-friends', 'Parent', 'Suppliers', '1', 1),
+('1.2.5', '1.2', 'Stores', 14, 'Stores', 'Index', 'fa-city', 'Parent', 'Stores', '1', 1),
+('1.2.6', '1.2', 'Employees', 15, 'Employees', 'Index', 'fa-user-tie', 'Parent', 'Employees', '1', 1),
+('1.2.7', '1.2', 'Suppliers', 16, 'Suppliers', 'Index', 'fa-user-friends', 'Parent', 'Suppliers', '1', 1),
 ('1.2.8', '1.2', 'Customer', 17, '-', '-', 'fa-users', 'Parent', 'Customers', '1', 1),
-('1.2.8.1', '1.2.8', 'Customer Type', 18, 'UnderConstructions', 'Index', '-', 'Child', 'Customers', '1', 0),
-('1.2.8.2', '1.2.8', 'Customers', 19, 'UnderConstructions', 'Index', '-', 'Child', 'Customers', '1', 1),
+('1.2.8.1', '1.2.8', 'Customer Type', 18, 'Customers', 'Index', '-', 'Child', 'Customers', '1', 0),
+('1.2.8.2', '1.2.8', 'Customers', 19, 'Customers', 'Index', '-', 'Child', 'Customers', '1', 1),
 ('1.2.9', '1.2', 'Couriers', 20, 'UnderConstructions', 'Index', 'fa-shipping-fast', 'Parent', 'Couriers', '1', 0),
 ('1.2.10', '1.2', 'Marketplaces', 21, 'UnderConstructions', 'Index', 'fa-store', 'Parent', 'Marketplaces', '1', 0),
 ('1.3', '1', 'Incoming', 22, '-', '-', '-', 'Module', '-', '1', 1),
@@ -526,7 +558,8 @@ CREATE TABLE `secuser` (
 
 INSERT INTO `secuser` (`email_user`, `password`, `token`, `email_confirmed`, `status`, `id_usertype`) VALUES
 ('a@a', '$2y$12$b1egvDFCXhccONpHttt.6O3S5Pd9Okjq5/dYJXeSRs3U4biSGFV9C', 'fd94aa907f620ba891bb63807108be9e', 0, 'active', 2),
-('admin', '$2y$12$c4cd4a1f900f538b77e01un3qNM3mgZ5A.sZPfdawzeyCqwS0t2bC', 'c4cd4a1f900f538b77e0125ffa60099b', 1, 'active', 1);
+('admin', '$2y$12$c4cd4a1f900f538b77e01un3qNM3mgZ5A.sZPfdawzeyCqwS0t2bC', 'c4cd4a1f900f538b77e0125ffa60099b', 1, 'active', 1),
+('anggaagustira@gmail.com', '$2y$12$Lrlnf4Otw9E.E/eKGtIgTunV56T.EUhfpvemdW94O2xKkiGHzUTTy', '929d87dffe160fb12044a499f5d8eada', 0, 'active', 2);
 
 -- --------------------------------------------------------
 
@@ -816,13 +849,19 @@ ALTER TABLE `mascourier`
 -- AUTO_INCREMENT for table `mascustomer`
 --
 ALTER TABLE `mascustomer`
-  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_customer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mascustomertype`
 --
 ALTER TABLE `mascustomertype`
-  MODIFY `Id_CustomerType` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_CustomerType` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `masemployee`
+--
+ALTER TABLE `masemployee`
+  MODIFY `id_employee` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `masmarketplace`
@@ -864,7 +903,7 @@ ALTER TABLE `masproductunit`
 -- AUTO_INCREMENT for table `massupplier`
 --
 ALTER TABLE `massupplier`
-  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_supplier` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `mastoko`

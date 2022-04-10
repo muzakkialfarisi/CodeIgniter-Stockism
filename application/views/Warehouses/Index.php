@@ -2,11 +2,11 @@
     <div class="card-header bg-stockism">
         <div class="d-flex align-items-center py-1">
             <div class="flex-grow-1 ps-3">
-                <h5 class="card-title mb-0 text-light">Tenants</h5>
+                <h5 class="card-title mb-0 text-light">Warehouse</h5>
             </div>
 
             <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
-            <?php $this->load->view("Tenants/Create.php") ?>
+            <?php $this->load->view("Warehouses/Create.php") ?>
 
         </div>
     </div>
@@ -16,21 +16,23 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
-                        <th>Pict</th>
+                        <th>Picture</th>
+                        <th>Code</th>
                         <th>Name</th>
-                        <th>Email</th>
                         <th>Address</th>
-                        <th>Phone Number</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($maswarehouse as $item) { ?>
                         <tr>
-                            <!-- <td><?= $item['photo'] ?></td>
+                            <td class="text-center">
+                                <img src="<?= base_url(); ?>/img/warehouses/<?=$item['picture'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
+                            </td>
+                            <td><?= $item['id_warehouse'] ?></td>
                             <td><?= $item['name'] ?></td>
-                            <td><?= $item['email_tenant'] ?></td>
                             <td><?= $item['address'] ?></td>
-                            <td><?= $item['phone_number'] ?></td> -->
+                            <td></td>
                         </tr>
                     <?php } ?>
                 </tbody>

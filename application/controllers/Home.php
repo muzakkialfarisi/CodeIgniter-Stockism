@@ -13,6 +13,7 @@ class Home extends CI_Controller {
         $this->load->model('SecUser');
 		$this->load->model('SecUserRole');
 		$this->load->model('MasTenant');
+		$this->load->model('MasEmployee');
 		$this->load->model('SecMenu');
     }
 	
@@ -33,7 +34,7 @@ class Home extends CI_Controller {
 		};
 
 		$secuser = $this->SecUser->GetUserByEmail($this->input->post('email_user'));
-		if($secuser->row() < 1){
+		if($secuser->num_rows() < 1){
 			$this->session->set_flashdata('error', 'Account Not Found!');
 			redirect('Home');
 		};
@@ -50,24 +51,41 @@ class Home extends CI_Controller {
 
 		$secuserrole = $this->SecUserRole->GetUserRoleById($secuser->row()->id_usertype);
 		$mastenant = $this->MasTenant->GetTenantByEmail($this->input->post('email_user'));
+		$masemployee = $this->MasEmployee->GetEmployeeByEmail($this->input->post('email_user'));
 
 		if($secuserrole->row()->name == "Admin"){
 			$session_data = array(
 				'email_user' => $this->input->post('email_user'),
 				'id_usertype' => $secuserrole->row()->name,
-				'secmenu' => $this->SecMenu->GetAll()
+				'name' => "Admin",
+				'photo' => "admin.png",
+				'secmenu' => $this->SecMenu->GetAll()->result_array()
 			);
-		}else{
+		}
+		elseif($secuserrole->row()->name == "Tenant"){
 			$session_data = array(
 				'email_user' => $this->input->post('email_user'),
 				'email_tenant' => $this->input->post('email_user'),
 				'id_usertype' => $secuserrole->row()->name,
 				'name' => $mastenant->row()->name,
 				'photo' => $mastenant->row()->photo,
-				'secmenu' => $this->SecMenu->GetMenuByRole(1)
+				'secmenu' => $this->SecMenu->GetMenuByTenant(1)->result_array()
 			);
-		};
-		
+		}
+		elseif($secuserrole->row()->name == "Employee"){
+			$session_data = array(
+				'email_user' => $this->input->post('email_user'),
+				'email_tenant' => $mastenant->row()->email_tenant,
+				'id_usertype' => $secuserrole->row()->name,
+				'name' => $masemployee->row()->name,
+				'photo' => $masemployee->row()->picture,
+				'secmenu' => $this->SecMenu->GetMenuByEmployee(1)->result_array()
+			);
+		}
+		else{
+			$this->session->set_flashdata('error', 'Something Wrong!');
+			redirect('Home');
+		}
 
 		$this->session->set_userdata('logged_in', $session_data);
 		redirect('Dashboards');

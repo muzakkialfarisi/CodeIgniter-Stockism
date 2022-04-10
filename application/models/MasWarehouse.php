@@ -6,8 +6,17 @@ class MasWarehouse extends CI_Model{
 		return $data;
 	}
 
+    public function Insert($data){
+        $this->db->insert('maswarehouse', $data);
+    }
+
     public function GetWarehouseById($id){
         $data = $this->db->query("SELECT * FROM maswarehouse WHERE id_warehouse = '$id' ");
+		return $data;
+    }
+
+    public function GetWarehouseByIdByTenant($id, $tenant){
+        $data = $this->db->query("SELECT * FROM maswarehouse WHERE id_warehouse = '$id' AND email_tenant = '$tenant' ");
 		return $data;
     }
 

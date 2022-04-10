@@ -33,11 +33,9 @@ class Suppliers extends CI_Controller {
 		}	
 
 		if ($this->MasSupplier->GetSupplierByName($this->input->post('name'))->row() > 0){
-			$this->session->set_flashdata('error', 'Account Already Exist!');
+			$this->session->set_flashdata('error', 'Supplier Already Exist!');
 			redirect('Dashboards');
 		}
-
-        $options['cost'] = 12;
         
         $DataSession = $this->session->all_userdata();
 
@@ -46,7 +44,7 @@ class Suppliers extends CI_Controller {
 			'address' => $this->input->post('address'),
 			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $DataSession['logged_in']['email_user']
+			'email_tenant' => $DataSession['logged_in']['email_tenant']
 		);
 
 		$this->MasSupplier->Insert($massupplier);

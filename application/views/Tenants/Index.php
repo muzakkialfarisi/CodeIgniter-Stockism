@@ -26,7 +26,9 @@
                 <tbody>
                     <?php foreach($mastenant as $item) { ?>
                         <tr>
-                            <td><?= $item['photo'] ?></td>
+                            <td>
+                                <img src="<?= base_url(); ?>/img/avatars/<?=$item['photo'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
+                            </td>
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['email_tenant'] ?></td>
                             <td><?= $item['address'] ?></td>

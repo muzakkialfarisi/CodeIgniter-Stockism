@@ -16,13 +16,57 @@ class Warehouses extends CI_Controller {
 	{
 		$data['menukey'] = "Warehouses";
 		$data['content'] = "Warehouses/Index";
+
         if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
             $data['maswarehouse'] = $this->MasWarehouse->GetAll()->result_array();
         }else{
-            $data['maswarehouse'] = $this->MasWarehouse->GetWarehouseByTenant($this->session->userdata['logged_in']['email_user'])->result_array();
+            $data['maswarehouse'] = $this->MasWarehouse->GetWarehouseByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
         }
         
         $this->load->view('Shared/_Layout', $data);
 	}
 
+    public function CreatePost()
+    {
+        $this->form_validation->set_rules('name', 'name', 'required');
+		$this->form_validation->set_rules('address', 'address', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Warehouses/Index');
+		}
+
+        if ($this->MasWarehouse->GetWarehouseByTenant($this->session->userdata['logged_in']['email_tenant'])->row() > 0){
+			$this->session->set_flashdata('error', 'You can only create one warehouse!');
+			redirect('Warehouses/Index');
+		}
+
+        if ($this->MasWarehouse->GetWarehouseByIdByTenant($this->input->post('id_warehouse'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
+			$this->session->set_flashdata('error', 'Warehouses Already Exist!');
+			redirect('Warehouses/Index');
+		}
+
+        $picture = "default-warehouse.png";
+        if($this->input->post('picture') != null){
+            //$picture = functtion add picture
+        }
+
+        $maswarehouse = array(
+            'id_warehouse' => $this->IdBuilder($this->MasWarehouse->GetAll()->num_rows()),
+			'name' => $this->input->post('name'),
+			'address' => $this->input->post('address'),
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+            'picture' => $picture
+		);
+
+		$this->MasWarehouse->Insert($maswarehouse);
+
+        $this->session->set_flashdata('success', 'Warehouse Created Successfully!');
+		redirect('Warehouses/Index');
+    }
+
+    private function IdBuilder($temp)
+    {
+        return sprintf('%07d',$temp+1);
+    }
 }

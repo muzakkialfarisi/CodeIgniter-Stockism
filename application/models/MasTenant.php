@@ -6,7 +6,7 @@ class MasTenant extends CI_Model{
 		return $data->result_array();
 	}
 
-	function Insert($data){
+	public function Insert($data){
         $this->db->insert('mastenant', $data);
     }
 

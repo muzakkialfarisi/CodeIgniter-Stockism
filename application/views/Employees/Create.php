@@ -5,7 +5,7 @@
                 <h5 class="modal-title">Create New Employee</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= site_url('Employees/AddEmployeeProcess') ?>" method="post">
+            <form action="<?= site_url('Employees/CreatePost') ?>" method="post">
                 <?php echo validation_errors(); ?>
 
                 <div class="modal-body m-3">

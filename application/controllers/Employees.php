@@ -8,8 +8,10 @@ class Employees extends CI_Controller {
         parent::__construct();
 		$this->load->helper('form');
         $this->load->library('form_validation');
+		$this->load->library('encryption');
         $this->load->library('session');
-        $this->load->model('MasTenant');
+        $this->load->model('SecUser');
+		$this->load->model('MasTenant');
         $this->load->model('MasEmployee');
     }
 	
@@ -25,36 +27,49 @@ class Employees extends CI_Controller {
         $this->load->view('Shared/_Layout', $data);
 	}
 
-	public function AddEmployeeProcess()
+	public function CreatePost()
 	{
 		$this->form_validation->set_rules('name', 'name', 'required');
 		$this->form_validation->set_rules('email', 'email', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', 'Invalid Modelstate!');
-			redirect('Dashboards');
+			redirect('Employees/Index');
 		}	
 
 		if ($this->MasEmployee->GetEmployeeByEmail($this->input->post('email'))->row() > 0){
 			$this->session->set_flashdata('error', 'Account Already Exist!');
-			redirect('Dashboards');
+			redirect('Employees/Index');
+		}
+
+		if ($this->SecUser->GetUserByEmail($this->input->post('email'))->row() > 0){
+			$this->session->set_flashdata('error', 'Account Already Exist!');
+			redirect('Employees/Index');
 		}
 
         $options['cost'] = 12;
         
-        $DataSession = $this->session->all_userdata();
-
 		$masemployee = array(
 			'name' => $this->input->post('name'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $DataSession['logged_in']['email_user']
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
 		);
 
 		$this->MasEmployee->Insert($masemployee);
 
-		$this->session->set_flashdata('success', 'Registered Employee Successfully!');
-		redirect('Dashboards');
-	}
+		$secuser = array(
+			'email_user' => $this->input->post('email'),
+			'password' => password_hash($this->input->post('email'), PASSWORD_BCRYPT, $options),
+			'token' => bin2hex($this->encryption->create_key(16)),
+			'email_confirmed' => 0,
+			'status' => 'active',
+			'id_usertype' => 3
+		);
 
+		$this->SecUser->Insert($secuser);
+
+		$this->session->set_flashdata('success', 'Registered Employee Successfully!');
+		redirect('Employees/Index');
+	}
 
 }

@@ -6,7 +6,7 @@ class MasEmployee extends CI_Model{
 		return $data;
 	}
 
-	function Insert($data){
+	public function Insert($data){
         $this->db->insert('masemployee', $data);
     }
 

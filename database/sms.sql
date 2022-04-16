@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2022 at 09:02 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Generation Time: Apr 16, 2022 at 10:23 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -541,7 +541,7 @@ INSERT INTO `secmenu` (`menuid`, `parentid`, `menuname`, `menusort`, `controller
 ('1.2.6', '1.2', 'Employees', 15, 'Employees', 'Index', 'fa-user-tie', 'Parent', 'Employees', '1', 1, 0),
 ('1.2.7', '1.2', 'Suppliers', 16, 'Suppliers', 'Index', 'fa-user-friends', 'Parent', 'Suppliers', '1', 1, 0),
 ('1.2.8', '1.2', 'Customer', 17, '-', '-', 'fa-users', 'Parent', 'Customers', '1', 1, 0),
-('1.2.8.1', '1.2.8', 'Customer Type', 18, 'UnderConstructions', 'Index', '-', 'Child', 'Customers', '1', 0, 0),
+('1.2.8.1', '1.2.8', 'Customer Type', 18, 'CustomersType', 'Index', '-', 'Child', 'Customers', '1', 0, 0),
 ('1.2.8.2', '1.2.8', 'Customers', 19, 'Customers', 'Index', '-', 'Child', 'Customers', '1', 1, 0),
 ('1.2.9', '1.2', 'Couriers', 20, 'UnderConstructions', 'Index', 'fa-shipping-fast', 'Parent', 'Couriers', '1', 0, 0),
 ('1.2.10', '1.2', 'Marketplaces', 21, 'UnderConstructions', 'Index', 'fa-store', 'Parent', 'Marketplaces', '1', 0, 0),

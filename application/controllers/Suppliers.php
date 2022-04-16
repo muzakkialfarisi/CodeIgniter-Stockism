@@ -29,12 +29,12 @@ class Suppliers extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', 'Invalid Modelstate!');
-			redirect('Dashboards');
+			redirect('Suppliers/Index');
 		}	
 
 		if ($this->MasSupplier->GetSupplierByName($this->input->post('name'))->row() > 0){
 			$this->session->set_flashdata('error', 'Supplier Already Exist!');
-			redirect('Dashboards');
+			redirect('Suppliers/Index');
 		}
         
         $DataSession = $this->session->all_userdata();

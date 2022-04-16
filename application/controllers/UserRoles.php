@@ -22,19 +22,19 @@ class UserRoles extends CI_Controller {
         $this->load->view('Shared/_Layout', $data);
 	}
 
-	public function AddRoleProcess()
+	public function AddUserRoleProcess()
 	{
 		$this->form_validation->set_rules('name', 'name', 'required');
 		$this->form_validation->set_rules('description', 'description');
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', 'Invalid Modelstate!');
-			redirect('Dashboards');
+			redirect('UserRoles/Index');
 		}	
 
 		if ($this->SecUserRole->GetUserRoleByName($this->input->post('name'))->row() > 0){
 			$this->session->set_flashdata('error', 'Role Already Exist!');
-			redirect('Dashboards');
+			redirect('UserRoles/Index');
 		}
 
 		$options['cost'] = 12;
@@ -49,7 +49,7 @@ class UserRoles extends CI_Controller {
 		$this->SecUserRole->InsertRole($secuserrole);
 
 		$this->session->set_flashdata('success', 'Insert Role Successfully!');
-		redirect('Dashboards');
+		redirect('UserRoles/Index');
 	}
 
 

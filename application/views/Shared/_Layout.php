@@ -10,8 +10,10 @@
 
         <title>Spark - Bootstrap 5 Admin &amp; Dashboard Template</title>
 
-        <link href="<?= base_url(); ?>/css/light.css" rel="stylesheet">
-        <link href="<?= base_url(); ?>/css/stockism.css" rel="stylesheet">
+        <link href="<?= base_url(); ?>/assets/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+        <link href="<?= base_url(); ?>/assets/css/light.css" rel="stylesheet" type="text/css">
+        <link href="<?= base_url(); ?>/assets/css/stockism.css" rel="stylesheet" type="text/css">
+        
     </head>
 
     <body>
@@ -59,7 +61,7 @@
                     </div>
 
                 <!-- Footer -->
-                <footer class="footer">
+                <footer class="footer pt-5">
                     <div class="container-fluid">
                         <div class="row text-muted">
                             <div class="col-8 text-start">
@@ -81,10 +83,14 @@
 
         </div>
 
-        <script src="<?= base_url(); ?>/js/app.js"></script>
-        <script src="<?= base_url(); ?>/js/main.js"></script>
-        
+        <script src="<?= base_url(); ?>/assets/js/main/app.js"></script>
+        <script src="<?= base_url(); ?>/assets/sweetalert2/sweetalert2.min.js"></script>
+        <script src="<?= base_url(); ?>/assets/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        <script src="<?= base_url(); ?>/assets/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="<?= base_url(); ?>/assets/js/main/main.js"></script>
+        <script src="<?= base_url(); ?>/assets/js/<?= $menukey?>.js"></script>
         <?php $this->load->view("Home/_Notification.php") ?> 
+
     </body>
 
 </html>

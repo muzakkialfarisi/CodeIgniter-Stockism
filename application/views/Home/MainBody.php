@@ -30,7 +30,7 @@
             <div class="col-12 col-sm-6 px-5">
                 <a class="mb-3 card overflow-hidden">
                     <div class="px-4 pt-4">
-                        <img src="img/screenshots/modern.png" class="img-fluid card-img-hover landing-img" alt="Modern Bootstrap 5 Dashboard Theme">
+                        <img src="<?= base_url('assets/img/warehouses/default-warehouse.png') ?>" class="img-fluid card-img-hover landing-img" alt="Modern Bootstrap 5 Dashboard Theme">
                     </div>
                 </a>
             </div>

@@ -6,7 +6,7 @@
             <div class="modal-body">
                 <div class="mb-4 mt-3 text-center">
                     <div>
-                      <img src="img/brands/b.svg" width="48" height="48" alt="Bootstrap">
+                      <img src="<?= base_url('assets/img/avatars/default-avatar.png') ?>" width="48" height="48" alt="Bootstrap">
                     </div> 
                     <br>
                     <h3>Stockism</h3>

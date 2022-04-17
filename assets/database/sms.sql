@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2022 at 10:23 PM
--- Server version: 10.4.24-MariaDB
+-- Generation Time: Apr 17, 2022 at 06:31 PM
+-- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -288,7 +288,10 @@ CREATE TABLE `masproduct` (
   `status` varchar(255) NOT NULL,
   `id_productunit` int(11) NOT NULL,
   `id_productcategory` int(11) NOT NULL,
-  `email_tenant` varchar(255) NOT NULL
+  `email_tenant` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `storage` varchar(255) DEFAULT NULL,
+  `picture` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -300,8 +303,16 @@ CREATE TABLE `masproduct` (
 CREATE TABLE `masproductcategory` (
   `id_productcategory` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `email_tenant` varchar(255) NOT NULL
+  `email_tenant` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `masproductcategory`
+--
+
+INSERT INTO `masproductcategory` (`id_productcategory`, `name`, `email_tenant`, `status`) VALUES
+(1, 'Makanan', 'a@a', 'Active');
 
 -- --------------------------------------------------------
 
@@ -365,7 +376,8 @@ CREATE TABLE `mastenant` (
 
 INSERT INTO `mastenant` (`email_tenant`, `name`, `address`, `phone_number`, `photo`) VALUES
 ('a@a', 'Faris', '', '6285329981115', 'default-avatar.png'),
-('anggaagustira@gmail.com', 'Angga', '', '6281395145194', 'default-avatar.png');
+('anggaagustira@gmail.com', 'Angga', '', '6281395145194', 'default-avatar.png'),
+('s@s', 'Makanan', '', '62121212121', 'default-avatar.png');
 
 -- --------------------------------------------------------
 
@@ -532,10 +544,10 @@ INSERT INTO `secmenu` (`menuid`, `parentid`, `menuname`, `menusort`, `controller
 ('1.2.1.2', '1.2.1', 'Users', 6, 'Users', 'Index', '-', 'Child', 'Security', '1', 0, 0),
 ('1.2.2', '1.2', 'Tenant', 7, 'Tenants', 'Index', 'fa-user', 'Parent', 'Tenants', '1', 0, 0),
 ('1.2.3', '1.2', 'Warehouse', 8, 'Warehouses', 'Index', 'fa-warehouse', 'Parent', 'Warehouses', '1', 1, 0),
-('1.2.4', '1.2', 'Product', 9, '-', '-', 'fa-archive', 'Parent', 'Produts', '1', 1, 0),
-('1.2.4.1', '1.2.4', 'Product Item', 10, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 0, 0),
-('1.2.4.2', '1.2.4', 'Product Kategori', 11, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1, 0),
-('1.2.4.3', '1.2.4', 'Product Data', 12, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1, 0),
+('1.2.4', '1.2', 'Product', 9, '-', '-', 'fa-archive', 'Parent', 'Products', '1', 1, 0),
+('1.2.4.1', '1.2.4', 'Product Item', 10, 'ProductUnits', 'Index', '-', 'Child', 'Products', '1', 1, 0),
+('1.2.4.2', '1.2.4', 'Product Kategori', 11, 'ProductCategories', 'Index', '-', 'Child', 'Products', '1', 1, 0),
+('1.2.4.3', '1.2.4', 'Product Data', 12, 'Products', 'Index', '-', 'Child', 'Products', '1', 1, 0),
 ('1.2.4.4', '1.2.4', 'Wholesale Products', 13, 'UnderConstructions', 'Index', '-', 'Child', 'Products', '1', 1, 0),
 ('1.2.5', '1.2', 'Stores', 14, 'Stores', 'Index', 'fa-city', 'Parent', 'Stores', '1', 1, 0),
 ('1.2.6', '1.2', 'Employees', 15, 'Employees', 'Index', 'fa-user-tie', 'Parent', 'Employees', '1', 1, 0),
@@ -580,7 +592,8 @@ INSERT INTO `secuser` (`email_user`, `password`, `token`, `email_confirmed`, `st
 ('a@a', '$2y$12$b1egvDFCXhccONpHttt.6O3S5Pd9Okjq5/dYJXeSRs3U4biSGFV9C', 'fd94aa907f620ba891bb63807108be9e', 0, 'active', 2),
 ('admin', '$2y$12$c4cd4a1f900f538b77e01un3qNM3mgZ5A.sZPfdawzeyCqwS0t2bC', 'c4cd4a1f900f538b77e0125ffa60099b', 1, 'active', 1),
 ('anggaagustira@gmail.com', '$2y$12$Lrlnf4Otw9E.E/eKGtIgTunV56T.EUhfpvemdW94O2xKkiGHzUTTy', '929d87dffe160fb12044a499f5d8eada', 0, 'active', 2),
-('mzkalfarisi@gmail.com', '$2y$12$dhElONOGOA0RjhMuT8OghOG9hIeCcoBkY3gDnkbaJX0xQ1BnL.68C', 'b2cf4d777549785d69b19b4a7d82ee9b', 0, 'active', 3);
+('mzkalfarisi@gmail.com', '$2y$12$dhElONOGOA0RjhMuT8OghOG9hIeCcoBkY3gDnkbaJX0xQ1BnL.68C', 'b2cf4d777549785d69b19b4a7d82ee9b', 0, 'active', 3),
+('s@s', '$2y$12$XDduvQXHS8kyztcVKe0vxeBTxwudVUx17BQqUAMXvjS16LOJ.KHrO', '932ca1a4def25706fa3659477a39ba45', 0, 'active', 2);
 
 -- --------------------------------------------------------
 
@@ -906,7 +919,7 @@ ALTER TABLE `masproduct`
 -- AUTO_INCREMENT for table `masproductcategory`
 --
 ALTER TABLE `masproductcategory`
-  MODIFY `id_productcategory` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_productcategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `masproductgrosir`
@@ -918,7 +931,7 @@ ALTER TABLE `masproductgrosir`
 -- AUTO_INCREMENT for table `masproductunit`
 --
 ALTER TABLE `masproductunit`
-  MODIFY `id_productunit` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_productunit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `massupplier`

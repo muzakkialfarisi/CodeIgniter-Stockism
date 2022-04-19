@@ -1,7 +1,7 @@
 $('.btn-edit').on('click', function () {
     $.ajax({
         type: 'POST',
-        url: '<?= site_url("ProductCategories/GetProductCategoryById") ?>',
+        url: '/stockism/ProductCategories/GetProductCategoryById',
         data: {
             id_productcategory: $(this).data("id"),
         },
@@ -17,6 +17,7 @@ $('.btn-edit').on('click', function () {
         }
     });
 });
+
 $('.btn-delete').click(function(e){
     swal({
         title:"Are you sure?",

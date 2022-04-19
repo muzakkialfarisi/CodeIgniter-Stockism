@@ -15,6 +15,7 @@ class ProductCategories extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "Products";
+        $data['javascripts'] = "ProductCategories";
 		$data['content'] = "ProductCategories/Index";
 
         if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){

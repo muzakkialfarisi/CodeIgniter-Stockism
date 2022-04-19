@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2022 at 06:31 PM
+-- Generation Time: Apr 19, 2022 at 04:24 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.28
 
@@ -178,15 +178,16 @@ CREATE TABLE `mascustomer` (
   `address` varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `email_tenant` varchar(255) NOT NULL
+  `email_tenant` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mascustomer`
 --
 
-INSERT INTO `mascustomer` (`id_customer`, `name`, `id_customertype`, `address`, `phone_number`, `email`, `email_tenant`) VALUES
-(1, 'dangga', 1, 'bojong\r\n', '079897987', 'dangga@gmail.com', 'anggaagustira@gmail.com');
+INSERT INTO `mascustomer` (`id_customer`, `name`, `id_customertype`, `address`, `phone_number`, `email`, `email_tenant`, `status`) VALUES
+(1, 'dangga', 1, 'bojong\r\n', '079897987', 'dangga@gmail.com', 'anggaagustira@gmail.com', '');
 
 -- --------------------------------------------------------
 
@@ -219,17 +220,18 @@ CREATE TABLE `masemployee` (
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `email_tenant` varchar(255) NOT NULL,
-  `picture` varchar(255) DEFAULT NULL
+  `picture` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `masemployee`
 --
 
-INSERT INTO `masemployee` (`id_employee`, `name`, `email`, `email_tenant`, `picture`) VALUES
-(1, 'Dangga', 'anggaagustiraEmp@gmail.com', 'anggaagustira@gmail.com', NULL),
-(2, 'Angga Agustira', 'anggaagustiraEmp2@gmail.com', 'anggaagustira@gmail.com', NULL),
-(6, 'Faris', 'mzkalfarisi@gmail.com', 'a@a', 'default-avatar.png');
+INSERT INTO `masemployee` (`id_employee`, `name`, `email`, `email_tenant`, `picture`, `status`) VALUES
+(1, 'Dangga', 'anggaagustiraEmp@gmail.com', 'anggaagustira@gmail.com', NULL, ''),
+(2, 'Angga Agustira', 'anggaagustiraEmp2@gmail.com', 'anggaagustira@gmail.com', NULL, ''),
+(6, 'Faris', 'mzkalfarisi@gmail.com', 'a@a', 'default-avatar.png', '');
 
 -- --------------------------------------------------------
 
@@ -312,7 +314,7 @@ CREATE TABLE `masproductcategory` (
 --
 
 INSERT INTO `masproductcategory` (`id_productcategory`, `name`, `email_tenant`, `status`) VALUES
-(1, 'Makanan', 'a@a', 'Active');
+(4, 'bagong', 'a@a', '');
 
 -- --------------------------------------------------------
 
@@ -341,6 +343,13 @@ CREATE TABLE `masproductunit` (
   `email_tenant` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `masproductunit`
+--
+
+INSERT INTO `masproductunit` (`id_productunit`, `name`, `email_tenant`) VALUES
+(3, 'DARAGONG', 'a@a');
+
 -- --------------------------------------------------------
 
 --
@@ -353,7 +362,8 @@ CREATE TABLE `massupplier` (
   `address` varchar(255) DEFAULT NULL,
   `phone_number` int(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `email_tenant` varchar(255) NOT NULL
+  `email_tenant` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -392,16 +402,17 @@ CREATE TABLE `mastoko` (
   `komisi` int(11) DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL,
   `id_marketplace` int(255) NOT NULL,
-  `email_tenant` varchar(255) NOT NULL
+  `email_tenant` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mastoko`
 --
 
-INSERT INTO `mastoko` (`id_toko`, `name`, `phone_number`, `komisi`, `photo`, `id_marketplace`, `email_tenant`) VALUES
-(1, 'Danggakom', 2133123, 12, 'default-avatar.png', 1, 'anggaagustira@gmail.com'),
-(2, 'anggakom', 8888888, 10, 'default-avatar.png', 2, 'anggaagustira@gmail.com');
+INSERT INTO `mastoko` (`id_toko`, `name`, `phone_number`, `komisi`, `photo`, `id_marketplace`, `email_tenant`, `status`) VALUES
+(1, 'Danggakom', 2133123, 12, 'default-avatar.png', 1, 'anggaagustira@gmail.com', ''),
+(2, 'anggakom', 8888888, 10, 'default-avatar.png', 2, 'anggaagustira@gmail.com', '');
 
 -- --------------------------------------------------------
 
@@ -919,7 +930,7 @@ ALTER TABLE `masproduct`
 -- AUTO_INCREMENT for table `masproductcategory`
 --
 ALTER TABLE `masproductcategory`
-  MODIFY `id_productcategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_productcategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `masproductgrosir`
@@ -931,7 +942,7 @@ ALTER TABLE `masproductgrosir`
 -- AUTO_INCREMENT for table `masproductunit`
 --
 ALTER TABLE `masproductunit`
-  MODIFY `id_productunit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_productunit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `massupplier`

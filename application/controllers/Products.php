@@ -29,6 +29,7 @@ class Products extends CI_Controller {
     public function Create()
     {
         $data['menukey'] = "Products";
+        $data['javascripts'] = "Products";
 		$data['content'] = "Products/Create";
         
         $this->load->view('Shared/_Layout', $data);

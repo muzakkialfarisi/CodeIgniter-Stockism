@@ -35,6 +35,14 @@ class MasProduct extends CI_Model{
 		return $data;
     }
 
-    
+    public function GetProductBySkuByTenant($sku, $tenant){
+        $data = $this->db->query("SELECT * FROM masproduct WHERE sku = '$sku' AND email_tenant = '$tenant' ");
+		return $data;
+    }
+
+    public function GetProductByCodeByTenant($code, $tenant){
+        $data = $this->db->query("SELECT * FROM masproduct WHERE code = '$code' AND email_tenant = '$tenant' ");
+		return $data;
+    }
 
 }

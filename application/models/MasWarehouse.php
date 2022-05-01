@@ -10,6 +10,11 @@ class MasWarehouse extends CI_Model{
         $this->db->insert('maswarehouse', $data);
     }
 
+    public function Update($data){
+        $this->db->where('id_warehouse', $data['id_warehouse']);
+        $this->db->update('maswarehouse', $data);
+    }
+
     public function GetWarehouseById($id){
         $data = $this->db->query("SELECT * FROM maswarehouse WHERE id_warehouse = '$id' ");
 		return $data;

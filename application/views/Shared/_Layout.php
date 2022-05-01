@@ -39,7 +39,7 @@
                 <div class="sidebar-content">
                     <div class="sidebar-user">
 
-                        <img src="<?= base_url(); ?>/img/avatars/<?= $this->session->userdata['logged_in']['photo'] ?>" class="img-fluid rounded-circle mb-2"/>
+                        <img src="<?= base_url(); ?>/assets/img/avatars/<?= $this->session->userdata['logged_in']['photo'] ?>" class="img-fluid rounded-circle mb-2"/>
                         
                         <div class="fw-bold"><?php if($name == null){ echo ucfirst($email_user); }else{ echo ucfirst($name); }?></div>
                         <small><?= ucfirst($user_role) ?></small>

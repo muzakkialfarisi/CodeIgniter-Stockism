@@ -1,7 +1,8 @@
 $('.btn-edit').on('click', function () {
+    console.log('makan');
     $.ajax({
         type: 'POST',
-        url: '<?= site_url("ProductUnits/GetProductUnitById") ?>',
+        url: '/stockism/ProductUnits/GetProductUnitById/',
         data: {
             id_productunit: $(this).data("id"),
         },

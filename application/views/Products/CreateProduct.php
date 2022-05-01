@@ -11,12 +11,12 @@
             <div class="col-12 col-sm-6">
                 <div class="mb-3 form-group">
                     <label class="control-label">Picture</label>
-                    <input type="file" class="form-control" name="picture">
+                    <input type="file" accept="image/*" class="form-control" name="picture">
                     <small class="form-text d-block text-muted">Max 500 kb.</small>
                 </div>
             </div>
             <div class="col-12 col-sm-6 text-center">
-                <img src="<?= base_url(); ?>/img/avatars/default-avatar.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
+                <img src="<?= base_url(); ?>/assets/img/avatars/default-avatar.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
             </div>
         </div>
 
@@ -29,7 +29,7 @@
             <div class="col-12 col-sm-6">
                 <div class="mb-3 form-group required">
                     <label class="control-label">First Stock</label>
-                    <input type="text" class="form-control" name="quantity" required>
+                    <input type="number" class="form-control" name="quantity" value ="0" required>
                 </div>
             </div>
             <div class="col-12 col-sm-6">
@@ -37,9 +37,12 @@
                     <label class="control-label">Item</label>
                     <div class="input-group">
                         <select class="form-select flex-grow-1" name="id_productunit">
-                            <option>Select...</option>
+                            <option selected disabled>Select...</option>
+                            <?php foreach($masproductunit as $item) { ?>}
+                                <option value="<?= $item['id_productunit'] ?>"><?= $item['name'] ?></option>
+                            <?php } ?>
                         </select>
-                        <button class="btn bg-stockism text-light" type="button">Add!</button>
+                        <a href="<?= site_url('ProductUnits') ?>" class="btn bg-stockism text-light" type="button">Add!</a>
                     </div>
                 </div>
             </div>
@@ -64,9 +67,12 @@
             <label class="control-label">Category</label>
             <div class="input-group">
                 <select class="form-select flex-grow-1" name="id_productcategory">
-                    <option>Select...</option>
+                    <option disabled selected>Select...</option>
+                    <?php foreach($masproductcategory as $item) { ?>}
+                        <option value="<?= $item['id_productcategory'] ?>"><?= $item['name'] ?></option>
+                    <?php } ?>
                 </select>
-                <button class="btn bg-stockism text-light" type="button">Add!</button>
+                <a href="<?= site_url('ProductCategories') ?>" class="btn bg-stockism text-light" type="button">Add!</a>
             </div>
         </div>
 

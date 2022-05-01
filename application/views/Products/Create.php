@@ -1,3 +1,5 @@
+
+<input type="number" class="form-control vol_weight" name="tinggi">
 <form action="<?= site_url('Products/CreatePost') ?>" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-12 col-sm-6">

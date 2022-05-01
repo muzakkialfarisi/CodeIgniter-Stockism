@@ -11,31 +11,31 @@
             <div class="col-12 col-sm-4">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Panjang (CM)</label>
-                    <input type="text" class="form-control" name="panjang">
+                    <input type="number" class="form-control vol_weight" name="panjang">
                 </div>
             </div>
             <div class="col-12 col-sm-4">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Lebar (CM)</label>
-                    <input type="text" class="form-control" name="lebar">
+                    <input type="number" class="form-control vol_weight" name="lebar">
                 </div>
             </div>
             <div class="col-12 col-sm-4">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Tinggi (CM)</label>
-                    <input type="text" class="form-control" name="tinggi">
+                    <input type="number" class="form-control vol_weight" name="tinggi">
                 </div>
             </div>
         </div>
 
         <div class="mb-3 form-group required">
             <label class="control-label">VolWeight (Gram)</label>
-            <input type="text" class="form-control" name="vol_weight" readonly>
+            <input type="number" class="form-control" name="vol_weight" readonly>
         </div>
 
         <div class="mb-3 form-group required">
             <label class="control-label">ActualWeight (Gram)</label>
-            <input type="text" class="form-control" name="actual_weight" >
+            <input type="number" class="form-control" name="actual_weight" >
         </div>
 
         <div class="mb-3 form-group required">

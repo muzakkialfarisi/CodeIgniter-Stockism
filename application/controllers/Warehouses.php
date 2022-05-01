@@ -16,6 +16,7 @@ class Warehouses extends CI_Controller {
 	{
 		$data['menukey'] = "Warehouses";
 		$data['content'] = "Warehouses/Index";
+        $data['javascripts'] = "Warehouses";
 
         if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
             $data['maswarehouse'] = $this->MasWarehouse->GetAll()->result_array();
@@ -63,6 +64,41 @@ class Warehouses extends CI_Controller {
 
         $this->session->set_flashdata('success', 'Warehouse Created Successfully!');
 		redirect('Warehouses/Index');
+    }
+
+    public function EditPost(){
+        $this->form_validation->set_rules('id_warehouse', 'id_warehouse', 'required');
+        $this->form_validation->set_rules('name', 'name', 'required');
+        $this->form_validation->set_rules('address', 'address', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Warehouses/Index');
+		}
+
+        $picture = "default-warehouse.png";
+        if($this->input->post('picture') != null){
+            //$picture = functtion add picture
+        }
+
+        $maswarehouse = array(
+            'id_warehouse' => $this->input->post('id_warehouse'),
+			'name' => $this->input->post('name'),
+            'address' => $this->input->post('address'),
+            'picture' => $picture
+		);
+
+        $this->MasWarehouse->Update($maswarehouse);
+
+        $this->session->set_flashdata('success', 'Warehouses Updated Successfully!');
+		redirect('Warehouses/Index');
+    }
+
+    public function GetWarehouseById()
+    {
+        $id_warehouse = $this->input->post('id_warehouse');
+        $maswarehouse = $this->MasWarehouse->GetWarehouseById($id_warehouse);
+        echo json_encode($maswarehouse->row());
     }
 
     private function IdBuilder($temp)

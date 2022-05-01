@@ -7,19 +7,13 @@
         </div>
     </div>
     <div class="card-body m-3">
-        <div class="row">
-            <div class="col-12 col-sm-6">
-                <div class="mb-3 form-group required">
-                    <label class="control-label">Minimum Stock</label>
-                    <input type="text" class="form-control" name="minimum_stock">
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="mb-3 form-group required">
-                    <label class="control-label">Storage</label>
-                    <input type="text" class="form-control" name="storage">
-                </div>
-            </div>
+        <div class="mb-3 form-group">
+            <label class="control-label">Minimum Stock</label>
+            <input type="number" class="form-control" name="minimum_stock" value="0">
+        </div>
+        <div class="mb-3 form-group">
+            <label class="control-label">Storage</label>
+            <input type="text" class="form-control" name="storage">
         </div>
     </div>
 </div>

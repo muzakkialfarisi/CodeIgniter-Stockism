@@ -14,6 +14,7 @@ $("#sku").on('click', function () {
 });
 
 $("#code").on('click', function () {
+    console.log('makan');
     if ($(this).is(":checked")){
         $("input[name='code']").attr('readonly', false);
         $("input[name='code']").val("");
@@ -34,4 +35,3 @@ $("#expired_date").on('click', function () {
         $("input[name='expired_date']").val("");
     }
 });
-

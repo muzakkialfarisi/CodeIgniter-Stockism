@@ -4,10 +4,7 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Warehouse</h5>
             </div>
-
             <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
-            <?php $this->load->view("Warehouses/Create.php") ?>
-
         </div>
     </div>
     <div class="card-body m-3">
@@ -27,12 +24,19 @@
                     <?php foreach($maswarehouse as $item) { ?>
                         <tr>
                             <td class="text-center">
-                                <img src="<?= base_url(); ?>/img/warehouses/<?=$item['picture'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
+                                <img src="<?= base_url(); ?>/assets/img/warehouses/<?=$item['picture'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
                             </td>
                             <td><?= $item['id_warehouse'] ?></td>
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['address'] ?></td>
-                            <td></td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                        <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_warehouse'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -40,3 +44,6 @@
         </div>
     </div>
 </div>
+
+<?php $this->load->view("Warehouses/Create.php") ?>
+<?php $this->load->view("Warehouses/Edit.php") ?>

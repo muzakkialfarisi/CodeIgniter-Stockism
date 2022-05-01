@@ -15,6 +15,7 @@ class ProductUnits extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "Products";
+        $data['javascripts'] = "ProductUnits";
 		$data['content'] = "ProductUnits/Index";
 
         if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
@@ -100,4 +101,5 @@ class ProductUnits extends CI_Controller {
         $masproductunit = $this->MasProductUnit->GetProductUnitById($id_productunit);
         echo json_encode($masproductunit->row());
     }
+
 }

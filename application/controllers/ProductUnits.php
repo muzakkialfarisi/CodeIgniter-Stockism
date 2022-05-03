@@ -61,7 +61,7 @@ class ProductUnits extends CI_Controller {
 			redirect('ProductUnits/Index');
 		}
 
-        if ($this->MasProductCMasProductUnitategory->GetProductUnitByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
+        if ($this->MasProductUnit->GetProductUnitByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
 			$this->session->set_flashdata('error', 'Product Unit Already Exist!');
 			redirect('ProductUnits/Index');
 		}

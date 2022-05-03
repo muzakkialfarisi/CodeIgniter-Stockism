@@ -34,6 +34,7 @@
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['purchase_price'] ?></td>
                             <td><?= $item['selling_price'] ?></td>
+                            <td><?= $item['selling_price'] ?></td>
                             <td><?= $item['status'] ?></td>
                             <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
                                 <td><?= $item['email_tenant'] ?></td>
@@ -43,7 +44,8 @@
                                     <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownactions">
                                         <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_productunit'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
-                                        <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['id_productunit'] ?>">Delete</button></li>
+                                        <li><a href="<?= site_url('Products/Detail/'.$item['id_product']) ?>" type="button" class="dropdown-item" data-id="<?= $item['id_product'] ?>">Details</a></li>
+                                        <li><button type="button" class="dropdown-item btn-delete text-danger" data-id="<?= $item['id_productunit'] ?>">Delete</button></li>
                                     </ul>
                                 </div>
                             </td>

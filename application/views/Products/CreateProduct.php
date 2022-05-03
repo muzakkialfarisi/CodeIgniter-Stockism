@@ -16,28 +16,34 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 text-center">
-                <img src="<?= base_url(); ?>/assets/img/avatars/default-avatar.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
+                <img src="<?= base_url(); ?>/assets/img/products/<?php if (isset($masproduct)) { echo $masproduct->picture; }else{ echo "default-product.png"; }?>" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
             </div>
         </div>
 
         <div class="mb-3 form-group required">
             <label class="control-label">Product Name</label>
-            <input type="text" class="form-control" name="name" id="name" required>
+            <input type="text" class="form-control" name="name" value="<?php if (isset($masproduct)) { echo $masproduct->name; }?>" required>
         </div>
 
         <div class="row">
-            <div class="col-12 col-sm-6">
-                <div class="mb-3 form-group required">
-                    <label class="control-label">First Stock</label>
-                    <input type="number" class="form-control" name="quantity" value ="0" required>
+            <?php if (!isset($masproduct)) { ?>
+                <div class="col-12 col-sm-6">
+                    <div class="mb-3 form-group required">
+                        <label class="control-label">First Stock</label>
+                        <input type="text" class="form-control number-only" name="quantity" value="0" required>
+                    </div>
                 </div>
-            </div>
+            <?php } ?>
             <div class="col-12 col-sm-6">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Item</label>
                     <div class="input-group">
                         <select class="form-select flex-grow-1" name="id_productunit">
-                            <option selected disabled>Select...</option>
+                            <?php if (isset($masproduct)) { ?>
+                                <option selected value="<?= $masproductunitid->id_productunit ?>"><?= $masproductunitid->name ?></option>
+                            <?php } else { ?>
+                                <option selected disabled>Select...</option>
+                            <?php } ?>
                             <?php foreach($masproductunit as $item) { ?>}
                                 <option value="<?= $item['id_productunit'] ?>"><?= $item['name'] ?></option>
                             <?php } ?>
@@ -52,13 +58,13 @@
             <div class="col-12 col-sm-6">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Purchase Price</label>
-                    <input type="text" class="form-control" name="purchase_price" required>
+                    <input type="text" class="form-control number-sapartor" name="purchase_price" value="<?php if (isset($masproduct)) { echo $masproduct->purchase_price; }?>" <?php if (isset($masproduct)) { echo "readonly"; }?> required>
                 </div>
             </div>
             <div class="col-12 col-sm-6">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Selling Price</label>
-                    <input type="text" class="form-control" name="selling_price" required>
+                    <input type="text" class="form-control number-sapartor" name="selling_price" value="<?php if (isset($masproduct)) { echo $masproduct->selling_price; }?>" required>
                 </div>
             </div>
         </div>
@@ -67,7 +73,11 @@
             <label class="control-label">Category</label>
             <div class="input-group">
                 <select class="form-select flex-grow-1" name="id_productcategory">
-                    <option disabled selected>Select...</option>
+                    <?php if (isset($masproduct)) { ?>
+                        <option selected value="<?= $masproductcategoryid->id_productcategory ?>"><?= $masproductcategoryid->name ?></option>
+                    <?php } else { ?>
+                        <option selected disabled>Select...</option>
+                    <?php } ?>
                     <?php foreach($masproductcategory as $item) { ?>}
                         <option value="<?= $item['id_productcategory'] ?>"><?= $item['name'] ?></option>
                     <?php } ?>

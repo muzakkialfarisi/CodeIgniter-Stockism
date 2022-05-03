@@ -1,5 +1,8 @@
+$('#btn-modal-create').on('click', function () {
+    $("input[name='name']").val("");
+});
+
 $('.btn-edit').on('click', function () {
-    console.log('makan');
     $.ajax({
         type: 'POST',
         url: '/stockism/ProductUnits/GetProductUnitById/',
@@ -8,7 +11,6 @@ $('.btn-edit').on('click', function () {
         },
         dataType: 'json',
         success: function (data) {
-            console.log(data);
             $("input[name='id_productunit']").val(data.id_productunit);
             $("input[name='name']").val(data.name);
             $("input[name='email_tenant']").val(data.email_tenant);

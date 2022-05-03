@@ -1,3 +1,7 @@
+$('#btn-modal-create').on('click', function () {
+    $("input[name='name']").val("");
+});
+
 $('.btn-edit').on('click', function () {
     $.ajax({
         type: 'POST',
@@ -7,7 +11,6 @@ $('.btn-edit').on('click', function () {
         },
         dataType: 'json',
         success: function (data) {
-            console.log(data);
             $("input[name='id_productcategory']").val(data.id_productcategory);
             $("input[name='name']").val(data.name);
             $("input[name='email_tenant']").val(data.email_tenant);

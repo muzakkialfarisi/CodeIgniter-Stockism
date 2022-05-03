@@ -11,31 +11,31 @@
             <div class="col-12 col-sm-4">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Panjang (CM)</label>
-                    <input type="number" class="form-control vol_weight" name="panjang">
+                    <input type="number" class="form-control vol_weight" name="panjang" value="<?php if (isset($masproduct)) { echo $masproduct->panjang; }?>" required>
                 </div>
             </div>
             <div class="col-12 col-sm-4">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Lebar (CM)</label>
-                    <input type="number" class="form-control vol_weight" name="lebar">
+                    <input type="number" class="form-control vol_weight" name="lebar" value="<?php if (isset($masproduct)) { echo $masproduct->lebar; }?>" required>
                 </div>
             </div>
             <div class="col-12 col-sm-4">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Tinggi (CM)</label>
-                    <input type="number" class="form-control vol_weight" name="tinggi">
+                    <input type="number" class="form-control vol_weight" name="tinggi" value="<?php if (isset($masproduct)) { echo $masproduct->tinggi; }?>" required>
                 </div>
             </div>
         </div>
 
         <div class="mb-3 form-group required">
             <label class="control-label">VolWeight (Gram)</label>
-            <input type="number" class="form-control" name="vol_weight" readonly>
+            <input type="number" class="form-control" name="vol_weight" value="<?php if (isset($masproduct)) { echo $masproduct->vol_weight; }?>" readonly>
         </div>
 
         <div class="mb-3 form-group required">
             <label class="control-label">ActualWeight (Gram)</label>
-            <input type="number" class="form-control" name="actual_weight" >
+            <input type="number" class="form-control" name="actual_weight" value="<?php if (isset($masproduct)) { echo $masproduct->actual_weight; }?>" required>
         </div>
 
         <div class="mb-3 form-group required">

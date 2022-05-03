@@ -14,7 +14,6 @@ $("#sku").on('click', function () {
 });
 
 $("#code").on('click', function () {
-    console.log('makan');
     if ($(this).is(":checked")){
         $("input[name='code']").attr('readonly', false);
         $("input[name='code']").val("");
@@ -26,7 +25,7 @@ $("#code").on('click', function () {
 });
 
 $(".div-expired_date").hide();
-$("#expired_date").on('click', function () {
+$("#expired_date").on('change', function () {
     if ($(this).is(":checked")){
         $(".div-expired_date").show();
     }
@@ -35,3 +34,4 @@ $("#expired_date").on('click', function () {
         $("input[name='expired_date']").val("");
     }
 });
+

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2022 at 04:24 PM
+-- Generation Time: May 04, 2022 at 11:22 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.28
 
@@ -95,11 +95,23 @@ CREATE TABLE `incpurchaseorderpayment` (
 
 CREATE TABLE `incpurchaseorderproduct` (
   `id_poproduct` int(11) NOT NULL,
-  `invoice_po` varchar(255) NOT NULL,
+  `date_created` datetime NOT NULL,
+  `invoice_po` varchar(255) DEFAULT NULL,
   `id_product` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `selling_price` decimal(10,0) NOT NULL
+  `purchase_price` decimal(10,0) NOT NULL,
+  `subtotal` decimal(10,0) NOT NULL,
+  `expired_date` datetime DEFAULT NULL,
+  `storage` varchar(255) DEFAULT NULL,
+  `sku` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `incpurchaseorderproduct`
+--
+
+INSERT INTO `incpurchaseorderproduct` (`id_poproduct`, `date_created`, `invoice_po`, `id_product`, `quantity`, `purchase_price`, `subtotal`, `expired_date`, `storage`, `sku`) VALUES
+(1, '2022-05-04 13:52:42', NULL, 11, 3, '10000', '30000', '0000-00-00 00:00:00', '', '-');
 
 -- --------------------------------------------------------
 
@@ -221,17 +233,18 @@ CREATE TABLE `masemployee` (
   `email` varchar(255) NOT NULL,
   `email_tenant` varchar(255) NOT NULL,
   `picture` varchar(255) DEFAULT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `masemployee`
 --
 
-INSERT INTO `masemployee` (`id_employee`, `name`, `email`, `email_tenant`, `picture`, `status`) VALUES
-(1, 'Dangga', 'anggaagustiraEmp@gmail.com', 'anggaagustira@gmail.com', NULL, ''),
-(2, 'Angga Agustira', 'anggaagustiraEmp2@gmail.com', 'anggaagustira@gmail.com', NULL, ''),
-(6, 'Faris', 'mzkalfarisi@gmail.com', 'a@a', 'default-avatar.png', '');
+INSERT INTO `masemployee` (`id_employee`, `name`, `email`, `email_tenant`, `picture`, `status`, `address`) VALUES
+(1, 'Dangga', 'anggaagustiraEmp@gmail.com', 'anggaagustira@gmail.com', NULL, '', NULL),
+(2, 'Angga Agustira', 'anggaagustiraEmp2@gmail.com', 'anggaagustira@gmail.com', NULL, '', NULL),
+(6, 'Faris', 'mzkalfarisi@gmail.com', 'a@a', 'default-avatar.png', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -275,26 +288,35 @@ CREATE TABLE `maspiutang` (
 CREATE TABLE `masproduct` (
   `id_product` int(11) NOT NULL,
   `sku` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `code_image` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
   `purchase_price` decimal(10,0) NOT NULL,
   `selling_price` decimal(10,0) NOT NULL,
-  `actual_weight` double NOT NULL,
-  `vol_weight` double NOT NULL,
-  `panjang` double NOT NULL,
-  `lebar` double NOT NULL,
-  `tinggi` double NOT NULL,
+  `actual_weight` double DEFAULT NULL,
+  `panjang` double DEFAULT NULL,
+  `lebar` double DEFAULT NULL,
+  `tinggi` double DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
-  `expired_date` datetime DEFAULT NULL,
   `minimum_stock` int(11) NOT NULL,
   `status` varchar(255) NOT NULL,
   `id_productunit` int(11) NOT NULL,
   `id_productcategory` int(11) NOT NULL,
   `email_tenant` varchar(255) NOT NULL,
-  `code` varchar(255) NOT NULL,
-  `storage` varchar(255) DEFAULT NULL,
   `picture` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `masproduct`
+--
+
+INSERT INTO `masproduct` (`id_product`, `sku`, `code`, `code_image`, `name`, `quantity`, `purchase_price`, `selling_price`, `actual_weight`, `panjang`, `lebar`, `tinggi`, `description`, `minimum_stock`, `status`, `id_productunit`, `id_productcategory`, `email_tenant`, `picture`) VALUES
+(8, '001', 'EA507EDF-8D98-4F2B-9478-B55CB68D442C', 'EA507EDF-8D98-4F2B-9478-B55CB68D442C.png', 'Minum Makanan Bergizi', 2, '10000', '10000', 0, 0, 0, 0, '', 2, 'Active', 3, 4, 'a@a', 'default-product.png'),
+(9, '002', '34E09EA2-DAA0-4351-BCF9-792F9A69967C', '34E09EA2-DAA0-4351-BCF9-792F9A69967C.png', 'Siapa Yang Pantas', 3, '3000', '1', 0, 0, 0, 0, '', 0, 'Active', 3, 4, 'a@a', 'default-product.png'),
+(10, '003', '4C30CB7C-2A62-4D32-AF67-5CA979592C95', '4C30CB7C-2A62-4D32-AF67-5CA979592C95.png', 'Yang Mana Saja', 0, '10000', '1000', 0, 0, 0, 0, '', 0, 'Active', 3, 4, 'a@a', 'default-product.png'),
+(11, '004', 'CE6B639A-E57C-4AB6-8FFA-7D6FDFFABC74', 'CE6B639A-E57C-4AB6-8FFA-7D6FDFFABC74.png', 'Coba Yang ke 4', 1, '10000', '3000', 0, 0, 0, 0, '', 2, 'Active', 3, 4, 'a@a', 'default-product.png'),
+(12, 'Auto Generated', 'A01D040C-4110-40AF-99BA-5782C17527C5', 'A01D040C-4110-40AF-99BA-5782C17527C5.png', 'Ini percobaan ke 5', 0, '12', '12000', 0, 0, 0, 0, '', 3, 'Active', 4, 4, 'a@a', 'default-product.png');
 
 -- --------------------------------------------------------
 
@@ -314,7 +336,8 @@ CREATE TABLE `masproductcategory` (
 --
 
 INSERT INTO `masproductcategory` (`id_productcategory`, `name`, `email_tenant`, `status`) VALUES
-(4, 'bagong', 'a@a', '');
+(4, 'Makanan', 'a@a', ''),
+(5, 'Minuman', 'a@a', '');
 
 -- --------------------------------------------------------
 
@@ -348,7 +371,9 @@ CREATE TABLE `masproductunit` (
 --
 
 INSERT INTO `masproductunit` (`id_productunit`, `name`, `email_tenant`) VALUES
-(3, 'DARAGONG', 'a@a');
+(3, 'Pcs', 'a@a'),
+(4, 'Box', 'a@a'),
+(5, 'Galon', 'a@a');
 
 -- --------------------------------------------------------
 
@@ -377,17 +402,18 @@ CREATE TABLE `mastenant` (
   `name` varchar(255) NOT NULL,
   `address` varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL
+  `photo` varchar(255) DEFAULT NULL,
+  `id_tenant` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mastenant`
 --
 
-INSERT INTO `mastenant` (`email_tenant`, `name`, `address`, `phone_number`, `photo`) VALUES
-('a@a', 'Faris', '', '6285329981115', 'default-avatar.png'),
-('anggaagustira@gmail.com', 'Angga', '', '6281395145194', 'default-avatar.png'),
-('s@s', 'Makanan', '', '62121212121', 'default-avatar.png');
+INSERT INTO `mastenant` (`email_tenant`, `name`, `address`, `phone_number`, `photo`, `id_tenant`) VALUES
+('a@a', 'Faris', '', '6285329981115', 'default-avatar.png', ''),
+('anggaagustira@gmail.com', 'Angga', '', '6281395145194', 'default-avatar.png', ''),
+('s@s', 'Makanan', '', '62121212121', 'default-avatar.png', '');
 
 -- --------------------------------------------------------
 
@@ -447,7 +473,7 @@ CREATE TABLE `maswarehouse` (
 --
 
 INSERT INTO `maswarehouse` (`id_warehouse`, `name`, `address`, `picture`, `email_tenant`) VALUES
-('0000001', 'Faris', 'a', 'default-warehouse.png', 'a@a');
+('0000001', 'FarisOk', 'Jalan Arbei Raya', 'default-warehouse.png', 'a@a');
 
 -- --------------------------------------------------------
 
@@ -788,7 +814,8 @@ ALTER TABLE `massupplier`
 -- Indexes for table `mastenant`
 --
 ALTER TABLE `mastenant`
-  ADD PRIMARY KEY (`email_tenant`);
+  ADD PRIMARY KEY (`email_tenant`,`id_tenant`) USING BTREE,
+  ADD KEY `email_tenant` (`email_tenant`);
 
 --
 -- Indexes for table `mastoko`
@@ -876,7 +903,7 @@ ALTER TABLE `incarrivalproduct`
 -- AUTO_INCREMENT for table `incpurchaseorderproduct`
 --
 ALTER TABLE `incpurchaseorderproduct`
-  MODIFY `id_poproduct` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_poproduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `invputawayproduct`
@@ -924,13 +951,13 @@ ALTER TABLE `maspiutang`
 -- AUTO_INCREMENT for table `masproduct`
 --
 ALTER TABLE `masproduct`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `masproductcategory`
 --
 ALTER TABLE `masproductcategory`
-  MODIFY `id_productcategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_productcategory` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `masproductgrosir`
@@ -942,7 +969,7 @@ ALTER TABLE `masproductgrosir`
 -- AUTO_INCREMENT for table `masproductunit`
 --
 ALTER TABLE `masproductunit`
-  MODIFY `id_productunit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_productunit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `massupplier`

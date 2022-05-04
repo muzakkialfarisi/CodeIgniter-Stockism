@@ -32,23 +32,37 @@
                         <tr>
                             <td><?= $item['sku'] ?></td>
                             <td><?= $item['name'] ?></td>
-                            <td><?= $item['purchase_price'] ?></td>
-                            <td><?= $item['selling_price'] ?></td>
-                            <td><?= $item['selling_price'] ?></td>
-                            <td><?= $item['status'] ?></td>
+                            <td class="text-end"><?= number_format($item['purchase_price']) ?></td>
+                            <td class="text-end"><?= number_format($item['selling_price']) ?></td>
+                            <td>
+                                <?= $item['quantity'] ?><br>
+                                <div style="font-size:10px">
+                                    <?php if($item['quantity'] == 0) { ?>
+                                        <span class="text-danger">Stok Habis</span>
+                                    <?php } elseif($item['quantity'] <= $item['minimum_stock']) {?>
+                                        <span class="text-warning">Stok Menipis</span>
+                                    <?php }?>
+                                </div>
+                            </td>
+                            <td class="text-center"><?= $item['status'] ?></td>
                             <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
                                 <td><?= $item['email_tenant'] ?></td>
                             <?php } ?>
                             <td class="text-center">
-                                <div class="dropdown">
+                                <div class="dropstart">
                                     <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_productunit'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
-                                        <li><a href="<?= site_url('Products/Detail/'.$item['id_product']) ?>" type="button" class="dropdown-item" data-id="<?= $item['id_product'] ?>">Details</a></li>
+                                        <li><a href="<?= site_url('Products/Detail/'.$item['id_product']) ?>" type="button" class="dropdown-item">Details</a></li>
+                                        <li><a href="<?= site_url('Products/Edit/'.$item['id_product']) ?>" type="button" class="dropdown-item btn-edit">Edit</a></li>
+                                        <?php if($item['status'] == "Active") { ?>
+                                            <li><button type="button" class="dropdown-item btn-activator text-warning" data-id="<?= $item['id_productunit'] ?>" data-value="<?= $item['status'] ?>">Deactivate</button></li>
+                                        <?php } else { ?>
+                                            <li><button type="button" class="dropdown-item btn-activator text-success" data-id="<?= $item['id_productunit'] ?>" data-value="<?= $item['status'] ?>">Activate</button></li>
+                                        <?php } ?>
                                         <li><button type="button" class="dropdown-item btn-delete text-danger" data-id="<?= $item['id_productunit'] ?>">Delete</button></li>
                                     </ul>
                                 </div>
-                            </td>
+                            </td> 
                         </tr>
                     <?php
                     $i++; } ?>
@@ -57,3 +71,7 @@
         </div>
     </div>
 </div>
+
+<form action="<?= site_url('Products/DeletePost') ?>" method="post" id="DeletePost">
+    <input type="text" class="form-control" name="id_product" required hidden>
+</form>

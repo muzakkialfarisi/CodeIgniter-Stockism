@@ -13,6 +13,8 @@ class MasProduct extends CI_Model{
 
     public function Insert($data){
         $this->db->insert('masproduct', $data);
+        $id_product = $this->db->insert_id();
+        return $id_product;
     }
 
     public function Update($data){

@@ -1,203 +1,109 @@
+<div class="row">
+	<div class="col-md-3 col-xl-2">
 
-                    <div class="row">
-						<div class="col-12 col-lg-6">
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Input</h5>
-								</div>
-								<div class="card-body">
-									<input type="text" class="form-control" placeholder="Input">
-								</div>
-							</div>
+		<div class="card">
+			<div class="card-header">
+				<h5 class="card-title mb-0">Profile Settings</h5>
+			</div>
 
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Textarea</h5>
-								</div>
-								<div class="card-body">
-									<textarea class="form-control" rows="2" placeholder="Textarea"></textarea>
-								</div>
-							</div>
+			<div class="list-group list-group-flush" role="tablist">
+				<a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#account" role="tab">
+					Account
+				</a>
+				<a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#password" role="tab">
+					Password
+				</a>
+				<a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#" role="tab">
+					Privacy and safety
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-9 col-xl-10">
+		<div class="tab-content">
+			<div class="tab-pane fade show active" id="account" role="tabpanel">
 
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Checkboxes</h5>
-								</div>
-								<div class="card-body">
-									<div>
-										<label class="form-check">
-											<input class="form-check-input" type="checkbox" value="">
-											<span class="form-check-label">
-												Option one is this and that—be sure to include why it's great
-											</span>
-										</label>
-										<label class="form-check">
-											<input class="form-check-input" type="checkbox" value="" disabled="">
-											<span class="form-check-label">
-												Option two is disabled
-											</span>
-										</label>
-									</div>
-									<div>
-										<label class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox" value="option1">
-											<span class="form-check-label">
-												1
-											</span>
-										</label>
-										<label class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox" value="option2">
-											<span class="form-check-label">
-												2
-											</span>
-										</label>
-										<label class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox" value="option3" disabled="">
-											<span class="form-check-label">
-												3
-											</span>
-										</label>
-									</div>
-								</div>
-							</div>
-
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Sizes</h5>
-								</div>
-								<div class="card-body">
-									<input class="form-control form-control-lg mb-3" type="text" placeholder="Large input">
-									<input class="form-control mb-3" type="text" placeholder="Medium input">
-									<input class="form-control form-control-sm" type="text" placeholder="Small input">
-								</div>
-							</div>
-						</div>
-
-						<div class="col-12 col-lg-6">
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Radios</h5>
-								</div>
-								<div class="card-body">
-									<div>
-										<label class="form-check">
-											<input class="form-check-input" type="radio" value="option1" name="radios-example" checked="">
-											<span class="form-check-label">
-												Option one is this and that—be sure to include why it's great
-											</span>
-										</label>
-										<label class="form-check">
-											<input class="form-check-input" type="radio" value="option2" name="radios-example">
-											<span class="form-check-label">
-												Option two can be something else and selecting it will deselect option one
-											</span>
-										</label>
-										<label class="form-check">
-											<input class="form-check-input" type="radio" value="option3" name="radios-example" disabled="">
-											<span class="form-check-label">
-												Option three is disabled
-											</span>
-										</label>
-									</div>
-									<div>
-										<label class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inline-radios-example" value="option1">
-											<span class="form-check-label">
-												1
-											</span>
-										</label>
-										<label class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inline-radios-example" value="option2">
-											<span class="form-check-label">
-												2
-											</span>
-										</label>
-										<label class="form-check form-check-inline">
-											<input class="form-check-input" type="radio" name="inline-radios-example" value="option3" disabled="">
-											<span class="form-check-label">
-												3
-											</span>
-										</label>
-									</div>
-								</div>
-							</div>
-
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Switches</h5>
-								</div>
-								<div class="card-body">
-									<div class="form-check form-switch">
-										<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-										<label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-									</div>
-									<div class="form-check form-switch">
-										<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
-										<label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
-									</div>
-									<div class="form-check form-switch">
-										<input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled="">
-										<label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
-									</div>
-									<div class="form-check form-switch">
-										<input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked="" disabled="">
-										<label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
-									</div>
-								</div>
-							</div>
-
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Selects</h5>
-								</div>
-								<div class="card-body">
-									<select class="form-control mb-3">
-										<option selected="">Open this select menu</option>
-										<option>One</option>
-										<option>Two</option>
-										<option>Three</option>
-									</select>
-
-									<select multiple="" class="form-control">
-										<option>Open this select menu</option>
-										<option>One</option>
-										<option>Two</option>
-										<option>Three</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Disabled</h5>
-								</div>
-								<div class="card-body">
-									<div class="mb-3">
-										<label class="form-label">Disabled input</label>
-										<input type="text" class="form-control" placeholder="Disabled input" disabled="">
-									</div>
-									<div class="mb-3">
-										<label class="form-label">Disabled select menu</label>
-										<select class="form-control" disabled="">
-											<option>Disabled select</option>
-										</select>
-									</div>
-									<label class="form-check">
-										<input class="form-check-input" type="checkbox" value="" disabled="">
-										<span class="form-check-label">
-											Can't check this
-										</span>
-									</label>
-								</div>
-							</div>
-
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title mb-0">Read only</h5>
-								</div>
-								<div class="card-body">
-									<input class="form-control" type="text" placeholder="Readonly input" readonly="">
-								</div>
-							</div>
-						</div>
+				<div class="card">
+					<div class="card-header">
+						<h5 class="card-title mb-0">Public info</h5>
 					</div>
+					<div class="card-body">
+						<form>
+							<div class="row">
+								<div class="col-md-8">
+									<div class="mb-3">
+										<label>Email</label>
+										<input type="text" class="form-control" readonly required>
+									</div>
+									<div class="row">
+										<div class="col-12 col-sm-6">
+											<div class="mb-3">
+												<label>Name</label>
+												<input type="text" class="form-control" required>
+											</div>
+										</div>
+										<div class="col-12 col-sm-6">
+											<div class="mb-3">
+												<label>Whatsapp Number</label>
+												<input type="text" class="form-control" required>
+											</div>
+										</div>
+									</div>
+									<div class="mb-3">
+										<label>Address</label>
+										<input type="text" class="form-control" required>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="text-center">
+										<img alt="Chris Wood" src="<?= base_url()?>assets/img/avatars/admin.png" class="rounded-circle img-responsive mt-2"
+											width="128" height="128" />
+										<div class="mt-2">
+											<span class="btn btn-primary"><i class="fas fa-upload"></i> Upload</span>
+										</div>
+										<small>Max 1 MB</small>
+									</div>
+								</div>
+							</div>
+
+							<button type="submit" class="btn bg-stockism text-light btn-pill">Save</button>
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+
+			
+			<div class="tab-pane fade" id="password" role="tabpanel">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title">Password</h5>
+
+						<form>
+							<div class="mb-3">
+								<label for="inputPasswordCurrent">Current password</label>
+								<input type="password" class="form-control" id="inputPasswordCurrent">
+								<small><a href="#">Forgot your password?</a></small>
+							</div>
+							<div class="mb-3">
+								<label for="inputPasswordNew">New password</label>
+								<input type="password" class="form-control" id="inputPasswordNew">
+							</div>
+							<div class="mb-3">
+								<label for="inputPasswordNew2">Verify password</label>
+								<input type="password" class="form-control" id="inputPasswordNew2">
+							</div>
+							<button type="submit" class="btn bg-stockism text-light btn-pill">Save</button>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+

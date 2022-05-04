@@ -2,11 +2,12 @@
     <div class="row">
         <div class="col-12 col-sm-6">
             <?php $this->load->view("Products/CreateProduct.php") ?>
-            <?php $this->load->view("Products/CreateProductCode.php") ?>
+            <?php $this->load->view("Products/CreateProductVariant.php") ?>
         </div>
         <div class="col-12 col-sm-6">
+            <?php $this->load->view("Products/CreateProductCode.php") ?>
+            <?php $this->load->view("Products/CreateProductPurchase.php") ?>
             <?php $this->load->view("Products/CreateProductStorage.php") ?>
-            <?php $this->load->view("Products/CreateProductVariant.php") ?>
         </div>
     </div>
     <div class="form-group text-end">

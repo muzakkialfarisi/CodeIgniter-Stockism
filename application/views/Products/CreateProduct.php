@@ -26,14 +26,6 @@
         </div>
 
         <div class="row">
-            <?php if (!isset($masproduct)) { ?>
-                <div class="col-12 col-sm-6">
-                    <div class="mb-3 form-group required">
-                        <label class="control-label">First Stock</label>
-                        <input type="text" class="form-control number-only" name="quantity" value="0" required>
-                    </div>
-                </div>
-            <?php } ?>
             <div class="col-12 col-sm-6">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Item</label>
@@ -52,38 +44,30 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-sm-6"> 
                 <div class="mb-3 form-group required">
-                    <label class="control-label">Purchase Price</label>
-                    <input type="text" class="form-control number-sapartor" name="purchase_price" value="<?php if (isset($masproduct)) { echo $masproduct->purchase_price; }?>" <?php if (isset($masproduct)) { echo "readonly"; }?> required>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="mb-3 form-group required">
-                    <label class="control-label">Selling Price</label>
-                    <input type="text" class="form-control number-sapartor" name="selling_price" value="<?php if (isset($masproduct)) { echo $masproduct->selling_price; }?>" required>
-                </div>
+                    <label class="control-label">Category</label>
+                    <div class="input-group">
+                        <select class="form-select flex-grow-1" name="id_productcategory">
+                            <?php if (isset($masproduct)) { ?>
+                                <option selected value="<?= $masproductcategoryid->id_productcategory ?>"><?= $masproductcategoryid->name ?></option>
+                            <?php } else { ?>
+                                <option selected disabled>Select...</option>
+                            <?php } ?>
+                            <?php foreach($masproductcategory as $item) { ?>}
+                                <option value="<?= $item['id_productcategory'] ?>"><?= $item['name'] ?></option>
+                            <?php } ?>
+                        </select>
+                        <a href="<?= site_url('ProductCategories') ?>" class="btn bg-stockism text-light" type="button">Add!</a>
+                    </div>
+                </div>  
             </div>
         </div>
 
         <div class="mb-3 form-group required">
-            <label class="control-label">Category</label>
-            <div class="input-group">
-                <select class="form-select flex-grow-1" name="id_productcategory">
-                    <?php if (isset($masproduct)) { ?>
-                        <option selected value="<?= $masproductcategoryid->id_productcategory ?>"><?= $masproductcategoryid->name ?></option>
-                    <?php } else { ?>
-                        <option selected disabled>Select...</option>
-                    <?php } ?>
-                    <?php foreach($masproductcategory as $item) { ?>}
-                        <option value="<?= $item['id_productcategory'] ?>"><?= $item['name'] ?></option>
-                    <?php } ?>
-                </select>
-                <a href="<?= site_url('ProductCategories') ?>" class="btn bg-stockism text-light" type="button">Add!</a>
-            </div>
+            <label class="control-label">Selling Price</label>
+            <input type="text" class="form-control number-only" name="selling_price" value="<?php if (isset($masproduct)) { echo $masproduct->selling_price; }?>" required>
         </div>
 
     </div>

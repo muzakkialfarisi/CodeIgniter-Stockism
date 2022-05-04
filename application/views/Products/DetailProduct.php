@@ -5,20 +5,22 @@
                 <img src="<?= base_url(); ?>assets/img/products/<?= $masproduct->picture; ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
             </div>
             <div class="col-11 col-sm-8">
-                <strong><?= $masproduct->name; ?></strong> <br>
+                <div class="mb-3">
+                    <strong><?= $masproduct->name; ?></strong> <br>
+                </div>
                 <div class="row">
-                    <div class="col-3 text-primary">
+                    <div class="col-4 text-primary">
                         SKU
                     </div>
-                    <div class="col-9">
+                    <div class="col-8">
                         <?= $masproduct->sku; ?>
                     </div>
                 </div> 
                 <div class="row">
-                    <div class="col-3 text-primary">
-                        Code
+                    <div class="col-4 text-primary">
+                        Code <button class="btn btn-sm ion ion-ios-information-circle-outline m-0 p-0"  data-bs-toggle="modal" data-bs-target="#ModalQRCode"></button>
                     </div>
-                    <div class="col-9">
+                    <div class="col-8">
                         <?= $masproduct->code; ?>
                     </div>
                 </div>
@@ -34,7 +36,7 @@
                 Stock
             </dt>
             <dd class = "col-sm-8">
-                : @Model.incDeliveryOrder.MasDataTenant.Name
+                : <?= $masproduct->quantity; ?>
             </dd>
             <dt class = "col-sm-4">
                 Unit
@@ -61,22 +63,16 @@
                 : <?= $masproductcategory->name; ?>
             </dd>
             <dt class = "col-sm-4">
-                Size (Cm)
+                Size (PxLxT)
             </dt>
             <dd class = "col-sm-8">
-                : <?= $masproduct->panjang; ?> x <?= $masproduct->lebar; ?> x <?= $masproduct->tinggi; ?>
+                : <?= $masproduct->panjang; ?> x <?= $masproduct->lebar; ?> x <?= $masproduct->tinggi; ?> (Cm)
             </dd>
             <dt class = "col-sm-4">
                 Actual Weight
             </dt>
             <dd class = "col-sm-8">
                 : <?= $masproduct->actual_weight; ?> Gram
-            </dd>
-            <dt class = "col-sm-4">
-                Vol Weight
-            </dt>
-            <dd class = "col-sm-8">
-                : <?= $masproduct->vol_weight; ?> Gram
             </dd>
             <dt class = "col-sm-4">
                 Description

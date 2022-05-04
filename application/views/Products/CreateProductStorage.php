@@ -9,7 +9,7 @@
     <div class="card-body m-3">
         <div class="mb-3 form-group">
             <label class="control-label">Minimum Stock</label>
-            <input type="number" class="form-control number-only" name="minimum_stock" value="<?php if (isset($masproduct)) { echo $masproduct->minimum_stock; }else{ echo 0; }?>">
+            <input type="number" class="form-control number-only" name="minimum_stock" value="<?php if (isset($masproduct)) { echo $masproduct->minimum_stock; }else{ echo 3; }?>" required>
         </div>
         <?php if (!isset($masproduct)) { ?>
             <div class="mb-3 form-group">

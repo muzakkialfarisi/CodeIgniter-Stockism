@@ -4,10 +4,7 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Employees</h5>
             </div>
-
-            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
-            <?php $this->load->view("Employees/Create.php") ?>
-
+            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate">Create New</button>
         </div>
     </div>
     <div class="card-body m-3">
@@ -16,19 +13,31 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
-                        <th>Id</th>
+                        <th>Picture</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Tenant</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($masemployees as $item) { ?>
                         <tr>
-                            <td><?= $item['id_employee'] ?></td>
+                            <td class="text-center">
+                                <img src="<?= base_url(); ?>assets/img/employees/<?=$item['picture'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
+                            </td>
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['email'] ?></td>
                             <td><?= $item['email_tenant'] ?></td>
+                            <td class="text-center">
+                                <div class="dropdown">
+                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                        <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_employee'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
+                                        <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['id_employee'] ?>">Delete</button></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -37,3 +46,12 @@
     
     </div>
 </div>
+
+
+<form action="<?= site_url('Employees/DeletePost') ?>" method="post" id="DeletePost">
+    <input type="text" class="form-control" name="id_employee" required hidden>
+    <input type="text" class="form-control" name="email" required hidden>
+</form>
+
+<?php $this->load->view("Employees/Create.php") ?>
+<?php $this->load->view("Employees/Edit.php") ?>

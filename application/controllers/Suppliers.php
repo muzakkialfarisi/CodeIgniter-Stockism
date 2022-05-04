@@ -15,6 +15,7 @@ class Suppliers extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "Suppliers";
+		$data['javascripts'] = "Suppliers";
 		$data['content'] = "Suppliers/Index";
         $data['massupplier'] = $this->MasSupplier->GetAll();
         $this->load->view('Shared/_Layout', $data);
@@ -36,15 +37,14 @@ class Suppliers extends CI_Controller {
 			$this->session->set_flashdata('error', 'Supplier Already Exist!');
 			redirect('Suppliers/Index');
 		}
-        
-        $DataSession = $this->session->all_userdata();
 
 		$massupplier = array(
 			'name' => $this->input->post('name'),
 			'address' => $this->input->post('address'),
 			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $DataSession['logged_in']['email_tenant']
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+			'status' => 'active'
 		);
 
 		$this->MasSupplier->Insert($massupplier);
@@ -53,5 +53,57 @@ class Suppliers extends CI_Controller {
 		redirect('Suppliers/Index');
 	}
 
+	public function EditPost(){
+		$this->form_validation->set_rules('id_supplier', 'id_supplier', 'required');
+        $this->form_validation->set_rules('name', 'name', 'required');
+        $this->form_validation->set_rules('address', 'address');
+        $this->form_validation->set_rules('phone_number', 'phone_number');
+        $this->form_validation->set_rules('email', 'email');    
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Suppliers/Index');
+		}
+
+        $massupplier = array(
+            'id_supplier' => $this->input->post('id_supplier'),
+			'name' => $this->input->post('name'),
+			'address' => $this->input->post('address'),
+			'phone_number' => $this->input->post('phone_number'),
+			'email' => $this->input->post('email'),
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+			'status' => 'active'
+		);
+
+        $this->MasSupplier->Update($massupplier);
+
+        $this->session->set_flashdata('success', 'Supplier Updated Successfully!');
+		redirect('Suppliers/Index');
+    }
+
+    public function DeletePost(){
+        $this->form_validation->set_rules('id_supplier', 'id_supplier', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Suppliers/Index');
+		}
+
+        $massupplier = array(
+            'id_supplier' => $this->input->post('id_supplier'),
+		);
+
+        $this->MasSupplier->Delete($massupplier);
+
+        $this->session->set_flashdata('success', 'Supplier Deleted Successfully!');
+		redirect('Suppliers/Index');
+    }
+
+    public function GetSupplierById()
+    {
+        $id_supplier = $this->input->post('id_supplier');
+        $massupplier = $this->MasSupplier->GetSupplierById($id_supplier);
+        echo json_encode($massupplier->row());
+    }
 
 }

@@ -16,6 +16,7 @@ class Customers extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "Customers";
+		$data['javascripts'] = "Customers";
 		$data['content'] = "Customers/Index";
         $data['mascustomertype'] = $this->MasCustomer->GetAllCustomerType()->result_array();
 		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
@@ -43,10 +44,6 @@ class Customers extends CI_Controller {
 			$this->session->set_flashdata('error', 'Account Already Exist!');
 			redirect('Customers/Index');
 		}
-
-        $options['cost'] = 12;
-        
-        $DataSession = $this->session->all_userdata();
         
 		$mascustomer = array(
 			'name' => $this->input->post('name'),
@@ -54,7 +51,8 @@ class Customers extends CI_Controller {
 			'address' => $this->input->post('address'),
 			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $DataSession['logged_in']['email_user']
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+			'status' => 'active'
 		);
 
 		$this->MasCustomer->Insert($mascustomer);
@@ -63,5 +61,58 @@ class Customers extends CI_Controller {
 		redirect('Customers/Index');
 	}
 
+	public function EditPost(){
+		$this->form_validation->set_rules('id_customer', 'id_customer', 'required');
+		$this->form_validation->set_rules('name', 'name', 'required');
+        $idcustomertype = $this->MasCustomer->GetIdCustomertypeByName($this->input->post('Id_CustType'))->row()->Id_CustomerType;
+        $this->form_validation->set_rules('address', 'address');
+        $this->form_validation->set_rules('phone_number', 'phone_number');
+        $this->form_validation->set_rules('email', 'email');  
 
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Customers/Index');
+		}
+
+        $mascustomer = array(
+            'id_customer' => $this->input->post('id_customer'),
+			'name' => $this->input->post('name'),
+            'id_customertype' => $idcustomertype,
+			'address' => $this->input->post('address'),
+			'phone_number' => $this->input->post('phone_number'),
+			'email' => $this->input->post('email'),
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+			'status' => 'active'
+		);
+
+        $this->MasCustomer->Update($mascustomer);
+
+        $this->session->set_flashdata('success', 'Customers Updated Successfully!');
+		redirect('Customers/Index');
+    }
+
+    public function DeletePost(){
+        $this->form_validation->set_rules('id_customer', 'id_customer', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Customers/Index');
+		}
+
+        $mascustomer = array(
+            'id_customer' => $this->input->post('id_customer'),
+		);
+
+        $this->MasCustomer->Delete($mascustomer);
+
+        $this->session->set_flashdata('success', 'Customer Deleted Successfully!');
+		redirect('Customers/Index');
+    }
+
+    public function GetCustomerById()
+    {
+        $id_customer = $this->input->post('id_customer');
+        $mascustomer = $this->MasCustomer->GetCustomerById($id_customer);
+        echo json_encode($mascustomer->row());
+    }
 }

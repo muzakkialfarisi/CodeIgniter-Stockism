@@ -8,6 +8,21 @@ class MasCustomer extends CI_Model{
 
 	function Insert($data){
         $this->db->insert('mascustomer', $data);
+	}
+	
+	public function Update($data){
+        $this->db->where('id_customer', $data['id_customer']);
+        $this->db->update('mascustomer', $data);
+    }
+
+    public function Delete($data){
+        $this->db->where('id_customer', $data['id_customer']);
+        $this->db->delete('mascustomer', $data);
+    }
+
+    public function GetCustomerById($id_customer){
+        $data = $this->db->query("SELECT * FROM mascustomer WHERE id_customer = '$id_customer' ");
+		return $data;
     }
 
 	public function GetCustomerByName($name){

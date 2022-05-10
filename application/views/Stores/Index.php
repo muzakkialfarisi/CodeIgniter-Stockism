@@ -23,8 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    foreach($mastoko as $item) { ?>
+                    <?php foreach($mastoko as $item) { ?>
                         <tr>
                             <td class="text-center">
                                 <img src="<?= base_url(); ?>assets/img/stores/<?=$item['photo'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>

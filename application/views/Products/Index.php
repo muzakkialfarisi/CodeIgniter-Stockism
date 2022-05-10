@@ -2,7 +2,7 @@
     <div class="card-header bg-stockism">
         <div class="d-flex align-items-center py-1">
             <div class="flex-grow-1 ps-3">
-                <h5 class="card-title mb-0 text-light">Product Categories</h5>
+                <h5 class="card-title mb-0 text-light">Products</h5>
             </div>
             <a type="button" class="btn btn-light btn-pill" href="<?= site_url('Products/Create') ?>">Create New</a>
         </div>

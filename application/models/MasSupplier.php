@@ -3,8 +3,13 @@ class MasSupplier extends CI_Model{
 
     public function GetAll(){
 		$data = $this->db->query("SELECT * FROM massupplier");
-		return $data->result_array();
+		return $data;
 	}
+
+    public function GetSupplierByTenant($id){
+        $data = $this->db->query("SELECT * FROM massupplier WHERE email_tenant = '$id' ");
+		return $data;
+    }
 
 	public function Insert($data){
         $this->db->insert('massupplier', $data);

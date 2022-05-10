@@ -10,22 +10,26 @@ class Dashboards extends CI_Controller {
 		$this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->library('session');
+        $this->load->model('MasTenant');
+        $this->load->model('MasEmployee');
         $this->load->model('SecUser');
-		$this->load->model('SecMenu');
     }
 	
 	public function Index()
 	{
 		$data['menukey'] = "Dashboards";
+        $data['javascripts'] = "Dashboards/Index";
 		$data['content'] = "Dashboards/Index";
+		
         $this->load->view('Shared/_Layout', $data);
 	}
 
 	public function Profile()
 	{
-		$data['secmenu'] = $this->SecMenu->GetAll();
 		$data['menukey'] = "Dashboards";
+        $data['javascripts'] = "Dashboards/Profile";
 		$data['content'] = "Dashboards/Profile";
+
         $this->load->view('Shared/_Layout', $data);
 	}
 

@@ -55,7 +55,7 @@ class Products extends CI_Controller {
 
         $sku = $this->input->post('sku');
         if($this->input->post('sku') == "Auto Generated"){
-            //$sku = $this->SkuBuilder()->row()->)
+            $sku = date("ymd-His");
         }
 
         if($this->MasProduct->GetProductBySkuByTenant($sku, $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
@@ -94,7 +94,7 @@ class Products extends CI_Controller {
 			'email_tenant' => $this->session->userdata['logged_in']['email_tenant']
 		);
 
-		$id_product = $this->MasProduct->Insert($masproduct);
+        $id_product = $this->MasProduct->Insert($masproduct);
 
         if($this->input->post('quantity') > 0)
         {
@@ -105,10 +105,8 @@ class Products extends CI_Controller {
                 'purchase_price' => $this->input->post('purchase_price'),
                 'subtotal' => $this->input->post('quantity') * $this->input->post('purchase_price'),
                 'expired_date' => $this->input->post('expired_date'),
-                'storage' => $this->input->post('storage'),
-                'date_created' => NOW()
+                'storage' => $this->input->post('storage')
             );
-
             $this->IncPurchaseOrderProduct->Insert($incpurchaseorderproduct);
         }
 
@@ -193,13 +191,6 @@ class Products extends CI_Controller {
         $id_product = $this->input->post('id_product');
         $masproduct = $this->MasProduct->GetProductById($id_product);
         echo json_encode($masproduct->row());
-    }
-
-    private function SkuBuilder()
-    {
-        $before = date("ymd");
-        $after = sprintf('%04d',1);
-        return sprintf($before,$after);
     }
 
     private function CodeBuilder()

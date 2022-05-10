@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 text-center">
-                            <img src="<?= base_url(); ?>/img/Stores/default-store.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
+                            <img src="<?= base_url(); ?>/img/stores/default-store.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
                         </div>
                     </div>
                 </div>

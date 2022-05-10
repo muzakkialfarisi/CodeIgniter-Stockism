@@ -69,6 +69,8 @@ class Home extends CI_Controller {
 				'id_usertype' => $secuserrole->row()->name,
 				'name' => $mastenant->row()->name,
 				'photo' => $mastenant->row()->photo,
+				'phone_number' => $mastenant->row()->phone_number,
+				'address' => $mastenant->row()->address,
 				'secmenu' => $this->SecMenu->GetMenuByTenant(1)->result_array()
 			);
 		}
@@ -79,6 +81,8 @@ class Home extends CI_Controller {
 				'id_usertype' => $secuserrole->row()->name,
 				'name' => $masemployee->row()->name,
 				'photo' => $masemployee->row()->picture,
+				'phone_number' => $masemployee->row()->phone_number,
+				'address' => $masemployee->row()->address,
 				'secmenu' => $this->SecMenu->GetMenuByEmployee(1)->result_array()
 			);
 		}

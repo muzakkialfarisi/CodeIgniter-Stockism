@@ -85,8 +85,6 @@
 
         <script src="<?= base_url(); ?>assets/js/main/app.js"></script>
         <script src="<?= base_url(); ?>assets/sweetalert2/sweetalert2.min.js"></script>
-        <script src="<?= base_url(); ?>assets/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-        <script src="<?= base_url(); ?>assets/jquery-validation/dist/jquery.validate.min.js"></script>
         <script src="<?= base_url(); ?>assets/js/main/main.js"></script>
         <script src="<?= base_url(); ?>assets/js/<?= $javascripts?>.js"></script>
         <?php $this->load->view("Home/_Notification.php") ?> 

@@ -13,9 +13,6 @@
 				<a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#password" role="tab">
 					Password
 				</a>
-				<a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#" role="tab">
-					Privacy and safety
-				</a>
 			</div>
 		</div>
 	</div>
@@ -32,32 +29,32 @@
 						<form>
 							<div class="row">
 								<div class="col-md-8">
-									<div class="mb-3">
-										<label>Email</label>
-										<input type="text" class="form-control" readonly required>
+									<div class="mb-3 form-group required">
+										<label class="control-label">Email</label>
+										<input type="text" class="form-control" value="<?= $this->session->userdata['logged_in']['email_user'] ?>" readonly required>
 									</div>
 									<div class="row">
 										<div class="col-12 col-sm-6">
 											<div class="mb-3">
 												<label>Name</label>
-												<input type="text" class="form-control" required>
+												<input type="text" class="form-control" value="<?= $this->session->userdata['logged_in']['name'] ?>" required>
 											</div>
 										</div>
 										<div class="col-12 col-sm-6">
 											<div class="mb-3">
 												<label>Whatsapp Number</label>
-												<input type="text" class="form-control" required>
+												<input type="text" class="form-control" value="<?= $this->session->userdata['logged_in']['phone_number'] ?>" required>
 											</div>
 										</div>
 									</div>
 									<div class="mb-3">
 										<label>Address</label>
-										<input type="text" class="form-control" required>
+										<input type="text" class="form-control" value="<?= $this->session->userdata['logged_in']['address'] ?>" required>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="text-center">
-										<img alt="Chris Wood" src="<?= base_url()?>assets/img/avatars/admin.png" class="rounded-circle img-responsive mt-2"
+										<img src="<?= base_url()?>assets/img/avatars/<?= $this->session->userdata['logged_in']['photo'] ?>" class="rounded-circle img-responsive mt-2"
 											width="128" height="128" />
 										<div class="mt-2">
 											<span class="btn btn-primary"><i class="fas fa-upload"></i> Upload</span>

@@ -17,7 +17,7 @@ class Suppliers extends CI_Controller {
 		$data['menukey'] = "Suppliers";
 		$data['javascripts'] = "Suppliers";
 		$data['content'] = "Suppliers/Index";
-        $data['massupplier'] = $this->MasSupplier->GetAll();
+        $data['massupplier'] = $this->MasSupplier->GetAll()->result_array();
         $this->load->view('Shared/_Layout', $data);
 	}
 

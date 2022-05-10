@@ -1,7 +1,3 @@
-$('#datetimepicker-view-mode').datetimepicker({
-    viewMode: 'years'
-});
-
 $("#sku").on('click', function () {
     if ($(this).is(":checked")){
         $("input[name='sku']").attr('readonly', false);

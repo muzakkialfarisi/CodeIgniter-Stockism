@@ -32,9 +32,29 @@
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 text-center">
-                            <img src="<?= base_url(); ?>/img/employees/default-employees.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
+                            <img src="<?= base_url(); ?>/img/employees/<?php if (isset($masemployee)) { echo $masemployee->picture; }else{ echo "default-product.png"; }?>" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="mb-3 form-group required">
+                                <label class="control-label">Nomor Whatsapp</label>
+                                <div class="input-group input-group">
+                                    <span class="input-group-text">+62</span>
+                                    <input type="text" class="form-control" placeholder="8xxxxxxxxx" name="phone_number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="mb-3 form-group required">
+                            <label class="control-label">Address</label>
+                                <textarea class="form-control" rows="3" name="address"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">

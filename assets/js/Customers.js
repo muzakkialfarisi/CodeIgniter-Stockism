@@ -10,7 +10,7 @@ $('.btn-edit').on('click', function () {
             console.log(data);
             $("input[name='id_customer']").val(data.id_customer);
             $("input[name='name']").val(data.name);
-            $("input[name='Id_CustType']").val(data.id_customertype);
+            $("select[name='Id_CustType']").append("<option value='data.id_customertype'>Reguler</option>");
             $("input[name='address']").val(data.address);
             $("input[name='phone_number']").val(data.phone_number);
             $("input[name='email']").val(data.email);

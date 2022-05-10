@@ -30,7 +30,6 @@ class Customers extends CI_Controller {
 	public function AddCustomerProcess()
 	{
 		$this->form_validation->set_rules('name', 'name', 'required');
-        $idcustomertype = $this->MasCustomer->GetIdCustomertypeByName($this->input->post('Id_CustType'))->row()->Id_CustomerType;
         $this->form_validation->set_rules('address', 'address');
         $this->form_validation->set_rules('phone_number', 'phone_number');
         $this->form_validation->set_rules('email', 'email');  
@@ -47,7 +46,7 @@ class Customers extends CI_Controller {
         
 		$mascustomer = array(
 			'name' => $this->input->post('name'),
-            'id_customertype' => $idcustomertype,
+            'id_customertype' => $this->input->post('Id_CustType'),
 			'address' => $this->input->post('address'),
 			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),

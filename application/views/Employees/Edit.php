@@ -38,6 +38,12 @@
                             <img src="<?= base_url(); ?>/img/employees/default-employees.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
                         </div>
                     </div>
+
+                    <div class="mb-3 form-group">
+                        <label class="control-label">Address</label>
+                        <textarea class="form-control" rows="3" name="address"></textarea>
+                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">

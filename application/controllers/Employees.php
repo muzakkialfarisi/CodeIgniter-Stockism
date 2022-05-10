@@ -31,8 +31,9 @@ class Employees extends CI_Controller {
 	public function CreatePost()
 	{
 		$this->form_validation->set_rules('name', 'name', 'required');
+		$this->form_validation->set_rules('address', 'address');
 		$this->form_validation->set_rules('email', 'email', 'required');
-
+		
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', 'Invalid Modelstate!');
 			redirect('Employees/Index');
@@ -57,6 +58,7 @@ class Employees extends CI_Controller {
 		
 		$masemployee = array(
 			'name' => $this->input->post('name'),
+			'address' => $this->input->post('address'),
 			'email' => $this->input->post('email'),
 			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
 			'picture' => $picture,

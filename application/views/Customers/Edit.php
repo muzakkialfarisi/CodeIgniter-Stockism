@@ -23,30 +23,28 @@
                                 <label class="control-label">Customer Type</label>
                                 <div class="input-group">
                                     <select class="form-control mb-3" name="Id_CustType" required>
+                                    <option selected disabled>Select...</option>
                                         <?php foreach($mascustomertype as $item) { ?>
-                                            <tr>
-                                                <option><?= $item['name'] ?></option>
-                                            </tr>
+                                            
+                                            <option value="<?= $item['Id_CustomerType'] ?>"><?= $item['name'] ?></option>
+                                            
                                         <?php } ?>
                                         
                                     </select>
-                                    <button class="btn bg-stockism text-light" type="button">Add!</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                      <div class="row">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-6 mb-3">
                             <label class="control-label">Email</label>
-                            <input type="email" class="form-control form-control-lg" name="email">
+                            <input type="email" class="form-control form-control" name="email">
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-6 mb-3">
                             <label class="control-label">Nomor Whatsapp</label>
-                            <div class="input-group input-group-lg">
-                                <span class="input-group-text">+62</span>
-                                <input type="text" class="form-control" placeholder="80123456789" name="phone_number">
-                            </div>
+                            <input type="text" class="form-control" placeholder="80123456789" name="phone_number">
+
                         </div>
                     </div>
 

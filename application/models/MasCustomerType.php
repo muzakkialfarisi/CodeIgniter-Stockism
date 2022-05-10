@@ -6,9 +6,14 @@ class MasCustomerType extends CI_Model{
 		return $data;
 	}
 
-	function Insert($data){
+	public function Insert($data){
         $this->db->insert('mascustomertype', $data);
     }
+
+	public function GetCustomerTypeById($id){
+		$data = $this->db->query("SELECT * FROM mascustomertype WHERE Id_CustomerType = '$id'");
+		return $data;
+	}
 
 	public function GetCustomerTypeByName($name){
 		$data = $this->db->query("SELECT * FROM mascustomertype WHERE name = '$name'");

@@ -5,7 +5,7 @@
                 <h5 class="modal-title">Create New Customer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= site_url('Customers/AddCustomerProcess') ?>" method="post">
+            <form action="<?= site_url('Customers/CreatePost') ?>" method="post">
                 <?php echo validation_errors(); ?>
 
                 <div class="modal-body m-3">
@@ -40,10 +40,7 @@
                         </div>
                         <div class="col-12 col-sm-6">
                             <label class="control-label">Whatsapp Number</label>
-                            <div class="input-group input-group">
-                                <span class="input-group-text">+62</span>
-                                <input type="text" class="form-control" name="phone_number">
-                            </div>
+                            <input type="text" class="form-control" name="phone_number">
                         </div>
                     </div>
 
@@ -51,7 +48,6 @@
                         <label class="control-label">Address</label>
                         <textarea class="form-control" rows="3" name="address"></textarea>
                     </div>
-                    
 
                 </div>
                 <div class="modal-footer">

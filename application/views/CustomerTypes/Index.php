@@ -6,7 +6,7 @@
             </div>
 
             <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
-            <?php $this->load->view("CustomersType/Create.php") ?>
+            <?php $this->load->view("CustomerTypes/Create.php") ?>
 
         </div>
     </div>

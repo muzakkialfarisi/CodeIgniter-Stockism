@@ -23,28 +23,22 @@
                                 <label class="control-label">Customer Type</label>
                                 <div class="input-group">
                                     <select class="form-control mb-3" name="Id_CustType" required>
-                                    <option selected disabled>Select...</option>
-                                        <?php foreach($mascustomertype as $item) { ?>
-                                            
-                                            <option value="<?= $item['Id_CustomerType'] ?>"><?= $item['name'] ?></option>
-                                            
-                                        <?php } ?>
-                                        
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                     <div class="row">
-                        <div class="col-12 col-sm-6 mb-3">
-                            <label class="control-label">Email</label>
-                            <input type="email" class="form-control form-control" name="email">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="mb-3 form-group">
+                                <label class="control-label">Email</label>
+                                <input type="email" class="form-control form-control" name="email">
+                            </div>
                         </div>
-                        <div class="col-12 col-sm-6 mb-3">
-                            <label class="control-label">Nomor Whatsapp</label>
-                            <input type="text" class="form-control" placeholder="80123456789" name="phone_number">
-
+                        <div class="col-12 col-sm-6">
+                            <label class="control-label">Whatsapp Number</label>
+                            <input type="text" class="form-control" name="phone_number">
                         </div>
                     </div>
 

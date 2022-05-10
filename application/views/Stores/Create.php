@@ -21,13 +21,12 @@
                                 <label class="control-label">Marketplace</label>
                                 <div class="input-group">
                                     <select class="form-select flex-grow-1" name="id_marketplace">
-                                    <?php foreach($masmarketplace as $item) { ?>
-                                        <tr>
+                                        <option selected disabled>Select...</option>
+                                        <?php foreach($masmarketplace as $item) { ?>
                                             <option><?= $item['name'] ?></option>
-                                        </tr>
-                                    <?php } ?>	
+                                        <?php } ?>	
                                     </select>
-                                    <button class="btn bg-stockism text-light" type="button">Add!</button>
+                                    <a href="<?= site_url('Stores/Index');?>" class="btn bg-stockism text-light" type="button">Add!</a>
                                 </div>
                             </div>
                         </div>
@@ -41,9 +40,8 @@
                         <div class="col-12 col-sm-6">
                             <label class="control-label">Komisi</label>
                             <div class="input-group">
-                                
                                 <input type="number" class="form-control" name="komisi">
-                                <label class="btn bg-stockism text-light">%</label>
+                                <span class="input-group-text">%</span>
                             </div>
                         </div>
                     </div>

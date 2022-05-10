@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class CustomersType extends CI_Controller {
+class CustomerTypes extends CI_Controller {
 
 	public function __construct() 
 	{
@@ -14,18 +14,14 @@ class CustomersType extends CI_Controller {
 	
 	public function Index()
 	{
-		$data['menukey'] = "CustomersType";
-		$data['content'] = "CustomersType/Index";
+		$data['menukey'] = "CustomerTypes";
+		$data['content'] = "CustomerTypes/Index";
 		$data['mascustomertype'] = $this->MasCustomerType->GetAll()->result_array();
-		// if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
-        	
-		// }else{
-		// 	$data['mascustomertype'] = $this->MasCustomerType->GetCustomerByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
-		// }
+
         $this->load->view('Shared/_Layout', $data);
 	}
 
-	public function AddCustomerTypeProcess()
+	public function CreatePost()
 	{
 		$this->form_validation->set_rules('name', 'name', 'required');
 
@@ -49,7 +45,20 @@ class CustomersType extends CI_Controller {
 		$this->MasCustomerType->Insert($mascustomertype);
 
 		$this->session->set_flashdata('success', 'Add Customer Type Successfully!');
-		redirect('CustomersType/Index');
+		redirect('CustomerTypes/Index');
 	}
+
+	public function GetAllCustomerType()
+    {
+        $mascustomertype = $this->MasCustomerType->GetAll();
+        echo json_encode($mascustomertype->result_array());
+    }
+
+	public function GetCustomerTypeById()
+    {
+        $Id_CustomerType = $this->input->post('Id_CustomerType');
+        $mascustomertype = $this->MasCustomerType->GetCustomerTypeById($Id_CustomerType);
+        echo json_encode($mascustomertype->row());
+    }
 
 }

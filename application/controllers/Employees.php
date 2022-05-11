@@ -18,7 +18,7 @@ class Employees extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "Employees";
-		$data['javascripts'] = "Employees";
+		$data['javascripts'] = "Employees/Index";
 		$data['content'] = "Employees/Index";
 		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
         	$data['masemployees'] = $this->MasEmployee->GetAll()->result_array();
@@ -32,6 +32,7 @@ class Employees extends CI_Controller {
 	{
 		$this->form_validation->set_rules('name', 'name', 'required');
 		$this->form_validation->set_rules('address', 'address');
+		$this->form_validation->set_rules('phone_number', 'phone_number');
 		$this->form_validation->set_rules('email', 'email', 'required');
 		
 		if ($this->form_validation->run() == FALSE) {
@@ -58,11 +59,13 @@ class Employees extends CI_Controller {
 		
 		$masemployee = array(
 			'name' => $this->input->post('name'),
-			'address' => $this->input->post('address'),
 			'email' => $this->input->post('email'),
 			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
 			'picture' => $picture,
-			'status' => 'active'
+			'status' => 'active',
+			'address' => $this->input->post('address'),
+			'phone_number' => $this->input->post('phone_number')
+
 		);
 
 		$this->MasEmployee->Insert($masemployee);
@@ -99,9 +102,11 @@ class Employees extends CI_Controller {
 
         $masemployee = array(
 			'id_employee' => $this->input->post('id_employee'),
-            'name' => $this->input->post('name'),
+			'name' => $this->input->post('name'),
+			'address' => $this->input->post('address'),
+			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+			'email_tenant' => $this->input->post('email_tenant'),
 			'picture' => $picture,
 			'status' => 'active'
 		);

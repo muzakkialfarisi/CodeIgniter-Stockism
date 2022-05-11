@@ -9,7 +9,7 @@
                 <?php echo validation_errors(); ?>
             
                 <div class="modal-body m-3">
-                    <div class="row">
+                    <div class="row mb-2">
                         <div class="col-12 col-sm-6">
                             <div class="mb-3 form-group required">
                                 <label class="control-label">Name</label>
@@ -26,13 +26,13 @@
                                             <option><?= $item['name'] ?></option>
                                         <?php } ?>	
                                     </select>
-                                    <a href="<?= site_url('Stores/Index');?>" class="btn bg-stockism text-light" type="button">Add!</a>
+                                    <!-- <a href="<?= site_url('Stores/Index');?>" class="btn bg-stockism text-light" type="button">Add!</a> -->
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-3">
                         <div class="col-12 col-sm-6">
                             <label class="control-label">Phone Number</label>
                             <input type="text" class="form-control" name="phone_number">
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 text-center">
-                            <img src="<?= base_url(); ?>assets/img/stores/default-store.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
+                        <img src="<?= base_url(); ?>/assets/img/stores/<?php if (isset($masstore)) { echo $masstore->picture; }else{ echo "default-store.png"; }?>" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
                         </div>
                     </div>
                 </div>

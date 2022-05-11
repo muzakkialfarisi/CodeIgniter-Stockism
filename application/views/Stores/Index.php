@@ -4,7 +4,7 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Stores</h5>
             </div>
-            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate">Create New</button>
+            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate" id="btn-modal-create">Create New</button>
         </div>
     </div>
     <div class="card-body m-3">
@@ -26,7 +26,7 @@
                     <?php foreach($mastoko as $item) { ?>
                         <tr>
                             <td class="text-center">
-                                <img src="<?= base_url(); ?>assets/img/stores/<?=$item['photo'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
+                            <img src="<?= base_url(); ?>assets/img/stores/<?=$item['photo'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
                             </td>
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['phone_number'] ?></td>

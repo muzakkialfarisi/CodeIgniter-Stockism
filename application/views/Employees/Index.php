@@ -4,7 +4,7 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Employees</h5>
             </div>
-            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate">Create New</button>
+            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate" id="btn-modal-create">Create New</button>
         </div>
     </div>
     <div class="card-body m-3">
@@ -15,6 +15,7 @@
                     <tr class="text-center">
                         <th>Picture</th>
                         <th>Name</th>
+                        <th>Phone Number</th>
                         <th>Address</th>
                         <th>Email</th>
                         <th>Tenant</th>
@@ -25,9 +26,10 @@
                     <?php foreach($masemployees as $item) { ?>
                         <tr>
                             <td class="text-center">
-                                <img src="<?= base_url(); ?>assets/img/avatars/<?=$item['picture'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
+                                <img src="<?= base_url(); ?>assets/img/employees/<?=$item['picture'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/>
                             </td>
                             <td><?= $item['name'] ?></td>
+                            <td><?= $item['phone_number'] ?></td>
                             <td><?= $item['address'] ?></td>
                             <td><?= $item['email'] ?></td>
                             <td><?= $item['email_tenant'] ?></td>

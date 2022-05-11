@@ -1,3 +1,11 @@
+$('#btn-modal-create').on('click', function () {
+    $("input[name='id_employee']").val("");
+    $("input[name='name']").val("");
+    $("input[name='phone_number']").val("");
+    $("input[name='email']").val("");
+    $("input[name='email_before']").val("");
+});
+
 $('.btn-edit').on('click', function () {
     $.ajax({
         type: 'POST',
@@ -10,6 +18,7 @@ $('.btn-edit').on('click', function () {
             console.log(data);
             $("input[name='id_employee']").val(data.id_employee);
             $("input[name='name']").val(data.name);
+            $("input[name='phone_number']").val(data.phone_number);
             $("input[name='email']").val(data.email);
             $("input[name='email_before']").val(data.email);
             $("input[name='email_tenant']").val(data.email_tenant);

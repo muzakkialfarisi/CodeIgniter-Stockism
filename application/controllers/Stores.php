@@ -124,5 +124,4 @@ class Stores extends CI_Controller {
         $masstore = $this->MasStore->GetStoreById($id_toko);
         echo json_encode($masstore->row());
     }
-
 }

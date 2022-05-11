@@ -41,9 +41,8 @@
                         <div class="col-12 col-sm-6">
                             <label class="control-label">Komisi</label>
                             <div class="input-group">
-                                
                                 <input type="number" class="form-control" name="komisi">
-                                <label class="btn bg-stockism text-light">%</label>
+                                <span class="input-group-text">%</span>
                             </div>
                         </div>
                     </div>
@@ -57,7 +56,7 @@
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 text-center">
-                            <img src="<?= base_url(); ?>/img/stores/default-store.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
+                            <img src="<?= base_url(); ?>assets/img/stores/default-store.png" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
                         </div>
                     </div>
                 </div>

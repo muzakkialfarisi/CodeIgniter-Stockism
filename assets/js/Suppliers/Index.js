@@ -1,3 +1,10 @@
+$('#btn-modal-create').on('click', function () {
+    $("input[name='name']").val("");
+    $("input[name='address']").val("");
+    $("input[name='phone_number']").val("");
+    $("input[name='email']").val("");
+});
+
 $('.btn-edit').on('click', function () {
     $.ajax({
         type: 'POST',

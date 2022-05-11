@@ -16,7 +16,7 @@ class Stores extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "Stores";
-		$data['javascripts'] = "Stores";
+		$data['javascripts'] = "Stores/Index";
 		$data['content'] = "Stores/Index";
 		$data['masmarketplace'] = $this->MasStore->GetAllMarketplace()->result_array();
 		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){

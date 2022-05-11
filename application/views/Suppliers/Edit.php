@@ -11,37 +11,30 @@
                 <div class="modal-body m-3">
                     <input type="text" class="form-control" name="id_supplier" required hidden>
                     <input type="text" class="form-control" name="email_tenant" required hidden>
+
+                    <div class="mb-3 form-group required">
+                        <label class="control-label">Name</label>
+                        <input type="text" class="form-control" name="name">
+                    </div>
+
                     <div class="row">
                         <div class="col-12 col-sm-6">
-                            <div class="mb-3 form-group required">
-                                <label class="control-label">Name</label>
-                                <input type="text" class="form-control" name="name">
+                            <div class="mb-3 form-group">
+                                <label class="control-label">Nomor Whatsapp</label>
+                                <input type="text" class="form-control" name="phone_number">
                             </div>
                         </div>
                         <div class="col-12 col-sm-6">
                             <div class="mb-3 form-group">
                                 <label class="control-label">Email</label>
-                                <input type="email" class="form-control form-control-lg" name="email">
+                                <input type="email" class="form-control form-control" name="email">
                             </div>
                         </div>
                     </div>
 
-                     <div class="row">
-                        <div class="col-12 col-sm-6">
-                            <div class="mb-3 form-group required">
-                                <label class="control-label">Nomor Whatsapp</label>
-                                <div class="input-group input-group-lg">
-                                    <span class="input-group-text">+62</span>
-                                    <input type="text" class="form-control" placeholder="80123456789" name="phone_number">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <div class="mb-3 form-group">
-                                <label class="control-label">Address</label>
-                                <textarea class="form-control" rows="3" name="address"></textarea>
-                            </div>
-                        </div>
+                    <div class="mb-3 form-group">
+                        <label class="control-label">Address</label>
+                        <textarea class="form-control" rows="3" name="address"></textarea>
                     </div>
 
                 </div>

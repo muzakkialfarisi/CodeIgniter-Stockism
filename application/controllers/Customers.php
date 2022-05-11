@@ -18,12 +18,14 @@ class Customers extends CI_Controller {
 		$data['menukey'] = "Customers";
 		$data['javascripts'] = "Customers/Index";
 		$data['content'] = "Customers/Index";
+
         $data['mascustomertype'] = $this->MasCustomer->GetAllCustomerType()->result_array();
 		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
         	$data['mascustomer'] = $this->MasCustomer->GetAll()->result_array();
 		}else{
 			$data['mascustomer'] = $this->MasCustomer->GetCustomerByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
 		}
+		
         $this->load->view('Shared/_Layout', $data);
 	}
 

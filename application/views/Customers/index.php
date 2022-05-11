@@ -28,14 +28,12 @@
                         <tr>
                             <td><?= $item['id_customer'] ?></td>
                             <td><?= $item['name'] ?></td>
-                            <?php   if ($item['id_customertype'] == 1) { ?>
-                                <td>Reguler</td>
-                            <?php } if ($item['id_customertype'] == 2) { ?>
-                                <td>Dropshiper</td>
-                            <?php } if ($item['id_customertype'] == 3) { ?>
-                                <td>Distributor</td>
-                            <?php } ?>
-                            <!-- <td><?= $item['id_customertype'] ?></td> -->
+                            <td>
+                                <?php 
+                                $id_customertype = $item['id_customertype'];
+                                echo $this->db->query("SELECT * FROM mascustomertype where id_customertype = '$id_customertype'")->row()->name;
+                                ?>
+                            </td>
                             <td><?= $item['address'] ?></td>
                             <td><?= $item['phone_number'] ?></td>
                             <td><?= $item['email'] ?></td>

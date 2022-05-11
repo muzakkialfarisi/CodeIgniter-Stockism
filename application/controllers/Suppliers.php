@@ -15,13 +15,19 @@ class Suppliers extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "Suppliers";
-		$data['javascripts'] = "Suppliers";
+		$data['javascripts'] = "Suppliers/Index";
 		$data['content'] = "Suppliers/Index";
-        $data['massupplier'] = $this->MasSupplier->GetAll()->result_array();
+
+		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
+            $data['massupplier'] = $this->MasSupplier->GetAll()->result_array();
+        }else{
+            $data['massupplier'] = $this->MasSupplier->GetSupplierByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
+        }
+
         $this->load->view('Shared/_Layout', $data);
 	}
 
-	public function AddSupplierProcess()
+	public function CreatePost()
 	{
 		$this->form_validation->set_rules('name', 'name', 'required');
         $this->form_validation->set_rules('address', 'address');

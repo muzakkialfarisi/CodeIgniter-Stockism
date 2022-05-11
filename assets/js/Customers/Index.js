@@ -16,7 +16,7 @@ $('.btn-edit').on('click', function () {
         },
         dataType: 'json',
         beforeSend: function(){
-            $("select[name='Id_CustType']").empty();
+            $("#Id_CustType").empty();
         },
         success: function (data) {
             $("input[name='id_customer']").val(data.id_customer);
@@ -35,8 +35,7 @@ $('.btn-edit').on('click', function () {
                 },
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
-                    $("select[name='Id_CustType']").append('<option selected value="'+ data.Id_CustomerType +'">'+ data.name +'</option>');
+                    $("#Id_CustType").append('<option selected value="'+ data.Id_CustomerType +'">'+ data.name +'</option>');
                 },
                 error: function (response) {
                     console.log(response.responseText);
@@ -54,11 +53,9 @@ $('.btn-edit').on('click', function () {
         url: '/stockism/CustomerTypes/GetAllCustomerType',
         dataType: 'json',
         success: function (data) {
-            console.log(data);
             for (let index = 0; index < data.length; index++) {
-                $("select[name='Id_CustType']").append('<option selected value="'+ data[index].Id_CustomerType +'">'+ data[index].name +'</option>');
+                $("#Id_CustType").append('<option value="'+ data[index].Id_CustomerType +'">'+ data[index].name +'</option>');
             }
-            
         },
         error: function (response) {
             console.log(response.responseText);

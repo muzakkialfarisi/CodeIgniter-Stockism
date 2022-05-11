@@ -22,7 +22,7 @@
                             <div class="mb-3 form-group">
                                 <label class="control-label">Customer Type</label>
                                 <div class="input-group">
-                                    <select class="form-control mb-3" name="Id_CustType" required>
+                                    <select class="form-control mb-3" name="Id_CustType" id="Id_CustType" required>
                                     </select>
                                 </div>
                             </div>

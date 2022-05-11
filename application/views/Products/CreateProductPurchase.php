@@ -21,7 +21,7 @@
             <div class="col-12 col-sm-6">
                 <div class="mb-3 form-group required">
                     <label class="control-label">Purchase Price</label>
-                    <input type="text" class="form-control number-only" name="purchase_price" value="<?php if (isset($masproduct)) { echo $masproduct->purchase_price; }?>" <?php if (isset($masproduct)) { echo "readonly"; }?>>
+                    <input type="text" class="form-control number-only" name="purchase_price" value="<?php if (isset($masproduct)) { echo $masproduct->purchase_price; }?>" <?php if (isset($masproduct)) { echo "readonly"; }?> required>
                 </div>
             </div>
         </div>

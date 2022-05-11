@@ -25,7 +25,13 @@
                             <td><?= $item['email_user'] ?></td>
                             <td><?= $item['email_confirmed'] ?></td>
                             <td><?= $item['status'] ?></td>
-                            <td><?= $item['id_usertype'] ?></td>
+                            <td>
+                                <?php 
+                                    $id_usertype = $item['id_usertype'];
+                                    echo $this->db->query("SELECT * FROM secuserrole where id_usertype = '$id_usertype'")->row()->name;
+                                ?>
+                            </td>
+                            
                         </tr>
                     <?php } ?>
                 </tbody>

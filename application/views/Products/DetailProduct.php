@@ -26,7 +26,9 @@
                 </div>
             </div>
             <div class="col-1 col-sm-1">
-                <a href="<?= site_url('Products/Edit/'.$masproduct->id_product) ?>"><i class="align-middle me-2 fas fa-fw fa-edit"></i></a>
+                <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                    <a href="<?= site_url('Products/Edit/'.$masproduct->id_product) ?>"><i class="align-middle me-2 fas fa-fw fa-edit"></i></a>
+                <?php } ?>
             </div>
         </div>  
     </div>

@@ -17,10 +17,7 @@
                     </div>
                     <div class="mb-3 form-group required">
                         <label class="control-label">Nomor Whatsapp</label>
-                        <div class="input-group input-group-lg">
-                            <span class="input-group-text">+62</span>
-                            <input type="text" class="form-control" placeholder="80123456789" name="phone_number" required>
-                        </div>
+                        <input type="text" class="form-control form-control-lg" name="phone_number" required>
                     </div>
                     <div class="mb-3 form-group required">
                         <label class="control-label">Kata Sandi</label>

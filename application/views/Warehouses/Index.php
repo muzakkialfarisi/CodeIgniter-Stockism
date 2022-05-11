@@ -4,7 +4,11 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Warehouse</h5>
             </div>
-            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
+            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
+                <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
+                <?php $this->load->view("Warehouses/Create.php") ?>
+                <?php $this->load->view("Warehouses/Edit.php") ?>
+            <?php } ?>
         </div>
     </div>
     <div class="card-body m-3">
@@ -17,7 +21,9 @@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Address</th>
-                        <th>Action</th>
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
+                            <th>Action</th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,14 +35,16 @@
                             <td><?= $item['id_warehouse'] ?></td>
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['address'] ?></td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_warehouse'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
-                                    </ul>
-                                </div>
-                            </td>
+                            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
+                                <td class="text-center">
+                                    <div class="dropdown">
+                                        <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                            <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_warehouse'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            <?php } ?>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -44,6 +52,3 @@
         </div>
     </div>
 </div>
-
-<?php $this->load->view("Warehouses/Create.php") ?>
-<?php $this->load->view("Warehouses/Edit.php") ?>

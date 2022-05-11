@@ -7,7 +7,7 @@ class MasProduct extends CI_Model{
 	}
 
     public function GetProductByTenant($id){
-        $data = $this->db->query("SELECT * FROM masproduct WHERE email_tenant = '$id' ");
+        $data = $this->db->query("SELECT * FROM masproduct WHERE email_tenant = '$id' order by status asc ");
 		return $data;
     }
 

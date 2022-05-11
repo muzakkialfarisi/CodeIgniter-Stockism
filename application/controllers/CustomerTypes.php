@@ -15,6 +15,7 @@ class CustomerTypes extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "CustomerTypes";
+		$data['javascripts'] = "CustomerTypes/Index";
 		$data['content'] = "CustomerTypes/Index";
 		$data['mascustomertype'] = $this->MasCustomerType->GetAll()->result_array();
 
@@ -27,12 +28,12 @@ class CustomerTypes extends CI_Controller {
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', 'Invalid Modelstate!');
-			redirect('CustomersType/Index');
+			redirect('CustomersTypes/Index');
 		}	
 
 		if ($this->MasCustomerType->GetCustomerTypeByName($this->input->post('name'))->row() > 0){
 			$this->session->set_flashdata('error', 'Customer Type Already Exist!');
-			redirect('CustomersType/Index');
+			redirect('CustomersTypes/Index');
 		}
 
         $options['cost'] = 12;
@@ -47,6 +48,24 @@ class CustomerTypes extends CI_Controller {
 		$this->session->set_flashdata('success', 'Add Customer Type Successfully!');
 		redirect('CustomerTypes/Index');
 	}
+
+	public function DeletePost(){
+        $this->form_validation->set_rules('Id_CustomerType', 'Id_CustomerType', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Customers/Index');
+		}
+
+        $mascustomertype = array(
+            'Id_CustomerType' => $this->input->post('Id_CustomerType'),
+		);
+
+        $this->MasCustomerType->Delete($mascustomertype);
+
+        $this->session->set_flashdata('success', 'Customer Deleted Successfully!');
+		redirect('CustomerTypes/Index');
+    }
 
 	public function GetAllCustomerType()
     {

@@ -33,8 +33,10 @@
                     <i class="align-middle fas fa-cog"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <a href="<?= site_url('Dashboards/Profile') ?>" class="dropdown-item" href="#"><i class="align-middle me-1 fas fa-fw fa-user"></i>Profil</a>
-                    <div class="dropdown-divider"></div>
+                    <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
+                        <a href="<?= site_url('Dashboards/Profile') ?>" class="dropdown-item" href="#"><i class="align-middle me-1 fas fa-fw fa-user"></i>Profil</a>
+                        <div class="dropdown-divider"></div>
+                    <?php } ?>
                     <a class="dropdown-item" href="<?= site_url('Home/SignOut')?>"><i class="align-middle me-1 fas fa-fw fa-arrow-alt-circle-right"></i>Keluar</a>
                 </div>
             </li>

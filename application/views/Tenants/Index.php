@@ -5,8 +5,8 @@
                 <h5 class="card-title mb-0 text-light">Tenants</h5>
             </div>
 
-            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
-            <?php $this->load->view("Tenants/Create.php") ?>
+            <!-- <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
+            <?php $this->load->view("Tenants/Create.php") ?> -->
 
         </div>
     </div>

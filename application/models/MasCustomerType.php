@@ -10,6 +10,11 @@ class MasCustomerType extends CI_Model{
         $this->db->insert('mascustomertype', $data);
     }
 
+	public function Delete($data){
+        $this->db->where('Id_CustomerType', $data['Id_CustomerType']);
+        $this->db->delete('mascustomertype', $data);
+    }
+
 	public function GetCustomerTypeById($id){
 		$data = $this->db->query("SELECT * FROM mascustomertype WHERE Id_CustomerType = '$id'");
 		return $data;

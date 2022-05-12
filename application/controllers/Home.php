@@ -64,25 +64,19 @@ class Home extends CI_Controller {
 		}
 		elseif($secuserrole->row()->name == "Tenant"){
 			$session_data = array(
+				'user_id' => $mastenant->row()->email_tenant,
 				'email_user' => $this->input->post('email_user'),
-				'email_tenant' => $this->input->post('email_user'),
+				'email_tenant' => $mastenant->row()->email_tenant,
 				'id_usertype' => $secuserrole->row()->name,
-				'name' => $mastenant->row()->name,
-				'photo' => $mastenant->row()->photo,
-				'phone_number' => $mastenant->row()->phone_number,
-				'address' => $mastenant->row()->address,
 				'secmenu' => $this->SecMenu->GetMenuByTenant(1)->result_array()
 			);
 		}
 		elseif($secuserrole->row()->name == "Employee"){
 			$session_data = array(
+				'user_id' => $masemployee->row()->id_employee,
 				'email_user' => $this->input->post('email_user'),
 				'email_tenant' => $mastenant->row()->email_tenant,
 				'id_usertype' => $secuserrole->row()->name,
-				'name' => $masemployee->row()->name,
-				'photo' => $masemployee->row()->picture,
-				'phone_number' => $masemployee->row()->phone_number,
-				'address' => $masemployee->row()->address,
 				'secmenu' => $this->SecMenu->GetMenuByEmployee(1)->result_array()
 			);
 		}
@@ -102,7 +96,7 @@ class Home extends CI_Controller {
 		$this->load->view('Home/_Layout', $data);
 	}
 
-	public function SignUpProcess()
+	public function SignUpPost()
 	{
 		$this->form_validation->set_rules('name', 'name', 'required');
 		$this->form_validation->set_rules('email_user', 'email_user', 'required');
@@ -139,11 +133,12 @@ class Home extends CI_Controller {
 		$this->SecUser->Insert($secuser);
 
 		$mastenant = array(
-			'email_tenant' => $this->input->post('email_user'),
+			'email' => $this->input->post('email_user'),
+			'email_tenant' => date("ymd-His"),
 			'name' => $this->input->post('name'),
 			'address' => "",
-			'phone_number' => "62".$this->input->post('phone_number'),
-			'photo' => "default-avatar.png"
+			'phone_number' => $this->input->post('phone_number'),
+			'picture' => "default-avatar.png"
 		);
 
 		$this->MasTenant->Insert($mastenant);

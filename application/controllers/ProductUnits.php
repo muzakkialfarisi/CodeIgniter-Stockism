@@ -21,7 +21,7 @@ class ProductUnits extends CI_Controller {
         if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
             $data['masproductunit'] = $this->MasProductUnit->GetAll()->result_array();
         }else{
-            $data['masproductunit'] = $this->MasProductUnit->GetProductUnitByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
+            $data['masproductunit'] = $this->MasProductUnit->GetProductUnitByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
         }
         
         $this->load->view('Shared/_Layout', $data);
@@ -36,14 +36,14 @@ class ProductUnits extends CI_Controller {
 			redirect('ProductUnits/Index');
 		}
 
-        if ($this->MasProductUnit->GetProductUnitByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
+        if ($this->MasProductUnit->GetProductUnitByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['user_id'])->row() > 0){
 			$this->session->set_flashdata('error', 'Product Unit Already Exist!');
 			redirect('ProductUnits/Index');
 		}
 
         $masproductunit = array(
 			'name' => $this->input->post('name'),
-			'email_tenant' => $this->session->userdata['logged_in']['email_tenant']
+			'email_tenant' => $this->session->userdata['logged_in']['user_id']
 		);
 
 		$this->MasProductUnit->Insert($masproductunit);
@@ -61,7 +61,7 @@ class ProductUnits extends CI_Controller {
 			redirect('ProductUnits/Index');
 		}
 
-        if ($this->MasProductUnit->GetProductUnitByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
+        if ($this->MasProductUnit->GetProductUnitByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['user_id'])->row() > 0){
 			$this->session->set_flashdata('error', 'Product Unit Already Exist!');
 			redirect('ProductUnits/Index');
 		}

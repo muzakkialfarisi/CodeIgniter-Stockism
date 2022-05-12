@@ -1,3 +1,5 @@
+console.log("makan");
+
 $("#sku").on('click', function () {
     if ($(this).is(":checked")){
         $("input[name='sku']").attr('readonly', false);
@@ -30,4 +32,3 @@ $("#expired_date").on('change', function () {
         $("input[name='expired_date']").val("");
     }
 });
-

@@ -21,7 +21,14 @@
             if (isset($this->session->userdata['logged_in'])) {
                 $email_user = ($this->session->userdata['logged_in']['email_user']);
                 $user_role = ($this->session->userdata['logged_in']['id_usertype']);
-                $name = ($this->session->userdata['logged_in']['name']);
+                $email_tenant = ($this->session->userdata['logged_in']['email_tenant']);
+
+                if($this->session->userdata['logged_in']['id_usertype'] == "Tenant") { 
+                    $account = $this->db->query("SELECT * FROM mastenant where email = '$email_user'")->row();
+                }
+                else{
+                    $account = $this->db->query("SELECT * FROM masemployee where email = '$email_user'")->row();
+                }
             } else {
                 header("location: Home");
             }
@@ -39,9 +46,24 @@
                 <div class="sidebar-content">
                     <div class="sidebar-user">
 
-                        <img src="<?= base_url(); ?>/assets/img/avatars/<?= $this->session->userdata['logged_in']['photo'] ?>" class="img-fluid rounded-circle mb-2"/>
+                        <img src="<?= base_url(); ?>assets/img/avatars/<?php 
+                            if($this->session->userdata['logged_in']['id_usertype'] == "Admin") {
+                                echo "admin.png";
+                            } 
+                            else { 
+                                echo $account->picture;
+                            } ?>" class="img-fluid rounded-circle mb-2"/>
                         
-                        <div class="fw-bold"><?php if($name == null){ echo ucfirst($email_user); }else{ echo ucfirst($name); }?></div>
+                        <div class="fw-bold">
+                            <?php 
+                            if($this->session->userdata['logged_in']['id_usertype'] == "Admin") {
+                                echo "Admin";
+                            } 
+                            else { 
+                                echo $account->name;
+                            } ?>
+                        </div>
+                        <input name="user_id" type="hidden" value="<?= $email_tenant; ?>">
                         <small><?= ucfirst($user_role) ?></small>
                     </div>
 

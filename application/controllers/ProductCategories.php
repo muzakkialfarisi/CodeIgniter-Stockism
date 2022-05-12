@@ -21,7 +21,7 @@ class ProductCategories extends CI_Controller {
         if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
             $data['masproductcategory'] = $this->MasProductCategory->GetAll()->result_array();
         }else{
-            $data['masproductcategory'] = $this->MasProductCategory->GetProductCategoryByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
+            $data['masproductcategory'] = $this->MasProductCategory->GetProductCategoryByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
         }
         
         $this->load->view('Shared/_Layout', $data);
@@ -36,14 +36,14 @@ class ProductCategories extends CI_Controller {
 			redirect('ProductCategories/Index');
 		}
 
-        if ($this->MasProductCategory->GetProductCategoryByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
+        if ($this->MasProductCategory->GetProductCategoryByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['user_id'])->row() > 0){
 			$this->session->set_flashdata('error', 'Product Category Already Exist!');
 			redirect('ProductCategories/Index');
 		}
 
         $masproductcategory = array(
 			'name' => $this->input->post('name'),
-			'email_tenant' => $this->session->userdata['logged_in']['email_tenant']
+			'email_tenant' => $this->session->userdata['logged_in']['user_id']
 		);
 
 		$this->MasProductCategory->Insert($masproductcategory);
@@ -61,7 +61,7 @@ class ProductCategories extends CI_Controller {
 			redirect('ProductCategories/Index');
 		}
 
-        if ($this->MasProductCategory->GetProductCategoryByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
+        if ($this->MasProductCategory->GetProductCategoryByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['user_id'])->row() > 0){
 			$this->session->set_flashdata('error', 'Product Category Already Exist!');
 			redirect('ProductCategories/Index');
 		}

@@ -5,7 +5,7 @@
                 <h5 class="card-title mb-0 text-light">Warehouse</h5>
             </div>
             <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
-                <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#Modal">Create New</button>
+                <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate" id="btn-modal-create">Create New</button>
                 <?php $this->load->view("Warehouses/Create.php") ?>
                 <?php $this->load->view("Warehouses/Edit.php") ?>
             <?php } ?>

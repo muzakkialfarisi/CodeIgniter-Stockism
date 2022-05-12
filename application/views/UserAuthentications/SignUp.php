@@ -3,7 +3,7 @@
         <div class="mb-5 text-center">
             <h2>Bergabunglah bersama kami!</h2>
         </div>
-        <form action="<?= site_url('Home/SignUpProcess') ?>" method="post">
+        <form action="<?= site_url('Home/SignUpPost') ?>" method="post">
             <?php echo validation_errors(); ?>
             <div class="row pb-3">
                 <div class="col-12 col-sm-6 px-5">

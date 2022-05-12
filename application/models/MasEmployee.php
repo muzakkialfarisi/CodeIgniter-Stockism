@@ -25,7 +25,7 @@ class MasEmployee extends CI_Model{
 		return $data;
 	}
 	
-	public function GetIdStoreByNameByEmailByTenant($name, $email, $tenant){
+	public function GetEmployeeByNameByEmailByTenant($name, $email, $tenant){
         $data = $this->db->query("SELECT * FROM masemployee WHERE name = '$name' AND email = '$email' AND email_tenant = '$tenant' ");
 		return $data;
     }

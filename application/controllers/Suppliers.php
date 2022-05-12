@@ -21,7 +21,7 @@ class Suppliers extends CI_Controller {
 		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
             $data['massupplier'] = $this->MasSupplier->GetAll()->result_array();
         }else{
-            $data['massupplier'] = $this->MasSupplier->GetSupplierByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
+            $data['massupplier'] = $this->MasSupplier->GetSupplierByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
         }
 
         $this->load->view('Shared/_Layout', $data);
@@ -49,7 +49,7 @@ class Suppliers extends CI_Controller {
 			'address' => $this->input->post('address'),
 			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+			'email_tenant' => $this->session->userdata['logged_in']['user_id'],
 			'status' => 'active'
 		);
 
@@ -77,7 +77,7 @@ class Suppliers extends CI_Controller {
 			'address' => $this->input->post('address'),
 			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+			'email_tenant' => $this->session->userdata['logged_in']['user_id'],
 			'status' => 'active'
 		);
 

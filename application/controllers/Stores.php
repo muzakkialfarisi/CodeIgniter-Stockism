@@ -22,7 +22,7 @@ class Stores extends CI_Controller {
 		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
         	$data['mastoko'] = $this->MasStore->GetAll()->result_array();
 		}else{
-			$data['mastoko'] = $this->MasStore->GetStoreByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
+			$data['mastoko'] = $this->MasStore->GetStoreByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
 		}
         $this->load->view('Shared/_Layout', $data);
 	}
@@ -38,7 +38,7 @@ class Stores extends CI_Controller {
 			redirect('Stores/Index');
 		}	
 
-		if ($this->MasStore->GetIdStoreByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
+		if ($this->MasStore->GetIdStoreByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['user_id'])->row() > 0){
 			$this->session->set_flashdata('error', 'Store Already Exist!');
 			redirect('Stores/Index');
 		}
@@ -56,7 +56,7 @@ class Stores extends CI_Controller {
 			'komisi' => $this->input->post('komisi'),
 			'photo' => $picture,
 			'id_marketplace' => $IdMarketplace,
-			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+			'email_tenant' => $this->session->userdata['logged_in']['user_id'],
 			'status' => 'active'
 		);
 
@@ -90,7 +90,7 @@ class Stores extends CI_Controller {
 			'komisi' => $this->input->post('komisi'),
 			'photo' => $picture,
 			'id_marketplace' => $IdMarketplace,
-			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+			'email_tenant' => $this->session->userdata['logged_in']['user_id'],
 			'status' => 'active'
 		);
 

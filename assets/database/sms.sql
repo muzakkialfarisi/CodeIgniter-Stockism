@@ -11,7 +11,7 @@
  Target Server Version : 100422
  File Encoding         : 65001
 
- Date: 10/05/2022 17:16:51
+ Date: 12/05/2022 16:02:33
 */
 
 SET NAMES utf8mb4;
@@ -115,7 +115,12 @@ CREATE TABLE `incpurchaseorderproduct`  (
   INDEX `FK_MasProductIncPurchaseOrderProduct`(`id_product`) USING BTREE,
   CONSTRAINT `FK_IncPurchaseOrderIncPurchaseOrderProduct` FOREIGN KEY (`id_po`) REFERENCES `incpurchaseorder` (`id_po`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MasProductIncPurchaseOrderProduct` FOREIGN KEY (`id_product`) REFERENCES `masproduct` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of incpurchaseorderproduct
+-- ----------------------------
+INSERT INTO `incpurchaseorderproduct` VALUES (3, '2022-05-12 08:54:48', NULL, 19, 20, 6800000, 136000000, '0000-00-00 00:00:00', '', '220512-035448');
 
 -- ----------------------------
 -- Table structure for incpurchaseordersupplier
@@ -187,7 +192,15 @@ CREATE TABLE `mascourier`  (
   `id_courier` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id_courier`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of mascourier
+-- ----------------------------
+INSERT INTO `mascourier` VALUES (1, 'Anatar Sendiri');
+INSERT INTO `mascourier` VALUES (2, 'JNE');
+INSERT INTO `mascourier` VALUES (3, 'NCS');
+INSERT INTO `mascourier` VALUES (4, 'Sicepat');
 
 -- ----------------------------
 -- Table structure for mascustomer
@@ -207,12 +220,7 @@ CREATE TABLE `mascustomer`  (
   INDEX `FK_MasCustomerMasCustomerTyoe`(`id_customertype`) USING BTREE,
   CONSTRAINT `FK_MasCustomerMasCustomerTyoe` FOREIGN KEY (`id_customertype`) REFERENCES `mascustomertype` (`Id_CustomerType`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MasCustomerMasTenant` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of mascustomer
--- ----------------------------
-INSERT INTO `mascustomer` VALUES (1, 'dangga', 1, 'bojong\r\n', '079897987', 'dangga@gmail.com', 'anggaagustira@gmail.com', '');
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for mascustomertype
@@ -222,7 +230,7 @@ CREATE TABLE `mascustomertype`  (
   `Id_CustomerType` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`Id_CustomerType`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mascustomertype
@@ -247,14 +255,12 @@ CREATE TABLE `masemployee`  (
   PRIMARY KEY (`id_employee`) USING BTREE,
   INDEX `FK_MasEmployeeMasTenant`(`email_tenant`) USING BTREE,
   CONSTRAINT `FK_MasEmployeeMasTenant` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of masemployee
 -- ----------------------------
-INSERT INTO `masemployee` VALUES (1, 'Dangga', 'anggaagustiraEmp@gmail.com', 'anggaagustira@gmail.com', 'default-avatar.png', '', NULL, NULL);
-INSERT INTO `masemployee` VALUES (2, 'Angga Agustira', 'anggaagustiraEmp2@gmail.com', 'anggaagustira@gmail.com', 'default-avatar.png', '', NULL, NULL);
-INSERT INTO `masemployee` VALUES (6, 'Faris', 'mzkalfarisi@gmail.com', 'a@a', 'default-avatar.png', '', NULL, NULL);
+INSERT INTO `masemployee` VALUES (8, 'Faris', 'f@f', '220511-191240', 'default-avatar.png', 'active', '', '');
 
 -- ----------------------------
 -- Table structure for masmarketplace
@@ -318,19 +324,12 @@ CREATE TABLE `masproduct`  (
   CONSTRAINT `FK_MasProductCategoryMasProduct` FOREIGN KEY (`id_productcategory`) REFERENCES `masproductcategory` (`id_productcategory`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MasProductUnitMasProduct` FOREIGN KEY (`id_productunit`) REFERENCES `masproductunit` (`id_productunit`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MasTenantMasProduct` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 20 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of masproduct
 -- ----------------------------
-INSERT INTO `masproduct` VALUES (8, '001', 'EA507EDF-8D98-4F2B-9478-B55CB68D442C', 'EA507EDF-8D98-4F2B-9478-B55CB68D442C.png', 'Minum Makanan Bergizi', 2, 10000, 10000, 0, 0, 0, 0, '', 2, 'Active', 3, 4, 'a@a', 'default-product.png');
-INSERT INTO `masproduct` VALUES (9, '002', '34E09EA2-DAA0-4351-BCF9-792F9A69967C', '34E09EA2-DAA0-4351-BCF9-792F9A69967C.png', 'Siapa Yang Pantas', 3, 3000, 1, 0, 0, 0, 0, '', 0, 'Active', 3, 4, 'a@a', 'default-product.png');
-INSERT INTO `masproduct` VALUES (10, '003', '4C30CB7C-2A62-4D32-AF67-5CA979592C95', '4C30CB7C-2A62-4D32-AF67-5CA979592C95.png', 'Yang Mana Saja', 0, 10000, 1000, 0, 0, 0, 0, '', 0, 'Active', 3, 4, 'a@a', 'default-product.png');
-INSERT INTO `masproduct` VALUES (11, '004', 'CE6B639A-E57C-4AB6-8FFA-7D6FDFFABC74', 'CE6B639A-E57C-4AB6-8FFA-7D6FDFFABC74.png', 'Coba Yang ke 4', 1, 10000, 3000, 0, 0, 0, 0, '', 2, 'Active', 3, 4, 'a@a', 'default-product.png');
-INSERT INTO `masproduct` VALUES (12, 'Auto Generated', 'A01D040C-4110-40AF-99BA-5782C17527C5', 'A01D040C-4110-40AF-99BA-5782C17527C5.png', 'Ini percobaan ke 5', 0, 12, 12000, 0, 0, 0, 0, '', 3, 'Active', 4, 4, 'a@a', 'default-product.png');
-INSERT INTO `masproduct` VALUES (13, '220505', '80883ECF-A1E0-4870-BE19-6BA7E4199237', '80883ECF-A1E0-4870-BE19-6BA7E4199237.png', '6', 6, 6, 6000, 6, 6, 6, 6, '6', 3, 'Active', 3, 4, 'a@a', 'default-product.png');
-INSERT INTO `masproduct` VALUES (14, '220505-071043', '88966618-207A-4632-9C50-98957A7974CD', '88966618-207A-4632-9C50-98957A7974CD.png', 'faris', 1, 1, 1000, 0, 0, 0, 0, '', 3, 'Active', 3, 4, 'a@a', 'default-product.png');
-INSERT INTO `masproduct` VALUES (15, '0', 'DDA3285E-248D-47C9-9D41-0AE9EDF72EC6', 'DDA3285E-248D-47C9-9D41-0AE9EDF72EC6.png', 'fafa', 100, 100, 100, 0, 0, 0, 0, '', 3, 'Active', 3, 4, 'a@a', 'default-product.png');
+INSERT INTO `masproduct` VALUES (19, '220512-035448', '61375487-DCA0-4E76-A4D7-11A0DDE79399', '61375487-DCA0-4E76-A4D7-11A0DDE79399.png', 'Aspire 5 Slim (A514-54)', 20, 6800000, 8900000, 0, 0, 0, 0, '', 3, 'Active', 8, 9, '220511-191240', 'default-product.png');
 
 -- ----------------------------
 -- Table structure for masproductcategory
@@ -344,13 +343,14 @@ CREATE TABLE `masproductcategory`  (
   PRIMARY KEY (`id_productcategory`) USING BTREE,
   INDEX `FK_MasTenantMasProductCategory`(`email_tenant`) USING BTREE,
   CONSTRAINT `FK_MasTenantMasProductCategory` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of masproductcategory
 -- ----------------------------
-INSERT INTO `masproductcategory` VALUES (4, 'Makanan', 'a@a', '');
-INSERT INTO `masproductcategory` VALUES (5, 'Minuman', 'a@a', '');
+INSERT INTO `masproductcategory` VALUES (7, 'Makanan', '220511-191240', '');
+INSERT INTO `masproductcategory` VALUES (8, 'Minuman', '220511-191240', '');
+INSERT INTO `masproductcategory` VALUES (9, 'Elektronik', '220511-191240', '');
 
 -- ----------------------------
 -- Table structure for masproductgrosir
@@ -381,14 +381,14 @@ CREATE TABLE `masproductunit`  (
   PRIMARY KEY (`id_productunit`) USING BTREE,
   INDEX `FK_MasTenantMasProductUnit`(`email_tenant`) USING BTREE,
   CONSTRAINT `FK_MasTenantMasProductUnit` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of masproductunit
 -- ----------------------------
-INSERT INTO `masproductunit` VALUES (3, 'Pcs', 'a@a');
-INSERT INTO `masproductunit` VALUES (4, 'Box', 'a@a');
-INSERT INTO `masproductunit` VALUES (5, 'Galon', 'a@a');
+INSERT INTO `masproductunit` VALUES (7, 'Box', '220511-191240');
+INSERT INTO `masproductunit` VALUES (8, 'Unit', '220511-191240');
+INSERT INTO `masproductunit` VALUES (9, 'Pcs', '220511-191240');
 
 -- ----------------------------
 -- Table structure for massupplier
@@ -405,12 +405,7 @@ CREATE TABLE `massupplier`  (
   PRIMARY KEY (`id_supplier`) USING BTREE,
   INDEX `FK_MasSupplierMasTenant`(`email_tenant`) USING BTREE,
   CONSTRAINT `FK_MasSupplierMasTenant` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of massupplier
--- ----------------------------
-INSERT INTO `massupplier` VALUES (1, 'Faris', 'nsdjsad\r\n', 8, 'asa@sas', 'a@a', 'active');
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for mastenant
@@ -421,18 +416,18 @@ CREATE TABLE `mastenant`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `phone_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `id_tenant` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`email_tenant`, `id_tenant`) USING BTREE,
+  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`email_tenant`, `email`) USING BTREE,
   INDEX `email_tenant`(`email_tenant`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of mastenant
 -- ----------------------------
-INSERT INTO `mastenant` VALUES ('a@a', 'Faris', '', '6285329981115', 'default-avatar.png', '');
-INSERT INTO `mastenant` VALUES ('anggaagustira@gmail.com', 'Angga', '', '6281395145194', 'default-avatar.png', '');
-INSERT INTO `mastenant` VALUES ('s@s', 'Makanan', '', '62121212121', 'default-avatar.png', '');
+INSERT INTO `mastenant` VALUES ('220511-191240', 'Muzakki Ahmad Al Farisi', '', '085329981115', 'default-avatar.png', 'a@a');
+INSERT INTO `mastenant` VALUES ('220512-035600', 'Yunia Fransisca Utami', '', '085156541514', 'default-avatar.png', 's@s');
+INSERT INTO `mastenant` VALUES ('220512-101624', 'Zakiyatu Barokathil Ilmiah', '', '082137717205', 'default-avatar.png', 'd@d');
 
 -- ----------------------------
 -- Table structure for mastoko
@@ -443,7 +438,7 @@ CREATE TABLE `mastoko`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `phone_number` int(11) NULL DEFAULT NULL,
   `komisi` int(11) NULL DEFAULT NULL,
-  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `id_marketplace` int(255) NOT NULL,
   `email_tenant` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -452,13 +447,7 @@ CREATE TABLE `mastoko`  (
   INDEX `FK_MasTokoMasMarketplace`(`id_marketplace`) USING BTREE,
   CONSTRAINT `FK_MasTokoMasMarketplace` FOREIGN KEY (`id_marketplace`) REFERENCES `masmarketplace` (`id_marketplace`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MasTokoMasTenant` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of mastoko
--- ----------------------------
-INSERT INTO `mastoko` VALUES (1, 'Danggakom', 2133123, 12, 'default-store.png', 1, 'anggaagustira@gmail.com', '');
-INSERT INTO `mastoko` VALUES (2, 'anggakom', 8888888, 10, 'default-store.png', 2, 'anggaagustira@gmail.com', '');
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for masutang
@@ -493,7 +482,9 @@ CREATE TABLE `maswarehouse`  (
 -- ----------------------------
 -- Records of maswarehouse
 -- ----------------------------
-INSERT INTO `maswarehouse` VALUES ('0000001', 'FarisOk', 'Jalan Arbei Raya', 'default-warehouse.png', 'a@a');
+INSERT INTO `maswarehouse` VALUES ('0000001', 'Gudang Satu', 'as', '0000001.jpg', '220511-191240');
+INSERT INTO `maswarehouse` VALUES ('0000002', 'Gudang Garam', 'as', 'default-warehousdefault-warehouse.pnge.png', '220512-035600');
+INSERT INTO `maswarehouse` VALUES ('0000003', 'Gudang Mlinjo', '-', '0000003.png', '220512-101624');
 
 -- ----------------------------
 -- Table structure for outsalesorder
@@ -618,9 +609,9 @@ INSERT INTO `secmenu` VALUES ('1.2.5', '1.2', 'Stores', 14, 'Stores', 'Index', '
 INSERT INTO `secmenu` VALUES ('1.2.6', '1.2', 'Employees', 15, 'Employees', 'Index', 'fa-user-tie', 'Parent', 'Employees', '1', 1, 0);
 INSERT INTO `secmenu` VALUES ('1.2.7', '1.2', 'Suppliers', 16, 'Suppliers', 'Index', 'fa-user-friends', 'Parent', 'Suppliers', '1', 1, 0);
 INSERT INTO `secmenu` VALUES ('1.2.8', '1.2', 'Customer', 17, '-', '-', 'fa-users', 'Parent', 'Customers', '1', 1, 0);
-INSERT INTO `secmenu` VALUES ('1.2.8.1', '1.2.8', 'Customer Type', 18, 'CustomersType', 'Index', '-', 'Child', 'Customers', '1', 0, 0);
+INSERT INTO `secmenu` VALUES ('1.2.8.1', '1.2.8', 'Customer Type', 18, 'CustomerTypes', 'Index', '-', 'Child', 'Customers', '1', 0, 0);
 INSERT INTO `secmenu` VALUES ('1.2.8.2', '1.2.8', 'Customers', 19, 'Customers', 'Index', '-', 'Child', 'Customers', '1', 1, 0);
-INSERT INTO `secmenu` VALUES ('1.2.9', '1.2', 'Couriers', 20, 'UnderConstructions', 'Index', 'fa-shipping-fast', 'Parent', 'Couriers', '1', 0, 0);
+INSERT INTO `secmenu` VALUES ('1.2.9', '1.2', 'Couriers', 20, 'Couriers', 'Index', 'fa-shipping-fast', 'Parent', 'Couriers', '1', 0, 0);
 INSERT INTO `secmenu` VALUES ('1.2.10', '1.2', 'Marketplaces', 21, 'UnderConstructions', 'Index', 'fa-store', 'Parent', 'Marketplaces', '1', 0, 0);
 INSERT INTO `secmenu` VALUES ('1.3', '1', 'Incoming', 22, '-', '-', '-', 'Module', '-', '1', 1, 1);
 INSERT INTO `secmenu` VALUES ('1.3.1', '1.3', 'Purchase Orders', 23, 'PurchaseOrders', 'Index', 'fa-cart-plus', 'Parent', 'Purchase Orders', '1', 1, 1);
@@ -651,11 +642,11 @@ CREATE TABLE `secuser`  (
 -- ----------------------------
 -- Records of secuser
 -- ----------------------------
-INSERT INTO `secuser` VALUES ('a@a', '$2y$12$b1egvDFCXhccONpHttt.6O3S5Pd9Okjq5/dYJXeSRs3U4biSGFV9C', 'fd94aa907f620ba891bb63807108be9e', 0, 'active', 2);
+INSERT INTO `secuser` VALUES ('a@a', '$2y$12$JYJ4DCqfhDWbGr4jA8Cl9eOWjz9iLAX10/8mrJaCL6tOOZ7B3Jx7W', '5a8c1ec86c1ecb3b4b2f19e7022bf757', 0, 'active', 2);
 INSERT INTO `secuser` VALUES ('admin', '$2y$12$c4cd4a1f900f538b77e01un3qNM3mgZ5A.sZPfdawzeyCqwS0t2bC', 'c4cd4a1f900f538b77e0125ffa60099b', 1, 'active', 1);
-INSERT INTO `secuser` VALUES ('anggaagustira@gmail.com', '$2y$12$Lrlnf4Otw9E.E/eKGtIgTunV56T.EUhfpvemdW94O2xKkiGHzUTTy', '929d87dffe160fb12044a499f5d8eada', 0, 'active', 2);
-INSERT INTO `secuser` VALUES ('mzkalfarisi@gmail.com', '$2y$12$dhElONOGOA0RjhMuT8OghOG9hIeCcoBkY3gDnkbaJX0xQ1BnL.68C', 'b2cf4d777549785d69b19b4a7d82ee9b', 0, 'active', 3);
-INSERT INTO `secuser` VALUES ('s@s', '$2y$12$XDduvQXHS8kyztcVKe0vxeBTxwudVUx17BQqUAMXvjS16LOJ.KHrO', '932ca1a4def25706fa3659477a39ba45', 0, 'active', 2);
+INSERT INTO `secuser` VALUES ('d@d', '$2y$12$ncbr3qiuTU2eScfpFpZLsegmsEgG.fO72oph5HdFCp/kgopiSpCbO', '6d5a07afca06c5b7475ee8e92274ae92', 0, 'active', 2);
+INSERT INTO `secuser` VALUES ('f@f', '$2y$12$1kYZIdGHnIeUn5IKXQXrHeeY813ZLrGUcx4wIWLb5sHS63ortslLy', '23737521e366c3df3835ae1239757d14', 0, 'active', 3);
+INSERT INTO `secuser` VALUES ('s@s', '$2y$12$tnk/1t0WUVI3ocrQWp7z0.qJRTO.lDSG6PP7hhhTy432ahW6lmdLW', 'a97622a921da1857d0c1f86de01fc60c', 0, 'active', 2);
 
 -- ----------------------------
 -- Table structure for secuserrole

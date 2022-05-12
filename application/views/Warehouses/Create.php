@@ -1,10 +1,10 @@
-<div class="modal fade" id="Modal" tabindex="-1" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="ModalCreate" tabindex="-1" style="display: none;" aria-hidden="true" data-bs-backdrop="static">
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
-            <form action="<?= site_url('Warehouses/CreatePost') ?>" method="post">
+            <form action="<?= site_url('Warehouses/CreatePost') ?>" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title">Create New Warehouse</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btn-modal-create-close"></button>
                 </div>
                 <div class="modal-body m-3">
                     <?php echo validation_errors(); ?>
@@ -18,12 +18,19 @@
                     </div>
                     <div class="mb-3 form-group required">
                         <label class="control-label">Address</label>
-                        <textarea class="form-control" rows="3" name="address" required></textarea>
+                        <textarea class="form-control" rows="3" name="address" value="asas" required></textarea>
                     </div>
-                    <div class="mb-3 form-group">
-                        <label class="control-label">Picture</label>
-                        <input type="file" class="form-control" name="picture">
-                        <span class="font-13 text-muted">Max 1 MB</span>
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="mb-3 form-group">
+                                <label class="control-label">Picture</label>
+                                <input accept="image/*" type="file" class="form-control" name="picture">
+                                <span class="font-13 text-muted">Max 1 MB</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 text-center">
+                            <img src="<?= base_url(); ?>assets/img/warehouses/default-warehouse.png" class="img-thumbnail picture_preview" height="60" width="60" asp-append-version="true"/>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -5,3 +5,5 @@
 <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
 	<?php $this->load->view("Dashboards/DashboardAdmin.php") ?>
 <?php } ?>
+
+<?php $this->load->view("Warehouses/Create.php") ?>

@@ -1,20 +1,25 @@
-$.ajax({
-    type: 'POST',
-    url: '/stockism/Warehouses/GetWarehouseByTenant',
-    data: {
-        email_tenant: $("input[name='user_id']").val(),
-    },
-    dataType: 'json',
-    success: function (data) {
-        if(data < 1) {
-            $("#btn-modal-create-close").hide();
-            $("#ModalCreate").modal("show");
+console.log($("input[name='id_usertype']").val());
+
+if($("input[name='id_usertype']").val() != "Admin"){
+    $.ajax({
+        type: 'POST',
+        url: '/stockism/Warehouses/GetWarehouseByTenant',
+        data: {
+            email_tenant: $("input[name='user_id']").val(),
+        },
+        dataType: 'json',
+        success: function (data) {
+            if(data < 1) {
+                $("#btn-modal-create-close").hide();
+                $("#ModalCreate").modal("show");
+            }
+        },
+        error: function (response) {
+            console.log(response.responseText);
         }
-    },
-    error: function (response) {
-        console.log(response.responseText);
-    }
-});
+    });
+}
+
 
 $("input[name='picture']").change(function () {
     if (this.files && this.files[0]) {

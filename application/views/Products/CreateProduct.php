@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="col-12 col-sm-6 text-center">
-                <img id="picture_preview" src="<?= base_url(); ?>/assets/img/products/<?php if (isset($masproduct)) { echo $masproduct->picture; }else{ echo "default-product.png"; }?>" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
+                <img src="<?= base_url(); ?>/assets/img/products/<?php if (isset($masproduct)) { echo $masproduct->picture; }else{ echo "default-product.png"; }?>" class="img-thumbnail picture_preview" height="60" width="60" asp-append-version="true"/>
             </div>
         </div>
 

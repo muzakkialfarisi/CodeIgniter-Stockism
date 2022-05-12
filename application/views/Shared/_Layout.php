@@ -21,7 +21,7 @@
             if (isset($this->session->userdata['logged_in'])) {
                 $email_user = ($this->session->userdata['logged_in']['email_user']);
                 $user_role = ($this->session->userdata['logged_in']['id_usertype']);
-                $email_tenant = ($this->session->userdata['logged_in']['email_tenant']);
+                //$email_tenant = ($this->session->userdata['logged_in']['email_tenant']);
 
                 if($this->session->userdata['logged_in']['id_usertype'] == "Tenant") { 
                     $account = $this->db->query("SELECT * FROM mastenant where email = '$email_user'")->row();
@@ -45,25 +45,19 @@
                 
                 <div class="sidebar-content">
                     <div class="sidebar-user">
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin") { ?>
+                            <img src="<?= base_url(); ?>assets/img/avatars/admin.png" class="img-fluid rounded-circle mb-2"/>
+                            <div class="fw-bold"> Admin </div>
+                        <?php } ?>
 
-                        <img src="<?= base_url(); ?>assets/img/avatars/<?php 
-                            if($this->session->userdata['logged_in']['id_usertype'] == "Admin") {
-                                echo "admin.png";
-                            } 
-                            else { 
-                                echo $account->picture;
-                            } ?>" class="img-fluid rounded-circle mb-2"/>
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
+                            <img src="<?= base_url(); ?>assets/img/avatars/<?= $account->picture ?>" class="img-fluid rounded-circle mb-2"/>
+                            <div class="fw-bold"> <?= $account->name; ?></div>
+                            <input name="user_id" type="hidden" value="<?= $this->session->userdata['logged_in']['email_tenant']; ?>">
+                        <?php } ?>
                         
-                        <div class="fw-bold">
-                            <?php 
-                            if($this->session->userdata['logged_in']['id_usertype'] == "Admin") {
-                                echo "Admin";
-                            } 
-                            else { 
-                                echo $account->name;
-                            } ?>
-                        </div>
-                        <input name="user_id" type="hidden" value="<?= $email_tenant; ?>">
+                        
+                        <input name="id_usertype" type="hidden" value="<?= $user_role; ?>">
                         <small><?= ucfirst($user_role) ?></small>
                     </div>
 
@@ -105,10 +99,10 @@
 
         </div>
 
-        <script src="<?= base_url(); ?>assets/js/main/app.js"></script>
-        <script src="<?= base_url(); ?>assets/sweetalert2/sweetalert2.min.js"></script>
-        <script src="<?= base_url(); ?>assets/js/main/main.js"></script>
-        <script src="<?= base_url(); ?>assets/js/<?= $javascripts?>.js"></script>
+        <script src="<?= base_url(); ?>assets/js/main/app.js?<?= time() ?>"></script>
+        <script src="<?= base_url(); ?>assets/sweetalert2/sweetalert2.min.js?<?= time() ?>"></script>
+        <script src="<?= base_url(); ?>assets/js/main/main.js?<?= time() ?>"></script>
+        <script src="<?= base_url(); ?>assets/js/<?= $javascripts ?>.js?<?= time() ?>"></script>
         <?php $this->load->view("Home/_Notification.php") ?> 
 
     </body>

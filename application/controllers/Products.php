@@ -48,11 +48,6 @@ class Products extends CI_Controller {
 			redirect('Products/Index');
 		}
 
-        $picture = "default-product.png";
-        if($this->input->post('picture') != null){
-            //$picture = functtion add picture
-        }
-
         $sku = $this->input->post('sku');
         if($this->input->post('sku') == "Auto Generated"){
             $sku = date("ymd-His");
@@ -71,6 +66,16 @@ class Products extends CI_Controller {
         if($this->MasProduct->GetProductByCodeByTenant($code, $this->session->userdata['logged_in']['user_id'])->row() > 0){
             $this->session->set_flashdata('error', 'QRCode Already Exist!');
 			redirect('Products/Index');
+        }
+
+        $picture = "default-product.png";
+        if($this->input->post('picture') != null){
+            //$picture = functtion add picture
+        }
+
+        $picture = "default-product.png";
+        if(!empty($_FILES['picture']['name'])){
+            $picture = $this->UploadProductPicture($code);
         }
 
         $masproduct = array(
@@ -224,5 +229,21 @@ class Products extends CI_Controller {
         $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
         return $image_code;
+    }
+
+    private function UploadWarehousePicture($name)
+    {
+        $config['upload_path']          = FCPATH.'/assets/img/products/';
+        $config['allowed_types']        = 'jpg|jpeg|png';
+        $config['file_name']            = $name;
+        $config['overwrite']            = true;
+        $config['max_size']             = 512; // 1MB
+
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('picture')) {
+            return "error";
+        }
+        $uploaded_data = $this->upload->data();
+        return $uploaded_data['file_name'];
     }
 }

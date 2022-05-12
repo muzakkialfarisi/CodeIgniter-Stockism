@@ -1,4 +1,4 @@
-console.log("sidu");
+console.log("makan");
 
 $("#sku").on('click', function () {
     console.log("bismilah");

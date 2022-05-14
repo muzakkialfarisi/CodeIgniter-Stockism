@@ -21,7 +21,7 @@ class Warehouses extends CI_Controller {
         if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
             $data['maswarehouse'] = $this->MasWarehouse->GetAll()->result_array();
         }else{
-            $data['maswarehouse'] = $this->MasWarehouse->GetWarehouseByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
+            $data['maswarehouse'] = $this->MasWarehouse->GetWarehouseByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
         }
         
         $this->load->view('Shared/_Layout', $data);
@@ -37,12 +37,12 @@ class Warehouses extends CI_Controller {
 			redirect('Warehouses/Index');
 		}
 
-        if ($this->MasWarehouse->GetWarehouseByTenant($this->session->userdata['logged_in']['user_id'])->row() > 0){
+        if ($this->MasWarehouse->GetWarehouseByTenant($this->session->userdata['logged_in']['email_tenant'])->row() > 0){
 			$this->session->set_flashdata('error', 'You can only create one warehouse!');
 			redirect('Warehouses/Index');
 		}
 
-        if ($this->MasWarehouse->GetWarehouseByIdByTenant($this->input->post('id_warehouse'), $this->session->userdata['logged_in']['user_id'])->row() > 0){
+        if ($this->MasWarehouse->GetWarehouseByIdByTenant($this->input->post('id_warehouse'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
 			$this->session->set_flashdata('error', 'Warehouses Already Exist!');
 			redirect('Warehouses/Index');
 		}
@@ -62,7 +62,7 @@ class Warehouses extends CI_Controller {
             'id_warehouse' => $id_warehouse,
 			'name' => $this->input->post('name'),
 			'address' => $this->input->post('address'),
-			'email_tenant' => $this->session->userdata['logged_in']['user_id'],
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
             'picture' => $picture
 		);
 

@@ -23,7 +23,7 @@ class Customers extends CI_Controller {
 		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
         	$data['mascustomer'] = $this->MasCustomer->GetAll()->result_array();
 		}else{
-			$data['mascustomer'] = $this->MasCustomer->GetCustomerByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
+			$data['mascustomer'] = $this->MasCustomer->GetCustomerByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
 		}
 		
         $this->load->view('Shared/_Layout', $data);
@@ -52,7 +52,7 @@ class Customers extends CI_Controller {
 			'address' => $this->input->post('address'),
 			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $this->session->userdata['logged_in']['user_id'],
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
 			'status' => 'active'
 		);
 

@@ -1,5 +1,3 @@
-console.log("makanan");
-
 $('.btn-delete').click(function(e){
     swal({
         title:"Are you sure?",

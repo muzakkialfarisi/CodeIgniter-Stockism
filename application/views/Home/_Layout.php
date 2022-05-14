@@ -8,7 +8,8 @@
         <meta name="description" content="Modern, flexible and responsive Bootstrap 5 admin &amp; dashboard template">
         <meta name="author" content="Bootlab">
 
-        <title>Spark - Bootstrap 5 Admin &amp; Dashboard Template</title>
+        <title>Stockism</title>
+        <link rel="shortcut icon" href="<?= base_url().'assets/img/products/default-product.png';?>">
 
         <link href="<?= base_url(); ?>/assets/css/light.css" rel="stylesheet">
         <style>

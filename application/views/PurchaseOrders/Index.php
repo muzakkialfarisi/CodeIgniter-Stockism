@@ -25,21 +25,31 @@
                 <tbody>
                     <?php foreach($incpurchaseorder as $item) { ?>
                         <tr>
-                            <!-- <td><?= $item['invoice_po'] ?></td>
-                            <td><?= $item['supplier'] ?></td>
                             <td><?= $item['invoice_po'] ?></td>
-                            <td><?= $item['supplier'] ?></td>
-                            <td><?= $item['invoice_po'] ?></td>
-                            <td><?= $item['supplier'] ?></td>
+                            <td>
+                                <?php 
+                                    $id_supplier = $item['id_supplier'];
+                                    echo $this->db->query("SELECT * FROM massupplier where id_supplier = '$id_supplier'")->row()->name;
+                                ?>
+                            </td>
+                            <td><?= $item['date_created'] ?></td>
+                            <td class="text-end">
+                                <?php 
+                                    $id_po = $item['id_po'];
+                                    echo number_format($this->db->query("SELECT SUM(subtotal) AS sum FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->sum);
+                                ?>
+                            </td>
+                            <td><?= $item['payment_status'] ?></td>
+                            <td><?= $item['delivery_status'] ?></td>
                             <td class="text-center">
                                 <div class="dropdown">
                                     <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_productcategory'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
-                                        <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['id_productcategory'] ?>">Delete</button></li>
+                                        <li><a type="button" class="dropdown-item" href="<?= site_url('PurchaseOrders/Detail/'.$item['id_po']) ?>">Details</a></li>
+                                        <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_po'] ?>" data-bs-target="#ModalEdit">as</button></li>
                                     </ul>
                                 </div>
-                            </td> -->
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

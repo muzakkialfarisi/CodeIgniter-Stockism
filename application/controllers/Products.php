@@ -24,7 +24,7 @@ class Products extends CI_Controller {
         if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
             $data['masproduct'] = $this->MasProduct->GetAll()->result_array();
         }else{
-            $data['masproduct'] = $this->MasProduct->GetProductByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
+            $data['masproduct'] = $this->MasProduct->GetProductByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
         }
         
         $this->load->view('Shared/_Layout', $data);
@@ -36,16 +36,16 @@ class Products extends CI_Controller {
         $data['javascripts'] = "Products/Create";
 		$data['content'] = "Products/Create";
 
-        $data['masproductunit'] = $this->MasProductUnit->GetProductUnitByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
-        $data['masproductcategory'] = $this->MasProductCategory->GetProductCategoryByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
+        $data['masproductunit'] = $this->MasProductUnit->GetProductUnitByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
+        $data['masproductcategory'] = $this->MasProductCategory->GetProductCategoryByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
         $this->load->view('Shared/_Layout', $data);
     }
 
     public function CreatePost()
     {
-        if ($this->MasProduct->GetProductByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['user_id'])->row() > 0){
+        if ($this->MasProduct->GetProductByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
 			$this->session->set_flashdata('error', 'Product  Already Exist!');
-			redirect('Products/Index');
+			redirect('Products/Create');
 		}
 
         $sku = $this->input->post('sku');
@@ -53,9 +53,9 @@ class Products extends CI_Controller {
             $sku = date("ymd-His");
         }
 
-        if($this->MasProduct->GetProductBySkuByTenant($sku, $this->session->userdata['logged_in']['user_id'])->row() > 0){
+        if($this->MasProduct->GetProductBySkuByTenant($sku, $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
             $this->session->set_flashdata('error', 'SKU Already Exist!');
-			redirect('Products/Index');
+			redirect('Products/Create');
         }
 
         $code = $this->input->post('code');
@@ -63,14 +63,9 @@ class Products extends CI_Controller {
             $code = $this->CodeBuilder();
         }
 
-        if($this->MasProduct->GetProductByCodeByTenant($code, $this->session->userdata['logged_in']['user_id'])->row() > 0){
+        if($this->MasProduct->GetProductByCodeByTenant($code, $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
             $this->session->set_flashdata('error', 'QRCode Already Exist!');
-			redirect('Products/Index');
-        }
-
-        $picture = "default-product.png";
-        if($this->input->post('picture') != null){
-            //$picture = functtion add picture
+			redirect('Products/Create');
         }
 
         $picture = "default-product.png";
@@ -96,7 +91,7 @@ class Products extends CI_Controller {
 			'minimum_stock' => $this->input->post('minimum_stock'),
 			'status' => "Active",
             'picture' => $picture,
-			'email_tenant' => $this->session->userdata['logged_in']['user_id']
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant']
 		);
 
         $id_product = $this->MasProduct->Insert($masproduct);
@@ -143,28 +138,66 @@ class Products extends CI_Controller {
         $data['masproductunitid'] = $this->MasProductUnit->GetProductUnitById($data['masproduct']->id_productunit)->row();
         $data['masproductcategoryid'] = $this->MasProductCategory->GetProductCategoryById($data['masproduct']->id_productcategory)->row();
         
-        $data['masproductunit'] = $this->MasProductUnit->GetProductUnitByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
-        $data['masproductcategory'] = $this->MasProductCategory->GetProductCategoryByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
+        $data['masproductunit'] = $this->MasProductUnit->GetProductUnitByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
+        $data['masproductcategory'] = $this->MasProductCategory->GetProductCategoryByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
         $this->load->view('Shared/_Layout', $data);
     }
 
     public function EditPost(){
-        $this->form_validation->set_rules('id_product', 'id_product', 'required');
-        $this->form_validation->set_rules('name', 'name', 'required');
-
-		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('error', 'Invalid Modelstate!');
-			redirect('Products/Index');
-		}
-
-        if ($this->MasProductCMasProductategory->GetProductByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['user_id'])->row() > 0){
+        if ($this->MasProduct->GetProductByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 1){
 			$this->session->set_flashdata('error', 'Product  Already Exist!');
-			redirect('Products/Index');
+			redirect('Products/Edit'.$this->input->post('id_product'));
 		}
+
+        $sku = $this->input->post('sku');
+        if($this->input->post('sku') == "Auto Generated"){
+            $sku = date("ymd-His");
+        }
+
+        if($this->MasProduct->GetProductBySkuByTenant($sku, $this->session->userdata['logged_in']['email_tenant'])->row() > 1){
+            $this->session->set_flashdata('error', 'SKU Already Exist!');
+			redirect('Products/Edit'.$this->input->post('id_product'));
+        }
+
+        $code = $this->input->post('code');
+        if($this->input->post('code') == "Auto Generated"){
+            $code = $this->CodeBuilder();
+        }
+
+        if($this->MasProduct->GetProductByCodeByTenant($code, $this->session->userdata['logged_in']['email_tenant'])->row() > 1){
+            $this->session->set_flashdata('error', 'QRCode Already Exist!');
+			redirect('Products/Edit'.$this->input->post('id_product'));
+        }
+
+        $picture = $this->MasProduct->GetProductById($this->input->post('id_product'))->row()->picture;
+        if(!empty($_FILES['picture']['name'])){
+            if($picture != "defaut-picture.png"){
+                $this->load->helper("file");
+                delete_files(FCPATH.'/assets/img/warehouses/'.$picture);
+            }
+            $picture = $this->UploadProductPicture($code);
+        }
 
         $masproduct = array(
             'id_product' => $this->input->post('id_product'),
 			'name' => $this->input->post('name'),
+			'sku' => $sku,
+			'code' => $code,
+			'code_image' => $this->QRCodeBuilder($code),
+			'quantity' => $this->input->post('quantity'),
+			'purchase_price' => $this->input->post('purchase_price'),
+			'selling_price' => $this->input->post('selling_price'),
+			'panjang' => $this->input->post('panjang'),
+			'lebar' => $this->input->post('lebar'),
+			'tinggi' => $this->input->post('tinggi'),
+			'actual_weight' => $this->input->post('actual_weight'),
+			'description' => $this->input->post('description'),
+			'id_productunit' => $this->input->post('id_productunit'),
+			'id_productcategory' => $this->input->post('id_productcategory'),
+			'minimum_stock' => $this->input->post('minimum_stock'),
+			//'status' => "Active",
+            'picture' => $picture,
+			//'email_tenant' => $this->session->userdata['logged_in']['email_tenant']
 		);
 
         $this->MasProduct->Update($masproduct);
@@ -220,7 +253,7 @@ class Products extends CI_Controller {
         $config['white']        = array(70,130,180); // array, default is array(0,0,0)
         $this->ciqrcode->initialize($config);
  
-        $image_code = $code.'.png'; //buat name dari qr code sesuai dengan nim
+        $image_code = $code.'.png'; //buat name dari qr code sesuai dengan 
  
         $params['data'] = $code; //data yang akan di jadikan QR CODE
         $params['level'] = 'H'; //H=High
@@ -231,7 +264,7 @@ class Products extends CI_Controller {
         return $image_code;
     }
 
-    private function UploadWarehousePicture($name)
+    private function UploadProductPicture($name)
     {
         $config['upload_path']          = FCPATH.'/assets/img/products/';
         $config['allowed_types']        = 'jpg|jpeg|png';

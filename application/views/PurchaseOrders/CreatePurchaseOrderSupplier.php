@@ -5,8 +5,8 @@
     <div class="card-body m-3">
         <div class="mb-3 form-group required">
             <label class="control-label">Supplier</label>
-            <select class="form-select flex-grow-1" name="supplier">
-                <option selected disabled>Select...</option>
+            <select class="form-select" name="id_supplier" required>
+                <option selected disabled value="">Select...</option>
                 <?php foreach ($massupplier as $item) { ?>
                     <option value="<?= $item["id_supplier"] ?>"><?= $item["name"] ?></option>
                 <?php } ?>

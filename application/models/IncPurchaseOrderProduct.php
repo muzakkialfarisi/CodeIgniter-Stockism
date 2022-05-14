@@ -29,4 +29,9 @@ class IncPurchaseOrderProduct extends CI_Model{
         $data = $this->db->query("SELECT * FROM incpurchaseorderproduct WHERE id_product = '$id' ");
 		return $data;
     }
+
+    public function GetPurchaseOrderProductByIdPo($id){
+        $data = $this->db->query("SELECT * FROM incpurchaseorderproduct WHERE id_po = '$id' ");
+		return $data;
+    }
 }

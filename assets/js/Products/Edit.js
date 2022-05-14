@@ -1,3 +1,13 @@
+$("input[name='picture']").change(function () {
+    if (this.files && this.files[0]) {
+        var fileReader = new FileReader();
+        fileReader.onload = function (event) {
+            $('.picture_preview').attr('src', event.target.result);
+        };
+        fileReader.readAsDataURL(this.files[0]);
+    }
+});
+
 $("#sku").on('click', function () {
     if ($(this).is(":checked")){
         $("input[name='sku']").attr('readonly', false);
@@ -31,12 +41,3 @@ $("#expired_date").on('change', function () {
     }
 });
 
-$("input[name='picture']").change(function () {
-    if (this.files && this.files[0]) {
-        var fileReader = new FileReader();
-        fileReader.onload = function (event) {
-            $('.picture_preview').attr('src', event.target.result);
-        };
-        fileReader.readAsDataURL(this.files[0]);
-    }
-});

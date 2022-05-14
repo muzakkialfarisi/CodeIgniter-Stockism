@@ -15,6 +15,7 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
+                        <th>Picture</th>
                         <th>SKU</th>
                         <th>Name</th>
                         <th>Purchase Price</th>
@@ -32,6 +33,7 @@
                     $i = 1;
                     foreach($masproduct as $item) { ?>
                         <tr>
+                            <td><img src="<?= base_url(); ?>assets/img/products/<?=$item['picture'] ?>" class="rounded-circle" height="60" width="60" asp-append-version="true"/></td>
                             <td><?= $item['sku'] ?></td>
                             <td><?= $item['name'] ?></td>
                             <td class="text-end"><?= number_format($item['purchase_price']) ?></td>

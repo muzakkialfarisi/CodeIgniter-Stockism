@@ -8,7 +8,8 @@
         <meta name="description" content="Modern, flexible and responsive Bootstrap 5 admin &amp; dashboard template">
         <meta name="author" content="Bootlab">
 
-        <title>Spark - Bootstrap 5 Admin &amp; Dashboard Template</title>
+        <title><?= $menukey ?></title>
+        <link rel="shortcut icon" href="<?= base_url().'assets/img/products/default-product.png';?>">
 
         <link href="<?= base_url(); ?>/assets/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
         <link href="<?= base_url(); ?>/assets/css/light.css" rel="stylesheet" type="text/css">
@@ -19,7 +20,7 @@
     <body>
         <?php
             if (isset($this->session->userdata['logged_in'])) {
-                $email_user = ($this->session->userdata['logged_in']['email_user']);
+                $email_user = ($this->session->userdata['logged_in']['email']);
                 $user_role = ($this->session->userdata['logged_in']['id_usertype']);
                 //$email_tenant = ($this->session->userdata['logged_in']['email_tenant']);
 

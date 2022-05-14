@@ -28,13 +28,13 @@
 					<div class="card-body">
 						<form action="<?= site_url('Dashboards/ProfileAccount') ?>" method="post">
 							<?php { 
-								$email_user = $this->session->userdata['logged_in']['email_user'];
+								$email = $this->session->userdata['logged_in']['email'];
 
 								if($this->session->userdata['logged_in']['id_usertype'] == "Tenant") { 
-                                    $account = $this->db->query("SELECT * FROM mastenant where email = '$email_user'")->row();
+                                    $account = $this->db->query("SELECT * FROM mastenant where email = '$email'")->row();
                                 }
                                 else{
-                                    $account = $this->db->query("SELECT * FROM masemployee where email = '$email_user'")->row();
+                                    $account = $this->db->query("SELECT * FROM masemployee where email = '$email'")->row();
                                 }
 
 							?>
@@ -42,7 +42,7 @@
 								<div class="col-md-8">
 									<div class="mb-3 form-group required">
 										<label class="control-label">Email</label>
-										<input type="email" class="form-control" name="email" value="<?= $email_user ?>" readonly required>
+										<input type="email" class="form-control" name="email" value="<?= $email ?>" readonly required>
 									</div>
 									<div class="row">
 										<div class="col-12 col-sm-6">

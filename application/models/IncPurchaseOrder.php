@@ -18,13 +18,18 @@ class IncPurchaseOrder extends CI_Model{
     }
 
     public function Update($data){
-        $this->db->where('invoice_po', $data['invoice_po']);
+        $this->db->where('id_po', $data['id_po']);
         $this->db->update('incpurchaseorder', $data);
     }
 
     public function Delete($data){
-        $this->db->where('invoice_po', $data['invoice_po']);
+        $this->db->where('id_po', $data['id_po']);
         $this->db->delete('incpurchaseorder', $data);
+    }
+
+    public function GetPurchaseOrderById($id){
+        $data = $this->db->query("SELECT * FROM incpurchaseorder WHERE id_po = '$id' ");
+		return $data;
     }
 
 }

@@ -14,6 +14,7 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="purchaseorder" role="tabpanel">
                         <?php $this->load->view("Products/DetailPurchaseOrder.php") ?>
+                        <?php $this->load->view("Products/ModalEditPurchaseOrderProduct.php") ?>
                     </div>
                     <div class="tab-pane" id="tab-2" role="tabpanel">
                         <h4 class="tab-title">Another one</h4>

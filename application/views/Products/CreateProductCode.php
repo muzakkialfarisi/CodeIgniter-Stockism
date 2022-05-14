@@ -11,18 +11,18 @@
 
         <div class="mb-3 form-group required">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="sku">
-            <label class="control-label">SKU</label>
+                <input class="form-check-input" type="checkbox" id="sku" <?php if (isset($masproduct)) { echo "checked"; }?>>
+                <label class="control-label">SKU</label>
             </div>
-            <input type="text" class="form-control" name="sku" required value="Auto Generated" readonly>
+            <input type="text" class="form-control" name="sku" required value="<?php if (isset($masproduct)) { echo $masproduct->sku; }else{ echo "Auto Generated"; }?>" <?php if (!isset($masproduct)) { echo "readonly"; }?>>
         </div>
 
         <div class="mb-3 form-group required">
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" id="code">
+                <input class="form-check-input" type="checkbox" id="code" <?php if (isset($masproduct)) { echo "checked"; }?>>
                 <label class="control-label">QRCode</label>
             </div>
-            <input type="text" class="form-control" name="code" required value="Auto Generated" readonly>
+            <input type="text" class="form-control" name="code" required value="<?php if (isset($masproduct)) { echo $masproduct->code; }else{ echo "Auto Generated"; }?>" <?php if (!isset($masproduct)) { echo "readonly"; }?>>
         </div>
     </div>
 </div>

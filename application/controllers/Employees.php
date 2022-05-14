@@ -23,7 +23,7 @@ class Employees extends CI_Controller {
 		if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){
         	$data['masemployees'] = $this->MasEmployee->GetAll()->result_array();
 		}else{
-			$data['masemployees'] = $this->MasEmployee->GetEmployeeByTenant($this->session->userdata['logged_in']['user_id'])->result_array();
+			$data['masemployees'] = $this->MasEmployee->GetEmployeeByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
 		}
         $this->load->view('Shared/_Layout', $data);
 	}
@@ -40,7 +40,7 @@ class Employees extends CI_Controller {
 			redirect('Employees/Index');
 		}	
 
-		if ($this->MasEmployee->GetEmployeeByNameByEmailByTenant($this->input->post('name'), $this->input->post('email'), $this->session->userdata['logged_in']['user_id'])->row() > 0){
+		if ($this->MasEmployee->GetEmployeeByNameByEmailByTenant($this->input->post('name'), $this->input->post('email'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
 			$this->session->set_flashdata('error', 'Employee Already Exist!');
 			redirect('Employees/Index');
 		}
@@ -60,7 +60,7 @@ class Employees extends CI_Controller {
 		$masemployee = array(
 			'name' => $this->input->post('name'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $this->session->userdata['logged_in']['user_id'],
+			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
 			'picture' => $picture,
 			'status' => 'active',
 			'address' => $this->input->post('address'),
@@ -106,7 +106,7 @@ class Employees extends CI_Controller {
 			'address' => $this->input->post('address'),
 			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $this->input->post('user_id'),
+			'email_tenant' => $this->input->post('email_tenant'),
 			'picture' => $picture,
 			'status' => 'active'
 		);

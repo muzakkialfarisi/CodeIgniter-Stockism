@@ -64,8 +64,7 @@ class Home extends CI_Controller {
 		}
 		elseif($secuserrole->row()->name == "Tenant"){
 			$session_data = array(
-				'user_id' => $mastenant->row()->email_tenant,
-				'email_user' => $this->input->post('email_user'),
+				'email' => $this->input->post('email_user'),
 				'email_tenant' => $mastenant->row()->email_tenant,
 				'id_usertype' => $secuserrole->row()->name,
 				'secmenu' => $this->SecMenu->GetMenuByTenant(1)->result_array()
@@ -73,8 +72,7 @@ class Home extends CI_Controller {
 		}
 		elseif($secuserrole->row()->name == "Employee"){
 			$session_data = array(
-				'user_id' => $masemployee->row()->id_employee,
-				'email_user' => $this->input->post('email_user'),
+				'email' => $this->input->post('email_user'),
 				'email_tenant' => $mastenant->row()->email_tenant,
 				'id_usertype' => $secuserrole->row()->name,
 				'secmenu' => $this->SecMenu->GetMenuByEmployee(1)->result_array()

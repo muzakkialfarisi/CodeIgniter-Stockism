@@ -65,10 +65,9 @@
 								</div>
 								<div class="col-md-4">
 									<div class="text-center">
-										<img src="<?= base_url()?>assets/img/avatars/<?= $account->picture; ?>" class="rounded-circle img-responsive mt-2"
-											width="128" height="128" />
+										<img src="<?= base_url(); ?>assets/img/tenant/<?= $account->picture; ?>" class="img-thumbnail picture_preview" width="128" height="128" asp-append-version="true"/>
 										<div class="mt-2">
-											<span class="btn btn-primary"><i class="fas fa-upload"></i> Upload</span>
+											<input type="file" class="form-control" name="picture">
 										</div>
 										<small>Max 1 MB</small>
 									</div>

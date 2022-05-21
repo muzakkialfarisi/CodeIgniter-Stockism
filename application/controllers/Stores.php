@@ -45,10 +45,16 @@ class Stores extends CI_Controller {
 
         $options['cost'] = 12;
 
-		$picture = "default-store.png";
-        if($this->input->post('picture') != null){
-            //$picture = functtion add picture
+		$new_id_store = $this->IdBuilder($this->MasStore->GetAll()->num_rows()+1);
+        $picture = "default-store.png";
+        if(!empty($_FILES['picture']['name'])){
+            $picture = $this->UploadStorePicture($new_id_store);
         }
+
+        if($picture == "error"){
+            $this->session->set_flashdata('error', 'Something Wrong!');
+			redirect('Stores/Index');
+		}
 
 		$masstore = array(
 			'name' => $this->input->post('name'),
@@ -71,17 +77,28 @@ class Stores extends CI_Controller {
         $this->form_validation->set_rules('name', 'name', 'required');
 		$this->form_validation->set_rules('phone_number', 'phone_number');
 		$this->form_validation->set_rules('komisi', 'komisi');
-		$IdMarketplace = $this->MasStore->GetIdMarketplaceByName($this->input->post('id_marketplace'))->row()->id_marketplace;
+		// $IdMarketplace = $this->MasStore->GetIdMarketplaceByName($this->input->post('id_marketplace'))->row()->id_marketplace;
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', 'Invalid Modelstate!');
 			redirect('Stores/Index');
 		}
 
-		$picture = "default-store.png";
-        if($this->input->post('picture') != null){
-            //$picture = functtion add picture
+		$store = $this->MasStore->GetStoreById($this->input->post('id_toko'))->row();
+
+		$picture = $store->picture;
+        if(!empty($_FILES['picture']['name'])){
+            if($picture != "default-store.png"){
+                $this->load->helper("file");
+                delete_files(FCPATH.'/assets/img/stores/'.$picture);
+            }
+            $picture = $this->UploadStorePicture($this->input->post('id_toko'));
         }
+
+        if($picture == "error"){
+            $this->session->set_flashdata('error', 'Something Wrong!');
+			redirect('Stores/Index');
+		}
 
         $masstore = array(
             'id_toko' => $this->input->post('id_toko'),
@@ -123,5 +140,26 @@ class Stores extends CI_Controller {
         $id_toko = $this->input->post('id_toko');
         $masstore = $this->MasStore->GetStoreById($id_toko);
         echo json_encode($masstore->row());
+	}
+	
+	private function UploadStorePicture($name)
+    {
+        $config['upload_path']          = FCPATH.'/assets/img/stores/';
+        $config['allowed_types']        = 'jpg|jpeg|png';
+        $config['file_name']            = $name;
+        $config['overwrite']            = true;
+        $config['max_size']             = 512; // 1MB
+
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('picture')) {
+            return "error";
+        }
+        $uploaded_data = $this->upload->data();
+        return $uploaded_data['file_name'];
+	}
+	
+	private function IdBuilder($temp)
+    {
+        return sprintf($temp+1);
     }
 }

@@ -52,9 +52,14 @@ class Employees extends CI_Controller {
 
         $options['cost'] = 12;
 		
-		$picture = "default-avatar.png";
-        if($this->input->post('picture') != null){
-            //$picture = functtion add picture
+		$new_id_employee = $this->IdBuilder($this->MasEmployee->GetAll()->num_rows());
+        $picture = "default-avatar.png";
+        if(!empty($_FILES['picture']['name'])){
+            $picture = $this->UploadEmployeePicture("employee-".$new_id_employee);
+        }
+        if($picture == "error"){
+            $this->session->set_flashdata('error', 'Something Wrong!');
+			redirect('Employees/Index');
         }
 		
 		$masemployee = array(
@@ -95,9 +100,20 @@ class Employees extends CI_Controller {
 			redirect('Stores/Index');
 		}
 
-		$picture = "default-avatar.png";
-        if($this->input->post('picture') != null){
-            //$picture = functtion add picture
+		$employee = $this->MasEmployee->GetEmployeeById($this->input->post('id_employee'))->row();
+
+		$picture = $employee->picture;
+        if(!empty($_FILES['picture']['name'])){
+            if($picture != "default-avatar.png"){
+                $this->load->helper("file");
+                delete_files(FCPATH.'/assets/img/avatar/'.$picture);
+            }
+            $picture = $this->UploadEmployeePicture("employee-". $this->input->post('id_employee'));
+        }
+
+        if($picture == "error"){
+            $this->session->set_flashdata('error', 'Something Wrong!');
+			redirect('Employees/Index');
         }
 
         $masemployee = array(
@@ -162,4 +178,24 @@ class Employees extends CI_Controller {
         echo json_encode($masemployee->row());
     }
 
+	private function UploadEmployeePicture($name)
+    {
+        $config['upload_path']          = FCPATH.'/assets/img/avatars/';
+        $config['allowed_types']        = 'jpg|jpeg|png';
+        $config['file_name']            = $name;
+        $config['overwrite']            = true;
+        $config['max_size']             = 512; // 1MB
+
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('picture')) {
+            return "error";
+        }
+        $uploaded_data = $this->upload->data();
+        return $uploaded_data['file_name'];
+	}
+	
+	private function IdBuilder($temp)
+    {
+        return sprintf($temp+1);
+    }
 }

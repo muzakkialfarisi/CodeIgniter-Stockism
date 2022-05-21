@@ -5,7 +5,7 @@
                 <h5 class="modal-title">Create New Employee</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= site_url('Employees/CreatePost') ?>" method="post">
+            <form action="<?= site_url('Employees/CreatePost') ?>" method="post" enctype="multipart/form-data">
                 <?php echo validation_errors(); ?>
                 <div class="modal-body m-3">
                     <div class="mb-3 form-group required">
@@ -27,19 +27,19 @@
 
                     <div class="mb-3 form-group">
                         <label class="control-label">Address</label>
-                        <textarea class="form-control" rows="3" name="address"></textarea>
+                        <textarea class="form-control" rows="3" name="address" value=""></textarea>
                     </div>
 
                     <div class="row">
                         <div class="col-12 col-sm-6">
                             <div class="mb-3 form-group">
                                 <label class="control-label">Picture</label>
-                                <input type="file" class="form-control" name="picture">
-                                <small class="form-text d-block text-muted">Max 500 kb.</small>
+                                <input accept="image/*" type="file" class="form-control" name="picture">
+                                <span class="font-13 text-muted">Max 1 MB</span>
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 text-center">
-                            <img src="<?= base_url(); ?>/assets/img/employees/<?php if (isset($masemployee)) { echo $masemployee->picture; }else{ echo "default-employees.png"; }?>" class="img-thumbnail" height="60" width="60" asp-append-version="true"/>
+                            <img src="<?= base_url(); ?>/assets/img/avatars/default-avatar.png" class="img-thumbnail picture_preview" height="60" width="60" asp-append-version="true"/>
                         </div>
                     </div>
                     

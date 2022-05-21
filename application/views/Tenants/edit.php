@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Employee</h5>
+                <h5 class="modal-title">Edit Tenant</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<?= site_url('Employees/EditPost') ?>" method="post" enctype="multipart/form-data">
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 text-center">
-                                <img src="<?= base_url(); ?>/assets/img/avatars/default-avatar.png" class="img-thumbnail picture_preview" height="60" width="60" asp-append-version="true"/>
+                                <img src="<?= base_url(); ?>/assets/img/employees/default-employees.png" class="img-thumbnail picture_preview" height="60" width="60" asp-append-version="true"/>
                             </div>
                         </div>
 

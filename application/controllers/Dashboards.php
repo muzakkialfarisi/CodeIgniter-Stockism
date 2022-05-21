@@ -44,25 +44,29 @@ class Dashboards extends CI_Controller {
 			$account = $this->MasEmployee->GetEmployeeByEmail($this->input->post('email'))->row();
 		}
 
-		$picture = $this->input->post('picture');
-		if($picture == null)
-		{
-            $picture = $account->picture;
-        }else
-		{
-			//kondisi
+		$picture = $account->picture;
+        if(!empty($_FILES['picture']['name'])){
+            if($picture != "default-avatar.png"){
+                $this->load->helper("file");
+                delete_files(FCPATH.'/assets/img/tenant/'.$picture);
+            }
+            $picture = $this->UploadStorePicture($this->input->post('id_toko'));
+        }
+
+        if($picture == "error"){
+            $this->session->set_flashdata('error', 'Something Wrong!');
+			redirect('Dashboards/Profile');
 		}
 
 		if($this->session->userdata['logged_in']['id_usertype'] == "Tenant")
 		{
 			$mastenant = array(
-				'email_tenant' => $this->input->post('email'),
+				'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
 				'name' => $this->input->post('name'),
 				'phone_number' => $this->input->post('phone_number'),
 				'address' => $this->input->post('address'),
 				'picture' => $picture
 			);
-
 			$this->MasTenant->Update($mastenant);
 		}
 		else

@@ -3,6 +3,7 @@ $('#btn-modal-create').on('click', function () {
     $("input[name='name']").val("");
     $("input[name='phone_number']").val("");
     $("input[name='komisi']").val("");
+    $(".picture_preview").attr('src', window.location.origin + '/stockism/assets/img/stores/default-store.png');
 });
 
 $('.btn-edit').on('click', function () {
@@ -23,6 +24,7 @@ $('.btn-edit').on('click', function () {
             $("input[name='phone_number']").val(data.phone_number);
             $("input[name='komisi']").val(data.komisi);
             $("input[name='email_tenant']").val(data.email_tenant);
+            $(".picture_preview").attr('src', window.location.origin + '/stockism/assets/img/stores/' + data.picture);
 
             var id_custtype = data.id_marketplace;
             $.ajax({
@@ -61,6 +63,17 @@ $('.btn-edit').on('click', function () {
             console.log(response.responseText);
         }
     });
+});
+
+$("input[name='picture']").change(function () {
+    console.log("masuk");
+    if (this.files && this.files[0]) {
+        var fileReader = new FileReader();
+        fileReader.onload = function (event) {
+            $('.picture_preview').attr('src', event.target.result);
+        };
+        fileReader.readAsDataURL(this.files[0]);
+    }
 });
 
 $('.btn-delete').click(function(e){

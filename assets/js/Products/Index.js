@@ -27,3 +27,6 @@ $('.btn-activator').click(function(e){
         }
     });
 });
+
+$(".table").DataTable({
+});

@@ -35,8 +35,8 @@
                                 <div class="dropdown">
                                     <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['email_tenant'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
-                                        <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['email_tenant'] ?>">Delete</button></li>
+                                        <!-- <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['email_tenant'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
+                                        <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['email_tenant'] ?>">Delete</button></li> -->
                                     </ul>
                                 </div>
                             </td>
@@ -48,14 +48,6 @@
     
     </div>
 </div>
-
-<form action="<?= site_url('Tenants/DeletePost') ?>" method="post" id="DeletePost">
-    <input type="text" class="form-control" name="email_tenant" required hidden>
-    <input type="text" class="form-control" name="email" required hidden>
-</form>
-
-<?php $this->load->view("Tenants/Create.php") ?>
-<?php $this->load->view("Tenants/Edit.php") ?>
 
 
 

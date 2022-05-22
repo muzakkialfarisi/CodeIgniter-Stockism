@@ -24,7 +24,7 @@
                     <td class="text-end"><?= number_format($item['purchase_price']) ?></td>
                     <td><?= $item['storage'] ?></td>
                     <td class="text-center">
-                        <button class="btn btn-sm text-primary"  data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProduct"><i class="align-middle me-2 fas fa-fw fa-edit"></i></button>
+                        <button class="btn btn-sm text-primary btn-edit-purchaseorderproduct" data-id="<?= $item['id_poproduct'] ?>" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProduct"><i class="align-middle me-2 fas fa-fw fa-edit"></i></button>
                     </td> 
                 </tr>
             <?php

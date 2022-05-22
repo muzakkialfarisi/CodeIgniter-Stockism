@@ -14,8 +14,10 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-sm-6">
-                            <label class="control-label">Whatsapp Number</label>
-                            <input type="text" class="form-control" placeholder="08xxxxxxxxx" name="phone_number">
+                            <div class="mb-3 form-group required">
+                                <label class="control-label">Whatsapp Number</label>
+                                <input type="text" class="form-control" name="phone_number">
+                            </div>
                         </div>
                         <div class="col-12 col-sm-6">
                             <div class="mb-3 form-group required">

@@ -128,6 +128,29 @@ class Products extends CI_Controller {
         $this->load->view('Shared/_Layout', $data);
     }
 
+    public function EditPurchaseOrderProductPost()
+    {
+        $this->form_validation->set_rules('id_poproduct', 'id_poproduct', 'required');
+        $this->form_validation->set_rules('sku', 'sku', 'required');
+        $this->form_validation->set_rules('purchase_price', 'purchase_price', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Products/Detail/'.$this->input->post('id_product'));
+		}
+
+        $incpurchaseorderproduct = array(
+            'id_poproduct'      => $this->input->post('id_poproduct'),
+            'purchase_price'    => $this->input->post('purchase_price'),
+            'expired_date'      => $this->input->post('expired_date'),
+            'storage'           => $this->input->post('storage')
+        );
+
+        $this->IncPurchaseOrderProduct->Update($incpurchaseorderproduct);
+        $this->session->set_flashdata('success', 'Updated Successfully!');
+        redirect('Products/Detail/'.$this->input->post('id_product'));
+    }
+
     public function Edit($id_product)
     {
         $data['menukey'] = "Products";

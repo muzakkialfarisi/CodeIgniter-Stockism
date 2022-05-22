@@ -18,7 +18,9 @@
                         <th>Phone Number</th>
                         <th>Address</th>
                         <th>Email</th>
-                        <th>Tenant</th>
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
+                            <th>Tenant</th>
+                        <?php } ?>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -32,7 +34,9 @@
                             <td><?= $item['phone_number'] ?></td>
                             <td><?= $item['address'] ?></td>
                             <td><?= $item['email'] ?></td>
-                            <td><?= $item['email_tenant'] ?></td>
+                            <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
+                                <td><?= $item['email_tenant'] ?></td>
+                            <?php } ?>
                             <td class="text-center">
                                 <div class="dropdown">
                                     <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>

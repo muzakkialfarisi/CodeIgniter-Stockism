@@ -34,52 +34,52 @@
     </div>
     <div class="card-body m-3">
         <dl class="row">
-            <dt class = "col-sm-4">
+            <dt class = "col-4">
                 Stock
             </dt>
-            <dd class = "col-sm-8">
+            <dd class = "col-8">
                 : <?= $masproduct->quantity; ?>
             </dd>
-            <dt class = "col-sm-4">
+            <dt class = "col-4">
                 Unit
             </dt>
-            <dd class = "col-sm-8">
+            <dd class = "col-8">
                 : <?= $masproductunit->name; ?>
             </dd>
-            <dt class = "col-sm-4">
+            <dt class = "col-4">
                 Purchase Price
             </dt>
-            <dd class = "col-sm-8">
+            <dd class = "col-8">
                 : <?= number_format($masproduct->purchase_price); ?>
             </dd>
-            <dt class = "col-sm-4">
+            <dt class = "col-4">
                 Selling Price
             </dt>
-            <dd class = "col-sm-8">
+            <dd class = "col-8">
                 : <?= number_format($masproduct->selling_price); ?>
             </dd>
-            <dt class = "col-sm-4">
+            <dt class = "col-4">
                 Category
             </dt>
-            <dd class = "col-sm-8">
+            <dd class = "col-8">
                 : <?= $masproductcategory->name; ?>
             </dd>
-            <dt class = "col-sm-4">
+            <dt class = "col-4">
                 Size (PxLxT)
             </dt>
-            <dd class = "col-sm-8">
+            <dd class = "col-8">
                 : <?= $masproduct->panjang; ?> x <?= $masproduct->lebar; ?> x <?= $masproduct->tinggi; ?> (Cm)
             </dd>
-            <dt class = "col-sm-4">
+            <dt class = "col-4">
                 Actual Weight
             </dt>
-            <dd class = "col-sm-8">
+            <dd class = "col-8">
                 : <?= $masproduct->actual_weight; ?> Gram
             </dd>
-            <dt class = "col-sm-4">
+            <dt class = "col-4">
                 Description
             </dt>
-            <dd class = "col-sm-8">
+            <dd class = "col-8">
                 : <?= $masproduct->description; ?>
             </dd>
         </dl>

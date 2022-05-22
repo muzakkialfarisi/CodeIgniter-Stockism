@@ -1,6 +1,6 @@
 console.log($("input[name='id_usertype']").val());
 
-if($("input[name='id_usertype']").val() != "Admin"){
+if($("input[name='id_usertype']").val() == "Tenant"){
     $.ajax({
         type: 'POST',
         url: '/stockism/Warehouses/GetWarehouseByTenant',

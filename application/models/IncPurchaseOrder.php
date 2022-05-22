@@ -7,7 +7,7 @@ class IncPurchaseOrder extends CI_Model{
 	}
 
     public function GetPurchaseOrderByTenant($id){
-        $data = $this->db->query("SELECT * FROM incpurchaseorder WHERE email_tenant = '$id' ");
+        $data = $this->db->query("SELECT * FROM incpurchaseorder WHERE email_tenant = '$id'");
 		return $data;
     }
 

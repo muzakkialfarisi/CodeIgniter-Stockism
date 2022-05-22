@@ -11,7 +11,7 @@ class IncPurchaseOrderProduct extends CI_Model{
     }
 
     public function Update($data){
-        $this->db->where('id_productunit', $data['id_productunit']);
+        $this->db->where('id_poproduct', $data['id_poproduct']);
         $this->db->update('incpurchaseorderproduct', $data);
     }
 

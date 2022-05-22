@@ -26,7 +26,7 @@
 						<h5 class="card-title mb-0">Account</h5>
 					</div>
 					<div class="card-body">
-						<form action="<?= site_url('Dashboards/ProfileAccount') ?>" method="post">
+						<form action="<?= site_url('Dashboards/ProfileAccount') ?>" method="post" enctype="multipart/form-data">
 							<?php { 
 								$email = $this->session->userdata['logged_in']['email'];
 
@@ -65,7 +65,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="text-center">
-										<img src="<?= base_url(); ?>assets/img/tenant/<?= $account->picture; ?>" class="img-thumbnail picture_preview" width="128" height="128" asp-append-version="true"/>
+										<img src="<?= base_url(); ?>assets/img/avatars/<?= $account->picture; ?>" class="img-thumbnail picture_preview" width="128" height="128" asp-append-version="true"/>
 										<div class="mt-2">
 											<input type="file" class="form-control" name="picture">
 										</div>

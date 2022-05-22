@@ -55,7 +55,7 @@ class Home extends CI_Controller {
 
 		if($secuserrole->row()->name == "Admin"){
 			$session_data = array(
-				'email_user' => $this->input->post('email_user'),
+				'email' => $this->input->post('email_user'),
 				'id_usertype' => $secuserrole->row()->name,
 				'name' => "Admin",
 				'photo' => "admin.png",
@@ -73,7 +73,7 @@ class Home extends CI_Controller {
 		elseif($secuserrole->row()->name == "Employee"){
 			$session_data = array(
 				'email' => $this->input->post('email_user'),
-				'email_tenant' => $mastenant->row()->email_tenant,
+				'email_tenant' => $masemployee->row()->email_tenant,
 				'id_usertype' => $secuserrole->row()->name,
 				'secmenu' => $this->SecMenu->GetMenuByEmployee(1)->result_array()
 			);

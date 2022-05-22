@@ -5,10 +5,10 @@
                 <h5 class="modal-title">Edit Bach SKU</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= site_url('Products/EditPurchaseOrderProductPost') ?>" method="post">
+            <form action="<?= site_url('PurchaseOrders/EditPurchaseOrderProductPost') ?>" method="post">
                 <?php echo validation_errors(); ?>
                 <div class="modal-body m-3">
-                    <input type="text" class="form-control" name="id_product" required hidden>
+                    <input type="text" class="form-control" name="id_po" required hidden>
                     <input type="text" class="form-control" name="id_poproduct" required hidden>
                     <div class="mb-3 form-group required">
                         <label class="control-label">Batch SKU</label>

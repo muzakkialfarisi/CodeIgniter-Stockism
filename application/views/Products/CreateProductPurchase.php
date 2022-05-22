@@ -32,11 +32,8 @@
                     <input class="form-check-input" type="checkbox" id="expired_date">
                     <label class="control-label">Expired Date</label>
                 </div>
-                <div class="input-group date div-expired_date" id="datetimepicker-view-mode" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-view-mode" name="expired_date"/>
-                    <div class="input-group-text" data-target="#datetimepicker-view-mode" data-toggle="datetimepicker">
-                        <i class="fa fa-calendar"></i>
-                    </div>
+                <div class="div-expired_date">
+                    <input type="datetime-local" class="form-control"name="expired_date"/>
                 </div>
             </div>
         <?php } ?>

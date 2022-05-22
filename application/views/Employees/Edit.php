@@ -11,20 +11,21 @@
                     <div class="row">
                         <input type="text" class="form-control" name="id_employee" required hidden>
                         <input type="text" class="form-control" name="email_tenant" required hidden>
-                        <input type="email" class="form-control form-control-lg" name="email_before" required hidden>
                         <div class="mb-3 form-group required">
                             <label class="control-label">Name</label>
                             <input type="text" class="form-control" name="name" required>
                         </div>
                         <div class="row">
                             <div class="col-12 col-sm-6">
-                                <label class="control-label">Whatsapp Number</label>
-                                <input type="text" class="form-control" name="phone_number">
+                                <div class="mb-3 form-group">
+                                    <label class="control-label">Whatsapp Number</label>
+                                    <input type="text" class="form-control" name="phone_number">
+                                </div>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <div class="mb-3 form-group required">
                                     <label class="control-label">Email</label>
-                                    <input type="email" class="form-control form-control" name="email" required>
+                                    <input type="email" class="form-control form-control" name="email" required readonly>
                                 </div>
                             </div>
                         </div>

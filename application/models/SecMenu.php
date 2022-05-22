@@ -2,7 +2,7 @@
 class SecMenu extends CI_Model{
 
     public function GetAll(){
-		$data = $this->db->query("SELECT * FROM secmenu");
+		$data = $this->db->query("SELECT * FROM secmenu ORDER BY menusort");
 		return $data;
 	}
 

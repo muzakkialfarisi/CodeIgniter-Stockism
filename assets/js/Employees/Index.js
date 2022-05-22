@@ -22,7 +22,6 @@ $('.btn-edit').on('click', function () {
             $("input[name='name']").val(data.name);
             $("input[name='phone_number']").val(data.phone_number);
             $("input[name='email']").val(data.email);
-            $("input[name='email_before']").val(data.email);
             $("input[name='email_tenant']").val(data.email_tenant);
             $("textarea[name='address']").html(data.address);
             $(".picture_preview").attr('src', window.location.origin + '/stockism/assets/img/avatars/' + data.picture);

@@ -22,7 +22,7 @@
             if (isset($this->session->userdata['logged_in'])) {
                 $email_user = ($this->session->userdata['logged_in']['email']);
                 $user_role = ($this->session->userdata['logged_in']['id_usertype']);
-                //$email_tenant = ($this->session->userdata['logged_in']['email_tenant']);
+                
 
                 if($this->session->userdata['logged_in']['id_usertype'] == "Tenant") { 
                     $account = $this->db->query("SELECT * FROM mastenant where email = '$email_user'")->row();

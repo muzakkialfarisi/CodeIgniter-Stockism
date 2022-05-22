@@ -10,6 +10,7 @@ class Dashboards extends CI_Controller {
 		$this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->library('session');
+        $this->load->model('SecUser');
         $this->load->model('MasTenant');
         $this->load->model('MasEmployee');
     }
@@ -34,7 +35,8 @@ class Dashboards extends CI_Controller {
 
 	public function ProfileAccount()
 	{
-
+		$account = "";
+		
 		if($this->session->userdata['logged_in']['id_usertype'] == "Tenant")
 		{
 			$account = $this->MasTenant->GetTenantByEmail($this->input->post('email'))->row();
@@ -44,13 +46,18 @@ class Dashboards extends CI_Controller {
 			$account = $this->MasEmployee->GetEmployeeByEmail($this->input->post('email'))->row();
 		}
 
+		if($account == ""){
+			$this->session->set_flashdata('error', 'Something Wrong!');
+			redirect('Dashboards/Profile');
+		}
+		
 		$picture = $account->picture;
         if(!empty($_FILES['picture']['name'])){
             if($picture != "default-avatar.png"){
                 $this->load->helper("file");
-                delete_files(FCPATH.'/assets/img/tenant/'.$picture);
+                delete_files(FCPATH.'/assets/img/avatars/'.$picture);
             }
-            $picture = $this->UploadStorePicture($this->input->post('id_toko'));
+            $picture = $this->UploadPicture($this->SecUser->GetUserByEmail($this->input->post('email'))->row()->name.$this->input->post('email'));
         }
 
         if($picture == "error"){
@@ -61,7 +68,7 @@ class Dashboards extends CI_Controller {
 		if($this->session->userdata['logged_in']['id_usertype'] == "Tenant")
 		{
 			$mastenant = array(
-				'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
+				'email_tenant' => $account->email_tenant,
 				'name' => $this->input->post('name'),
 				'phone_number' => $this->input->post('phone_number'),
 				'address' => $this->input->post('address'),
@@ -72,7 +79,7 @@ class Dashboards extends CI_Controller {
 		else
 		{
 			$masemployee = array(
-				'email' => $this->input->post('email'),
+				'id_employee' => $account->id_employee,
 				'name' => $this->input->post('name'),
 				'phone_number' => $this->input->post('phone_number'),
 				'address' => $this->input->post('address'),
@@ -84,6 +91,22 @@ class Dashboards extends CI_Controller {
 
         $this->session->set_flashdata('success', 'Updated Successfully!');
 		redirect('Dashboards/Profile');
+	}
+
+	private function UploadPicture($name)
+    {
+        $config['upload_path']          = FCPATH.'/assets/img/avatars/';
+        $config['allowed_types']        = 'jpg|jpeg|png';
+        $config['file_name']            = $name;
+        $config['overwrite']            = true;
+        $config['max_size']             = 512; // 1MB
+
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('picture')) {
+            return "error";
+        }
+        $uploaded_data = $this->upload->data();
+        return $uploaded_data['file_name'];
 	}
 
 }

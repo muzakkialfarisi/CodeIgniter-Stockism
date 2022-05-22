@@ -1,7 +1,3 @@
-$('#datetimepicker-view-mode').datetimepicker({
-    viewMode: 'years'
-});
-
 $('.date_due').hide();
 $("select[name='payment_status']").change(function(e){
     if($(this).val() == "Paid"){
@@ -50,23 +46,31 @@ $('.table tbody tr').click(function () {
                                 '</div>'+ 
                                 '<div class="row">'+
                                     '<div class="col-12 col-sm-6">'+
-                                        '<div class="mb-3 form-group">'+
+                                        '<div class="mb-3 form-group required">'+
                                             '<label class="control-label">Quantity</label>'+
                                             '<input type="number" class="form-control number-only" name="quantity[]" id="quantity'+index+'" value="1" min="1" required>'+
                                         '</div>'+
                                     '</div>'+
                                     '<div class="col-12 col-sm-6">'+
-                                        '<div class="mb-3 form-group">'+
+                                        '<div class="mb-3 form-group required">'+
                                             '<label class="control-label">Purchase Price</label>'+
                                             '<input type="number" class="form-control number-only" name="purchase_price[]" id="purchase_price'+index+'" value="'+data.purchase_price+'" required>'+
                                         '</div>'+
                                     '</div>'+
                                 '</div>'+
-                                '<div class="col-12 mb-3">'+
-                                    '<input type="text" placeholder="Expired Date (opsional)" class="form-control number-only" name="expired_date[]" id="expired_date'+index+'">'+
-                                '</div>'+
-                                '<div class="col-12 mb-3">'+
-                                    '<input type="text" placeholder="Storage (opsional)" class="form-control number-only" name="storage[]" id="storage'+index+'">'+
+                                '<div class="row">'+
+                                    '<div class="col-12 col-sm-6">'+
+                                        '<div class="mb-3 form-group">'+
+                                            '<label class="control-label">Expired Date (opsional)</label>'+
+                                            '<input type="datetime-local" class="form-control number-only" name="expired_date[]" id="expired_date'+index+'">'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="col-12 col-sm-6">'+
+                                        '<div class="mb-3 form-group">'+
+                                            '<label class="control-label">Storage (opsional)</label>'+
+                                            '<input type="text" class="form-control number-only" name="storage[]" id="storage'+index+'">'+
+                                        '</div>'+
+                                    '</div>'+
                                 '</div>'+
                                 '<hr>'+
                             '</div>';
@@ -88,3 +92,11 @@ $(document).on('click','.del-element',function (e) {
     $(this).parents('.rec-element').remove();
     $('#jumlahkolom').val(index-1);
 }); 
+
+$(".table").DataTable({
+    lengthMenu: [
+        [5, 10, 25, 50],
+        [5, 10, 25, 50],
+    ],
+    pageLength: 5,
+});

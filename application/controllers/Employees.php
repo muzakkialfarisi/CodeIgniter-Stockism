@@ -52,10 +52,9 @@ class Employees extends CI_Controller {
 
         $options['cost'] = 12;
 		
-		$new_id_employee = $this->IdBuilder($this->MasEmployee->GetAll()->num_rows());
         $picture = "default-avatar.png";
         if(!empty($_FILES['picture']['name'])){
-            $picture = $this->UploadEmployeePicture("employee-".$new_id_employee);
+            $picture = $this->UploadEmployeePicture("Employee-".$this->input->post('email'));
         }
         if($picture == "error"){
             $this->session->set_flashdata('error', 'Something Wrong!');
@@ -106,9 +105,9 @@ class Employees extends CI_Controller {
         if(!empty($_FILES['picture']['name'])){
             if($picture != "default-avatar.png"){
                 $this->load->helper("file");
-                delete_files(FCPATH.'/assets/img/avatar/'.$picture);
+                delete_files(FCPATH.'/assets/img/avatars/'.$picture);
             }
-            $picture = $this->UploadEmployeePicture("employee-". $this->input->post('id_employee'));
+            $picture = $this->UploadEmployeePicture("Employee-".$this->input->post('email'));
         }
 
         if($picture == "error"){
@@ -159,6 +158,12 @@ class Employees extends CI_Controller {
             'id_employee' => $this->input->post('id_employee')
 		);
 
+		$picture = $this->MasEmployee->GetEmployeeById($this->input->post('id_employee'))->row()->picture;
+		if($picture != "default-avatar.png"){
+			$this->load->helper("file");
+			delete_files(FCPATH.'/assets/img/avatars/'.$picture);
+		}
+
 		$this->MasEmployee->Delete($masemployee);
 		
 		$secuser = array(
@@ -193,9 +198,4 @@ class Employees extends CI_Controller {
         $uploaded_data = $this->upload->data();
         return $uploaded_data['file_name'];
 	}
-	
-	private function IdBuilder($temp)
-    {
-        return sprintf($temp+1);
-    }
 }

@@ -90,18 +90,19 @@
 						<h5 class="card-title">Password</h5>
 
 						<form action="<?= site_url('Dashboards/ProfilePassword') ?>" method="post">
-							<div class="mb-3">
-								<label for="inputPasswordCurrent">Current password</label>
-								<input type="password" class="form-control" id="inputPasswordCurrent">
-								<small><a href="#">Forgot your password?</a></small>
+							<input type="email" class="form-control" name="email" value="<?= $email ?>" hidden required>
+							<div class="mb-3 form-group required">
+								<label class="control-label">Current Password</label>
+								<input type="password" class="form-control" name="current_password" required>
+								<!-- <small><a href="#">Forgot your password?</a></small> -->
 							</div>
-							<div class="mb-3">
-								<label for="inputPasswordNew">New password</label>
-								<input type="password" class="form-control" id="inputPasswordNew">
+							<div class="mb-3 form-group required">
+								<label class="control-label">New Password</label>
+								<input type="password" class="form-control" name="new_password" required>
 							</div>
-							<div class="mb-3">
-								<label for="inputPasswordNew2">Verify password</label>
-								<input type="password" class="form-control" id="inputPasswordNew2">
+							<div class="mb-3 form-group required">
+								<label class="control-label">Verify Password</label>
+								<input type="password" class="form-control" name="confirm_password" required>
 							</div>
 							<button type="submit" class="btn bg-stockism text-light btn-pill">Save</button>
 						</form>

@@ -8,6 +8,7 @@ class Dashboards extends CI_Controller {
         parent::__construct();
 		$this->load->helper('url');
 		$this->load->helper('form');
+		$this->load->library('encryption');
         $this->load->library('form_validation');
         $this->load->library('session');
         $this->load->model('SecUser');
@@ -91,6 +92,42 @@ class Dashboards extends CI_Controller {
 
         $this->session->set_flashdata('success', 'Updated Successfully!');
 		redirect('Dashboards/Profile');
+	}
+
+	public function ProfilePassword()
+	{
+		$this->form_validation->set_rules('current_password', 'current_password', 'required');
+        $this->form_validation->set_rules('new_password', 'new_password', 'trim|required');
+        $this->form_validation->set_rules('confirm_password', 'confirm_password', 'required|matches[new_password]');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Dashboards/Profile');
+		}
+
+		$user = $this->SecUser->GetUserByEmail($this->input->post('email'))->row();
+		
+		if ($user == NULL) {
+			$this->session->set_flashdata('error', 'Something Wrong!');
+			redirect('Dashboards/Profile');
+		}
+
+		if(!password_verify($this->input->post('current_password'), $user->password)){
+			$this->session->set_flashdata('error', 'Incorect Password!');
+			redirect('Dashboards/Profile');
+		};
+
+		$options['cost'] = 12;
+		$secuser = array(
+			'email_user'	=> $user->email_user,
+			'password'		=> password_hash($this->input->post('new_password'), PASSWORD_BCRYPT, $options)
+		);
+
+		$this->SecUser->Update($secuser);
+
+		$this->session->set_flashdata('success', 'Password Updated Successfully!');
+		redirect('Dashboards/Profile');
+
 	}
 
 	private function UploadPicture($name)

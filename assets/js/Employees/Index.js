@@ -57,3 +57,6 @@ $('.btn-delete').click(function(e){
         }
     });
 });
+
+$(".table").DataTable({
+});

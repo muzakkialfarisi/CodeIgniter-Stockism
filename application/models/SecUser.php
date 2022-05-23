@@ -10,12 +10,13 @@ class SecUser extends CI_Model{
         $this->db->insert('secuser', $data);
     }
 
-    public function Update($data,$email_before){
-        $this->db->where('email_user', $email_before);
+    public function Update($data){
+        $this->db->where('email_user', $data['email_user']);
         $this->db->update('secuser', $data);
     }
 
     public function Delete($data){
+        $this->db->where('email_user', $data['email_user']);
         $this->db->delete('secuser', $data);
 	}
 

@@ -89,6 +89,31 @@ class Employees extends CI_Controller {
 		redirect('Employees/Index');
 	}
 
+	public function Activation($email, $status){
+		$user = $this->SecUser->GetUserByEmail($email)->num_rows();
+		
+		if ($user < 1) {
+			$this->session->set_flashdata('error', 'Account Notfound!');
+			redirect('Employees/Index');
+		}
+
+		if($status == "active"){
+			$status = "nonactive";
+		}
+		else{
+			$status = "active";
+		}
+
+		$secuser = array(
+			'email_user'	=> $email,
+			'status'		=> $status
+		);
+		$this->SecUser->Update($secuser);
+
+		$this->session->set_flashdata('success', 'Status Updated Successfully!');
+		redirect('Employees/Index');
+	}
+
 	public function EditPost(){
 		$this->form_validation->set_rules('id_employee', 'id_employee', 'required');
         $this->form_validation->set_rules('name', 'name', 'required');
@@ -121,9 +146,7 @@ class Employees extends CI_Controller {
 			'address' => $this->input->post('address'),
 			'phone_number' => $this->input->post('phone_number'),
 			'email' => $this->input->post('email'),
-			'email_tenant' => $this->input->post('email_tenant'),
-			'picture' => $picture,
-			'status' => 'active'
+			'picture' => $picture
 		);
 
 		$this->MasEmployee->Update($masemployee);
@@ -147,8 +170,8 @@ class Employees extends CI_Controller {
 
     public function DeletePost(){
         $this->form_validation->set_rules('id_employee', 'id_employee', 'required');
-		$email_user = $this->MasEmployee->GetEmployeeById($this->input->post('id_employee'))->row()->email;
-		
+		$employee = $this->MasEmployee->GetEmployeeById($this->input->post('id_employee'))->row();
+		$email_user = $employee->email;
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', 'Invalid Modelstate!');
 			redirect('Employees/Index');
@@ -158,19 +181,18 @@ class Employees extends CI_Controller {
             'id_employee' => $this->input->post('id_employee')
 		);
 
-		$picture = $this->MasEmployee->GetEmployeeById($this->input->post('id_employee'))->row()->picture;
+		$picture = $employee->picture;
 		if($picture != "default-avatar.png"){
 			$this->load->helper("file");
-			delete_files(FCPATH.'/assets/img/avatars/'.$picture);
+			unlink(FCPATH.'assets/img/avatars/'.$picture);
 		}
 
-		$this->MasEmployee->Delete($masemployee);
-		
 		$secuser = array(
             'email_user' => $email_user
 		);
 
 		$this->SecUser->Delete($secuser);
+		$this->MasEmployee->Delete($masemployee);
 
         $this->session->set_flashdata('success', 'Employee Deleted Successfully!');
 		redirect('Employees/Index');

@@ -18,6 +18,7 @@
                         <th>Phone Number</th>
                         <th>Address</th>
                         <th>Email</th>
+                        <th>Status</th>
                         <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
                             <th>Tenant</th>
                         <?php } ?>
@@ -34,6 +35,21 @@
                             <td><?= $item['phone_number'] ?></td>
                             <td><?= $item['address'] ?></td>
                             <td><?= $item['email'] ?></td>
+                            <td class="text-center">
+                                <?php 
+                                    $email = $item['email'];
+                                    $status = $this->db->query("SELECT * FROM secuser where email_user = '$email'")->row()->status;
+                                    echo $status;
+                                    if($status == "active")
+                                    {
+                                        $result_status = "Deactivate";
+                                    }
+                                    else
+                                    {
+                                        $result_status = "Activate";
+                                    }
+                                ?>
+                            </td>
                             <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
                                 <td><?= $item['email_tenant'] ?></td>
                             <?php } ?>
@@ -41,6 +57,7 @@
                                 <div class="dropdown">
                                     <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                        <li><a type="button" class="dropdown-item" href="<?= site_url('Employees/Activation/'.$email.'/'.$status) ?>"><?= $result_status ?></a></li>
                                         <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_employee'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
                                         <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['id_employee'] ?>">Delete</button></li>
                                     </ul>

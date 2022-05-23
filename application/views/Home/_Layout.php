@@ -22,14 +22,12 @@
 
     <body>
         <?php $this->load->view("Home/Header.php") ?>
-
-        <?php $this->load->view("UserAuthentications/Signin.php") ?>
-
+        <?php $this->load->view("Home/UserAuthentications/Signin.php") ?>
         <?php $this->load->view($content) ?>
-
         <?php $this->load->view("Home/Footer.php") ?>
 
-        <script src="<?= base_url(); ?>/assets/js/main/app.js"></script>
+        <script src="<?= base_url(); ?>/assets/js/main/app.js?<?= time() ?>"></script>
+        <script src="<?= base_url(); ?>assets/js/<?= $javascripts ?>.js?<?= time() ?>"></script>
 
         <?php $this->load->view("Home/_Notification.php") ?>    
     </body>

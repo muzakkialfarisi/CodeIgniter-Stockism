@@ -35,3 +35,6 @@ $('.btn-delete').on('click', function () {
         }
     });
 });
+
+$(".table").DataTable({
+});

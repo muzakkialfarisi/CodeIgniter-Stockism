@@ -90,7 +90,7 @@ class Home extends CI_Controller {
 	public function SignUp()
 	{
 		$data['title'] = "Registration";
-		$data['content'] = "UserAuthentications/SignUp";
+		$data['content'] = "Home/UserAuthentications/SignUp";
 		$this->load->view('Home/_Layout', $data);
 	}
 
@@ -122,7 +122,7 @@ class Home extends CI_Controller {
 		$secuser = array(
 			'email_user' => $this->input->post('email_user'),
 			'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT, $options),
-			'token' => bin2hex($this->encryption->create_key(16)),
+			'token' => '',
 			'email_confirmed' => 0,
 			'status' => 'active',
 			'id_usertype' => 2
@@ -148,20 +148,114 @@ class Home extends CI_Controller {
 	public function ForgotPassword()
 	{
 		$data['title'] = "Forgot Password";
-		$data['content'] = "UserAuthentications/ForgotPassword";
+		$data['content'] = "Home/UserAuthentications/ForgotPassword";
 		$this->load->view('Home/_Layout', $data);
+	}
+
+	public function ForgotPasswordPost()
+	{
+		$user = $this->SecUser->GetUserByEmail($this->input->post('email_user'))->row();
+		if ($user == NULL) {
+			$this->session->set_flashdata('error', 'Not Found!');
+			redirect('Home/ForgotPassword');
+		}
+
+		$secuser = array(
+			'email_user' => $this->input->post('email_user'),
+			'token'		 => bin2hex($this->encryption->create_key(16))
+		);
+		
+		$this->load->library('email');
+		$config = array();
+		$config['charset'] = 'utf-8';
+		$config['useragent'] = 'Codeigniter';
+		$config['protocol']= "smtp";
+		$config['mailtype']= "html";
+		$config['smtp_host']= "ssl://smtp.gmail.com";
+		$config['smtp_port']= "465";
+		$config['smtp_timeout']= "5";
+		$config['smtp_user']= "stockism2022@gmail.com"; // isi dengan email kamu
+		$config['smtp_pass']= "jualbelibarang"; // isi dengan password kamu
+		$config['crlf']="\r\n"; 
+		$config['newline']="\r\n"; 
+		$config['wordwrap'] = TRUE;
+			
+		$this->email->initialize($config);
+		$this->email->from($config['smtp_user']);
+		$this->email->to($this->input->post('email_user'));
+		$this->email->subject("Reset Password Request");
+
+		$message = "<h3>You have requested to reset your password</h3>";
+		$message .= "<h5>Hi ". $secuser['email_user'] ."</h5>";
+		$message .= "<p>We can't just send you your old password. A unique link to reset your password has been generated for you. To reset your password, click the following button and follow the instructions.<p>";
+		$message .= "<a href='".site_url('Home/ResetPassword/'.$secuser['email_user']).'/'.$secuser['token']."' style='color:white; padding:3px; background: #4568DC; background: -webkit-linear-gradient(to right, #B06AB3, #4568DC); background: linear-gradient(to right, #B06AB3, #4568DC);'>CLICK ME</a>";
+		$this->email->message($message);
+		
+		if(!$this->email->send())
+		{
+			$this->session->set_flashdata('error', 'Something Wrong!');
+			redirect('Home/ForgotPassword');
+		}
+
+		$this->SecUser->Update($secuser);
+
+		$this->session->set_flashdata('success', 'Request has been sent, please check your email!');
+		redirect('Home/ForgotPassword');
+	}
+
+	public function ResetPassword($email_user, $token)
+	{
+		$user = $this->SecUser->GetUserByEmail($email_user)->row();
+		if ($user == NULL) {
+			$this->session->set_flashdata('error', 'Account Notfound!');
+			redirect('Home', 'refresh');
+		}
+
+		if($token != $user->token){
+			$this->session->set_flashdata('error', 'Invalid Token!');
+			redirect('Home', 'refresh');
+		};
+
+		$data['email'] = $email_user;
+
+		$data['title'] = "Reset Password";
+		$data['content'] = "Home/UserAuthentications/ResetPassword";
+		$this->load->view('Home/_Layout', $data);
+	}
+
+	public function ResetPasswordPost()
+	{
+        $this->form_validation->set_rules('new_password', 'new_password', 'trim|required');
+        $this->form_validation->set_rules('confirm_password', 'confirm_password', 'required|matches[new_password]');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('Dashboards/Profile');
+		}
+
+		$user = $this->SecUser->GetUserByEmail($this->input->post('email_user'))->num_rows();
+		
+		if ($user < 1) {
+			$this->session->set_flashdata('error', 'Account Notfound!');
+			redirect('Home');
+		}
+
+		$options['cost'] = 12;
+		
+		$secuser = array(
+			'email_user'	=> $this->input->post('email_user'),
+			'token'			=> "",
+			'password'		=> password_hash($this->input->post('new_password'), PASSWORD_BCRYPT, $options)
+		);
+
+		$this->SecUser->Update($secuser);
+
+		$this->session->set_flashdata('success', 'Password Updated Successfully!');
+		redirect('Home');
 	}
 
 	public function SignOut() 
 	{
-		$sess_array = array(
-			'email_user' => '',
-			'id_usertype' => '',
-			'name' => '',
-			'photo' => '',
-			'secmenu' => ''
-		);
-		$this->session->unset_userdata('logged_in', $sess_array);
 		$this->session->sess_destroy();
 		redirect('Home', 'refresh');
 	}

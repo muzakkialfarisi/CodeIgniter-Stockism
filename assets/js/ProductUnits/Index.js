@@ -5,13 +5,13 @@ $('#btn-modal-create').on('click', function () {
 $('.btn-edit').on('click', function () {
     $.ajax({
         type: 'POST',
-        url: '/stockism/ProductCategories/GetProductCategoryById',
+        url: '/stockism/ProductUnits/GetProductUnitById/',
         data: {
-            id_productcategory: $(this).data("id"),
+            id_productunit: $(this).data("id"),
         },
         dataType: 'json',
         success: function (data) {
-            $("input[name='id_productcategory']").val(data.id_productcategory);
+            $("input[name='id_productunit']").val(data.id_productunit);
             $("input[name='name']").val(data.name);
             $("input[name='email_tenant']").val(data.email_tenant);
         },
@@ -21,7 +21,7 @@ $('.btn-edit').on('click', function () {
     });
 });
 
-$('.btn-delete').click(function(e){
+$('.btn-delete').on('click', function () {
     swal({
         title:"Are you sure?",
         text:"You want to delete this record?",
@@ -30,8 +30,11 @@ $('.btn-delete').click(function(e){
         dangerMode:true
     }).then((confirm) =>{
         if(confirm){
-            $("input[name='id_productcategory']").val($(this).data("id"));
+            $("input[name='id_productunit']").val($(this).data("id"));
             $('#DeletePost').submit();
         }
     });
+});
+
+$(".table").DataTable({
 });

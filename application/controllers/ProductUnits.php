@@ -15,7 +15,7 @@ class ProductUnits extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "Products";
-        $data['javascripts'] = "ProductUnits";
+        $data['javascripts'] = "ProductUnits/Index";
 		$data['content'] = "ProductUnits/Index";
 
         if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){

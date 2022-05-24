@@ -30,3 +30,6 @@ $("input[name='picture']").change(function () {
         fileReader.readAsDataURL(this.files[0]);
     }
 });
+
+$(".table").DataTable({
+});

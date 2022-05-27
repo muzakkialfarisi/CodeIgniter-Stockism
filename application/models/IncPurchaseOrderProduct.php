@@ -16,7 +16,7 @@ class IncPurchaseOrderProduct extends CI_Model{
     }
 
     public function Delete($data){
-        $this->db->where('id_productunit', $data['id_productunit']);
+        $this->db->where('id_poproduct', $data);
         $this->db->delete('incpurchaseorderproduct', $data);
     }
 

@@ -12,6 +12,7 @@ class PurchaseOrders extends CI_Controller {
 		$this->load->model('IncPurchaseOrder');
 		$this->load->model('IncPurchaseOrderProduct');
         $this->load->model('MasUtang');
+        $this->load->model('MasUtangAngsuran');
 		$this->load->model('MasWarehouse');
 		$this->load->model('MasSupplier');
 		$this->load->model('MasProduct');
@@ -88,7 +89,6 @@ class PurchaseOrders extends CI_Controller {
                 'sku'               => $product->sku,
                 'quantity'          => $this->input->post('quantity')[$i],
                 'quantity_accepted' => $quantity_accepted,
-                'quantity_stock'    => $quantity_accepted,
                 'purchase_price'    => $this->input->post('purchase_price')[$i],
                 'subtotal'          => $this->input->post('quantity')[$i] * $this->input->post('purchase_price')[$i],
                 'expired_date'      => $this->input->post('expired_date')[$i],
@@ -98,6 +98,7 @@ class PurchaseOrders extends CI_Controller {
 
             $masproduct = array(
                 'id_product'    => $product->id_product,
+                'quantity'      => $product->quantity + $quantity_accepted,
                 'purchase_price'=> $this->input->post('purchase_price')[$i]
             );
             $this->MasProduct->Update($masproduct);
@@ -106,12 +107,25 @@ class PurchaseOrders extends CI_Controller {
         if($this->input->post('payment_status') == "Debt")
         {
             $masutang = array(
-                'id_po'         => $id_po,
-                'total_utang'   => $this->db->query("SELECT SUM(subtotal) AS sum FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->sum,
-                'total_bayar'   => 0,
-                'status'        => "Debt"
+                'id_po'             => $id_po,
+                'date_created'      => $this->input->post('date_created'),
+                'date_due'          => $this->input->post('date_due'),
+                'total_utang'       => $this->db->query("SELECT SUM(subtotal) AS sum FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->sum,
+                'sum_payment_price' => $this->input->post('payment_price'),
+                'email_tenant'      => $this->session->userdata['logged_in']['email_tenant']
             );
             $this->MasUtang->Insert($masutang);
+        }
+
+        if($this->input->post('payment_price') > 0)
+        {
+            $masutangangsuran = array(
+                'id_po'         => $id_po,
+                'date_created'  => $this->input->post('date_created'),
+                'payment_price' => $this->input->post('payment_price')
+            );
+
+            $this->MasUtangAngsuran->Insert($masutangangsuran);
         }
 
         $this->session->set_flashdata('success', 'Purchase Order Created Successfully!');
@@ -125,8 +139,42 @@ class PurchaseOrders extends CI_Controller {
 		$data['content'] = "PurchaseOrders/Detail";
 
         $data['incpurchaseorder'] = $this->IncPurchaseOrder->GetPurchaseOrderById($id_po)->row();
+        $data['maswarehouseid'] = $this->MasWarehouse->GetWarehouseById($data['incpurchaseorder']->id_warehouse)->row();
+        $data['massupplierid'] = $this->MasSupplier->GetSupplierById($data['incpurchaseorder']->id_supplier)->row();
+        
+        $data['massupplier'] = $this->MasSupplier->GetSupplierByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
         $data['incpurchaseorderproduct'] = $this->IncPurchaseOrderProduct->GetPurchaseOrderProductByIdPo($id_po)->result_array();
         $this->load->view('Shared/_Layout', $data);
+    }
+
+    public function EditPurchaseOrderPost()
+    {
+        if($this->IncPurchaseOrder->GetPurchaseOrderById($this->input->post('id_po'))->num_rows() < 1){
+			$this->session->set_flashdata('error', 'Purchase Order Notfound!');
+			redirect('PurchaseOrders/Index');
+        }
+
+        $incpurchaseorder = array(
+            'id_po'             => $this->input->post('id_po'),
+            'date_created'      => $this->input->post('date_created'),
+            'invoice_po'        => $this->input->post('invoice_po'),
+            'createdby'         => $this->session->userdata['logged_in']['email'],
+            'date_due'          => $this->input->post('date_due'),
+            'shipping_cost'     => $this->input->post('shipping_cost'),
+            'id_supplier'       => $this->input->post('id_supplier'),
+            'tax_cost'          => $this->input->post('tax_cost')
+        );
+        
+        $this->IncPurchaseOrder->Update($incpurchaseorder);
+
+        $incpurchaseorder = array(
+            'id_po'             => $this->input->post('id_po'),
+            'invoice_po'        => $this->input->post('invoice_po'),
+            'date_due'          => $this->input->post('date_due')
+        );
+        
+        $this->session->set_flashdata('success', 'Updated Successfully!');
+        redirect('PurchaseOrders/Detail/'.$this->input->post('id_po'));
     }
 
     public function EditPurchaseOrderProductPost()
@@ -150,6 +198,48 @@ class PurchaseOrders extends CI_Controller {
         $this->IncPurchaseOrderProduct->Update($incpurchaseorderproduct);
         $this->session->set_flashdata('success', 'Updated Successfully!');
         redirect('PurchaseOrders/Detail/'.$this->input->post('id_po'));
+    }
+
+    public function EditPurchaseOrderStatusPost()
+    {
+        echo $this->input->post('delivery_status');
+        echo $this->input->post('payment_status');
+    }
+
+    public function DeletePost(){
+        $this->form_validation->set_rules('id_po', 'id_po', 'required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('PurchaseOrders/Index');
+		}
+
+        $incpurchaseorderproduct = $this->IncPurchaseOrderProduct->GetPurchaseOrderProductByIdPo($this->input->post('id_po'))->result();
+
+        foreach ($incpurchaseorderproduct as $incpoproduct) {
+            $product = $this->MasProduct->GetProductById($incpoproduct->id_product)->row();
+            $masproduct = array(
+                'id_product'        => $product->id_product,
+                'quantity'          => $product->quantity - $incpoproduct->quantity_accepted,
+            );
+            $this->MasProduct->Update($masproduct);
+
+            $this->IncPurchaseOrderProduct->Delete($incpoproduct->id_poproduct);
+        }
+
+        $id_po = array(
+            'id_po'  => $this->input->post('id_po')
+        );
+
+        $masutang = $this->MasUtang->GetUtangById($this->input->post('id_po'))->num_rows();
+        if($masutang > 0){
+            $this->MasUtang->Delete($id_po);
+        }
+
+        $this->IncPurchaseOrder->Delete($id_po);
+
+        $this->session->set_flashdata('success', 'Purchase Order Deleted Successfully!');
+		redirect('PurchaseOrders/Index');
     }
 
     public function GetPurchaseOrderById()

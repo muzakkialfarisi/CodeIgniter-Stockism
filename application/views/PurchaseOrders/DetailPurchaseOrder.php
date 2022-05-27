@@ -72,7 +72,7 @@
                 </dl>      
             </div>
             <div class="col-12 col-sm-1">    
-                <button class="btn btn-sm text-primary btn-edit-purchaseorder" data-id="<?= $incpurchaseorder->id_po; ?>" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrder"><i class="align-middle me-2 fas fa-fw fa-edit"></i></button>      
+                <button class="btn btn-sm text-primary" data-id="<?= $incpurchaseorder->id_po; ?>" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrder"><i class="align-middle me-2 fas fa-fw fa-edit"></i></button>      
             </div>
         </div>
     </div>

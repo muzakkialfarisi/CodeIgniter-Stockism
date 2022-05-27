@@ -6,17 +6,24 @@
         <div class="mb-3 form-group required">
             <label class="control-label">Status</label>
             <select class="form-select flex-grow-1" name="payment_status">
-                <option selected value="Paid">Paid</option>
-                <option value="Debt">Debt</option>
+                <?php if (isset($incpurchaseorder)) { ?>
+                    <option selected value="<?= $incpurchaseorder->payment_status ?>"><?= $incpurchaseorder->payment_status ?></option>
+                <?php } else { ?>
+                    <option selected value="Paid">Paid</option>
+                    <option value="Debt">Debt</option>
+                <?php } ?>
             </select>
         </div>
 
-        <div class="form-group date_due">
+        <div class="mb-3 form-group date_due">
             <label class="control-label">Due Date</label>
-            <div class="input-group date" id="datetimepicker-view-mode" data-target-input="nearest">
-                <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker-view-mode" name="date_due"/>
-                <div class="input-group-text" data-target="#datetimepicker-view-mode" data-toggle="datetimepicker"><i class="fa fa-calendar"></i></div>
-            </div>
+            <input type="datetime-local" class="form-control" name="date_due"/>
         </div>
+        
+        <div class="form-group required date_due">
+            <label class="control-label">Down Payment</label>
+            <input type="text" class="form-control number-only" name="payment_price" value="<?php if (isset($incpurchaseorder)) { echo $incpurchaseorder->payment_price; }else{ echo 0; } ?>" required <?php if (isset($incpurchaseorder)) { echo "readonly"; } ?>>
+        </div>
+        
     </div>
 </div>

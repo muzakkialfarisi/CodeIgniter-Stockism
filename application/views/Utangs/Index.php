@@ -18,6 +18,8 @@
                 <thead>
                     <tr class="text-center">
                         <th>Invoice</th>
+                        <th>Created</th>
+                        <th>Date Due</th>
                         <th>Terhutang</th>
                         <th>Terbayar</th>
                         <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
@@ -29,13 +31,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                    $i = 1;
-                    foreach($masutang as $item) { ?>
+                    <?php foreach($masutang as $item) { ?>
                         <tr>
-                            <td><?= $item['id_po'] ?></td>
-                            <td><?= $item['total_utang'] ?></td>
-                            <td><?= $item['total_bayar'] ?></td>
+                            <td>
+                                <?php 
+                                    $id_po = $item['id_po'];
+                                    echo $this->db->query("SELECT * FROM incpurchaseorder where id_po = '$id_po'")->row()->invoice_po;
+                                ?>
+                            </td>
+                            <td class="text-center">
+                                <?= $item['date_created'] ?>
+                            </td>
+                            <td>
+                                <?= $item['date_due'] ?>
+                            </td>
+                            <td class="text-end"><?= number_format($item['total_utang']) ?></td>
+                            <td class="text-end">
+                                <?= number_format($item['sum_payment_price']) ?>
+                            </td>
                             <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
                                 <td><?= $item['email_tenant'] ?></td>
                             <?php } ?>
@@ -44,15 +57,14 @@
                                     <div class="dropdown">
                                         <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                            <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_utang'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
-                                            <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['id_utang'] ?>">Delete</button></li>
+                                            <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['id_po'] ?>">Details</button></li>
+                                            <li><button type="button" class="dropdown-item btn-add-payment" data-bs-toggle="modal" data-id="<?= $item['id_po'] ?>" data-bs-target="#ModalAddPayment">Add Payment</button></li>
                                         </ul>
                                     </div>
                                 </td>
                             <?php } ?>
                         </tr>
-                    <?php
-                    $i++; } ?>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -62,3 +74,5 @@
 <form action="<?= site_url('ProductUnits/DeletePost') ?>" method="post" id="DeletePost">
     <input type="text" class="form-control" name="id_productunit" required hidden>
 </form>
+
+<?php $this->load->view("Utangs/ModalAddPayment.php") ?>

@@ -38,8 +38,9 @@
                             <td><?= $item['name'] ?></td>
                             <td class="text-end"><?= number_format($item['purchase_price']) ?></td>
                             <td class="text-end"><?= number_format($item['selling_price']) ?></td>
-                            <td>
-                                <?= $item['quantity'] ?><br>
+                            <td class="text-center">
+                                <?= $item['quantity'] ?>
+                                <br>
                                 <div style="font-size:10px">
                                     <?php if($item['quantity'] == 0) { ?>
                                         <span class="text-danger">Stok Habis</span>

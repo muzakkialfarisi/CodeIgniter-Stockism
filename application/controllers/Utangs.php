@@ -27,4 +27,5 @@ class Utangs extends CI_Controller {
         $this->load->view('Shared/_Layout', $data);
 	}
 
+    
 }

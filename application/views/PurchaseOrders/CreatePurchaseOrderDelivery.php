@@ -6,14 +6,18 @@
         <div class="mb-3 form-group required">
             <label class="control-label">Status</label>
             <select class="form-select flex-grow-1" name="delivery_status">
-                <option selected value="Done">Done</option>
-                <option value="On Going">On Going</option>
+                <?php if (isset($incpurchaseorder)) { ?>
+                    <option selected value="<?= $incpurchaseorder->delivery_status ?>"><?= $incpurchaseorder->delivery_status ?></option>
+                <?php } else { ?>
+                    <option selected value="Done">Done</option>
+                    <option value="On Going">On Going</option>
+                <?php } ?>
             </select>
         </div>
 
         <div class="form-group">
             <label class="control-label">Shipping Cost</label>
-            <input type="text" class="form-control number-only" name="shipping_cost">
+            <input type="text" class="form-control number-only" name="shipping_cost" value="<?php if (isset($incpurchaseorder)) { echo $incpurchaseorder->shipping_cost; }?>">
         </div>
     </div>
 </div>

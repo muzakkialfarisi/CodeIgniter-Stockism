@@ -30,7 +30,7 @@
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">
-                        <button class="btn bg-stockism text-white btn-lg btn-pill" type="submit">Save</button>
+                        <button class="btn bg-stockism text-white btn-md btn-pill" type="submit">Save</button>
                     </div>
                 </div>
                 

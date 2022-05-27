@@ -6,16 +6,20 @@
         <div class="mb-3 form-group required">
             <label class="control-label">Supplier</label>
             <select class="form-select" name="id_supplier" required>
-                <option selected disabled value="">Select...</option>
-                <?php foreach ($massupplier as $item) { ?>
-                    <option value="<?= $item["id_supplier"] ?>"><?= $item["name"] ?></option>
+                <?php if (isset($incpurchaseorder)) { ?>
+                    <option selected value="<?= $massupplierid->id_supplier ?>"><?= $massupplierid->name ?></option>
+                <?php } else { ?>
+                    <option selected disabled>Select...</option>
+                <?php } ?>
+                <?php foreach($massupplier as $item) { ?>
+                    <option value="<?= $item['id_supplier'] ?>"><?= $item['name'] ?></option>
                 <?php } ?>
             </select>
         </div>
 
         <div class="form-group">
             <label class="control-label">Tax Cost</label>
-            <input type="text" class="form-control number-only" name="tax_cost">
+            <input type="text" class="form-control number-only" name="tax_cost" value="<?php if (isset($incpurchaseorder)) { echo $incpurchaseorder->tax_cost; }?>">
         </div>
     </div>
 </div>

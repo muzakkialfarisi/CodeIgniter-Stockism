@@ -60,7 +60,7 @@ class Stores extends CI_Controller {
 			'name' => $this->input->post('name'),
 			'phone_number' => $this->input->post('phone_number'),
 			'komisi' => $this->input->post('komisi'),
-			'photo' => $picture,
+			'picture' => $picture,
 			'id_marketplace' => $IdMarketplace,
 			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
 			'status' => 'active'
@@ -105,7 +105,7 @@ class Stores extends CI_Controller {
 			'name' => $this->input->post('name'),
 			'phone_number' => $this->input->post('phone_number'),
 			'komisi' => $this->input->post('komisi'),
-			'photo' => $picture,
+			'picture' => $picture,
 			'id_marketplace' => $IdMarketplace,
 			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
 			'status' => 'active'

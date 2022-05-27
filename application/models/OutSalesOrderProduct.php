@@ -30,7 +30,7 @@ class OutSalesOrderProduct extends CI_Model{
 		return $data;
     }
 
-    public function GetSalesOrderProductByIdPo($id){
+    public function GetSalesOrderProductByIdSo($id){
         $data = $this->db->query("SELECT * FROM outsalesorderproduct WHERE id_so = '$id' ");
 		return $data;
     }

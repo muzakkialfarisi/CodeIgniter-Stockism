@@ -11,7 +11,7 @@ class MasUtang extends CI_Model{
     }
 
     public function Update($data){
-        $this->db->where('email_user',  $data['id_po']);
+        $this->db->where('id_po',  $data['id_po']);
         $this->db->update('masutang', $data);
     }
 

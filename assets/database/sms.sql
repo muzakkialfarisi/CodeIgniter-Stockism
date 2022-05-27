@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 27/05/2022 09:48:58
+ Date: 28/05/2022 00:06:22
 */
 
 SET NAMES utf8mb4;
@@ -65,7 +65,6 @@ CREATE TABLE `incpurchaseorder`  (
   `delivery_status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `payment_status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `date_due` datetime(0) NULL DEFAULT NULL,
-  `payment_price` decimal(10, 0) NULL DEFAULT NULL,
   `id_supplier` int(11) NOT NULL,
   `tax_cost` decimal(10, 0) NULL DEFAULT NULL,
   `id_warehouse` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -82,10 +81,9 @@ CREATE TABLE `incpurchaseorder`  (
 -- ----------------------------
 -- Records of incpurchaseorder
 -- ----------------------------
-INSERT INTO `incpurchaseorder` VALUES (38, '220527-044004', '2022-05-27 09:38:00', 'a@a', '220511-191240', 0, 'On Going', 'Debt', '2022-06-27 09:39:00', 1000, 4, 0, '0000001');
-INSERT INTO `incpurchaseorder` VALUES (39, '220527-044445', '2022-05-27 09:44:00', 'a@a', '220511-191240', 0, 'On Going', 'Debt', '0000-00-00 00:00:00', 0, 4, 0, '0000001');
-INSERT INTO `incpurchaseorder` VALUES (40, '220527-044618', '2022-05-27 09:45:00', 'a@a', '220511-191240', 0, 'Done', 'Debt', '0000-00-00 00:00:00', 30000, 4, 0, '0000001');
-INSERT INTO `incpurchaseorder` VALUES (41, '220527-044703', '2022-05-27 09:45:00', 'a@a', '220511-191240', 0, 'Done', 'Debt', '0000-00-00 00:00:00', 30000, 4, 0, '0000001');
+INSERT INTO `incpurchaseorder` VALUES (39, '220527-044445', '2022-05-27 09:44:00', 'a@a', '220511-191240', 0, 'On Going', 'Debt', '0000-00-00 00:00:00', 4, 0, '0000001');
+INSERT INTO `incpurchaseorder` VALUES (40, '220527-044618', '2022-05-27 09:45:00', 'a@a', '220511-191240', 0, 'Done', 'Debt', '0000-00-00 00:00:00', 4, 0, '0000001');
+INSERT INTO `incpurchaseorder` VALUES (41, '220527-044703', '2022-05-27 09:45:00', 'a@a', '220511-191240', 0, 'Done', 'Paid', '0000-00-00 00:00:00', 4, 0, '0000001');
 
 -- ----------------------------
 -- Table structure for incpurchaseorderproduct
@@ -113,8 +111,6 @@ CREATE TABLE `incpurchaseorderproduct`  (
 -- ----------------------------
 -- Records of incpurchaseorderproduct
 -- ----------------------------
-INSERT INTO `incpurchaseorderproduct` VALUES (39, 38, '2022-05-27 09:38:00', '220513-081836', 20, 20, 0, 400000, 8000000, '0000-00-00 00:00:00', '');
-INSERT INTO `incpurchaseorderproduct` VALUES (40, 38, '2022-05-27 09:38:00', '220514-062158', 23, 300, 0, 1000, 300000, '0000-00-00 00:00:00', '');
 INSERT INTO `incpurchaseorderproduct` VALUES (41, 39, '2022-05-27 09:44:00', '220512-035448', 19, 1, 0, 6800000, 6800000, '0000-00-00 00:00:00', '');
 INSERT INTO `incpurchaseorderproduct` VALUES (42, 39, '2022-05-27 09:44:00', '220513-083802', 21, 210, 0, 200000, 42000000, '0000-00-00 00:00:00', '');
 INSERT INTO `incpurchaseorderproduct` VALUES (43, 40, '2022-05-27 09:45:00', '220513-081836', 20, 3, 3, 400000, 1200000, '0000-00-00 00:00:00', '');
@@ -171,6 +167,17 @@ CREATE TABLE `invstockopname`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for mas_piutangangsuran
+-- ----------------------------
+DROP TABLE IF EXISTS `mas_piutangangsuran`;
+CREATE TABLE `mas_piutangangsuran`  (
+  `id_angsuran` int(11) NOT NULL,
+  `id_so` int(11) NOT NULL,
+  `date_created` datetime(0) NOT NULL,
+  `payment_price` decimal(10, 0) NOT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for mascourier
 -- ----------------------------
 DROP TABLE IF EXISTS `mascourier`;
@@ -220,7 +227,8 @@ DROP TABLE IF EXISTS `mascustomertype`;
 CREATE TABLE `mascustomertype`  (
   `Id_CustomerType` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`Id_CustomerType`) USING BTREE
+  PRIMARY KEY (`Id_CustomerType`) USING BTREE,
+  INDEX `Id_CustomerType`(`Id_CustomerType`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -269,15 +277,16 @@ INSERT INTO `masmarketplace` VALUES (2, 'Bukalapak');
 -- ----------------------------
 DROP TABLE IF EXISTS `maspiutang`;
 CREATE TABLE `maspiutang`  (
-  `id_piutang` int(11) NOT NULL AUTO_INCREMENT,
-  `invoice_so` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `total_utang` decimal(10, 0) NOT NULL,
-  `total_bayar` decimal(10, 0) NOT NULL,
+  `id_so` int(11) NOT NULL,
+  `total_piutang` decimal(10, 0) NOT NULL,
+  `sum_payment_price` decimal(10, 0) NOT NULL,
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id_piutang`) USING BTREE,
-  INDEX `FK_OutSalesOrderMasPiutang`(`invoice_so`) USING BTREE,
-  CONSTRAINT `FK_OutSalesOrderMasPiutang` FOREIGN KEY (`invoice_so`) REFERENCES `outsalesorder` (`invoice_so`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  `email_tenant` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `date_created` datetime(0) NOT NULL,
+  `date_due` datetime(0) NULL DEFAULT NULL,
+  INDEX `id_so`(`id_so`) USING BTREE,
+  CONSTRAINT `id_so` FOREIGN KEY (`id_so`) REFERENCES `outsalesorder` (`id_so`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for masproduct
@@ -477,10 +486,9 @@ CREATE TABLE `masutang`  (
 -- ----------------------------
 -- Records of masutang
 -- ----------------------------
-INSERT INTO `masutang` VALUES (38, 8300000, 1000, '220511-191240', '2022-05-27 09:38:00', '2022-06-27 09:39:00');
 INSERT INTO `masutang` VALUES (39, 48800000, 0, '220511-191240', '2022-05-27 09:44:00', '0000-00-00 00:00:00');
 INSERT INTO `masutang` VALUES (40, 1203000, 30000, '220511-191240', '2022-05-27 09:45:00', '0000-00-00 00:00:00');
-INSERT INTO `masutang` VALUES (41, 1203000, 30000, '220511-191240', '2022-05-27 09:45:00', '0000-00-00 00:00:00');
+INSERT INTO `masutang` VALUES (41, 1203000, 1203000, '220511-191240', '2022-05-27 09:45:00', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for masutangangsuran
@@ -494,12 +502,13 @@ CREATE TABLE `masutangangsuran`  (
   PRIMARY KEY (`id_angsuran`) USING BTREE,
   INDEX `id_po`(`id_po`) USING BTREE,
   CONSTRAINT `FKid_po` FOREIGN KEY (`id_po`) REFERENCES `masutang` (`id_po`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of masutangangsuran
 -- ----------------------------
 INSERT INTO `masutangangsuran` VALUES (1, 41, '2022-05-27 09:45:00', 30000);
+INSERT INTO `masutangangsuran` VALUES (2, 41, '0000-00-00 00:00:00', 0);
 
 -- ----------------------------
 -- Table structure for maswarehouse
@@ -529,66 +538,32 @@ INSERT INTO `maswarehouse` VALUES ('0000004', 'Gudang garam', 'jakarta', '000000
 -- ----------------------------
 DROP TABLE IF EXISTS `outsalesorder`;
 CREATE TABLE `outsalesorder`  (
-  `invoice_so` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `airway_bill` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `id_marketplace` int(11) NULL DEFAULT NULL,
-  `id_toko` int(11) NULL DEFAULT NULL,
+  `id_so` int(11) NOT NULL AUTO_INCREMENT,
+  `invoice_so` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `date_created` datetime(0) NOT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `createby` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email_tenant` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`invoice_so`) USING BTREE,
+  `id_marketplace` int(11) NOT NULL,
+  `id_toko` int(11) NOT NULL,
+  `tax_cost` decimal(10, 0) NULL DEFAULT NULL,
+  `status_delivery` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `airway_bill` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `status_payment` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `date_due` datetime(0) NULL DEFAULT NULL,
+  `id_customer` int(11) NOT NULL,
+  `Id_CustomerType` int(11) NOT NULL,
+  PRIMARY KEY (`id_so`) USING BTREE,
   INDEX `FK_MasMarketplaceOutSalesOrder`(`id_marketplace`) USING BTREE,
   INDEX `FK_MasTokoOutSalesOrder`(`id_toko`) USING BTREE,
   INDEX `FK_MasTenantOutSalesOrder`(`email_tenant`) USING BTREE,
+  INDEX `id_customer`(`id_customer`) USING BTREE,
+  INDEX `Id_customerType`(`Id_CustomerType`) USING BTREE,
   CONSTRAINT `FK_MasMarketplaceOutSalesOrder` FOREIGN KEY (`id_marketplace`) REFERENCES `masmarketplace` (`id_marketplace`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MasTenantOutSalesOrder` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_MasTokoOutSalesOrder` FOREIGN KEY (`id_toko`) REFERENCES `mastoko` (`id_toko`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for outsalesordercustomer
--- ----------------------------
-DROP TABLE IF EXISTS `outsalesordercustomer`;
-CREATE TABLE `outsalesordercustomer`  (
-  `invoice_so` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `id_customer` int(11) NOT NULL,
-  `discount` decimal(10, 0) NULL DEFAULT NULL,
-  PRIMARY KEY (`invoice_so`) USING BTREE,
-  INDEX `FK_MasCustomerOutSalesOrderCustomer`(`id_customer`) USING BTREE,
-  CONSTRAINT `FK_MasCustomerOutSalesOrderCustomer` FOREIGN KEY (`id_customer`) REFERENCES `mascustomer` (`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_OutSalesOrderOutSalesOrderCustomer` FOREIGN KEY (`invoice_so`) REFERENCES `outsalesorder` (`invoice_so`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for outsalesorderdelivery
--- ----------------------------
-DROP TABLE IF EXISTS `outsalesorderdelivery`;
-CREATE TABLE `outsalesorderdelivery`  (
-  `invoice_so` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `id_courier` int(11) NOT NULL,
-  `shipping_cost` decimal(10, 0) NOT NULL,
-  `airway_bill` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`invoice_so`) USING BTREE,
-  INDEX `FK_MasCourierOutSalesOrderDelivery`(`id_courier`) USING BTREE,
-  CONSTRAINT `FK_MasCourierOutSalesOrderDelivery` FOREIGN KEY (`id_courier`) REFERENCES `mascourier` (`id_courier`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_OutSalesOrderOutSalesOrderDelivery` FOREIGN KEY (`invoice_so`) REFERENCES `outsalesorder` (`invoice_so`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for outsalesorderpayment
--- ----------------------------
-DROP TABLE IF EXISTS `outsalesorderpayment`;
-CREATE TABLE `outsalesorderpayment`  (
-  `invoice_so` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `payment_price` decimal(10, 0) NOT NULL,
-  `rek_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `discount` decimal(10, 0) NULL DEFAULT NULL,
-  `date_due` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`invoice_so`) USING BTREE,
-  CONSTRAINT `FK_OutSalesOrderOutSalesOrderPayment` FOREIGN KEY (`invoice_so`) REFERENCES `outsalesorder` (`invoice_so`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `FK_MasTokoOutSalesOrder` FOREIGN KEY (`id_toko`) REFERENCES `mastoko` (`id_toko`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `id_customer` FOREIGN KEY (`id_customer`) REFERENCES `mascustomer` (`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Id_customerType` FOREIGN KEY (`Id_CustomerType`) REFERENCES `mascustomertype` (`Id_CustomerType`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for outsalesorderproduct
@@ -596,16 +571,14 @@ CREATE TABLE `outsalesorderpayment`  (
 DROP TABLE IF EXISTS `outsalesorderproduct`;
 CREATE TABLE `outsalesorderproduct`  (
   `id_soproduct` int(11) NOT NULL AUTO_INCREMENT,
-  `invoice_so` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `id_so` int(11) NOT NULL,
   `id_product` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
   `selling_price` decimal(10, 0) NOT NULL,
-  `discount` decimal(10, 0) NULL DEFAULT NULL,
+  `subtotal` decimal(10, 0) NOT NULL,
   PRIMARY KEY (`id_soproduct`) USING BTREE,
-  INDEX `FK_OutSalesOrderOutSalesOrderProduct`(`invoice_so`) USING BTREE,
   INDEX `FK_MasProductOutSalesOrderProduct`(`id_product`) USING BTREE,
-  CONSTRAINT `FK_MasProductOutSalesOrderProduct` FOREIGN KEY (`id_product`) REFERENCES `masproduct` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_OutSalesOrderOutSalesOrderProduct` FOREIGN KEY (`invoice_so`) REFERENCES `outsalesorder` (`invoice_so`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_MasProductOutSalesOrderProduct` FOREIGN KEY (`id_product`) REFERENCES `masproduct` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

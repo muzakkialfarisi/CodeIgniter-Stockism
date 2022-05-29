@@ -20,10 +20,12 @@
             <input type="datetime-local" class="form-control" name="date_due"/>
         </div>
         
-        <div class="form-group required date_due">
-            <label class="control-label">Down Payment</label>
-            <input type="text" class="form-control number-only" name="payment_price" value="<?php if (isset($incpurchaseorder)) { echo $incpurchaseorder->payment_price; }else{ echo 0; } ?>" required <?php if (isset($incpurchaseorder)) { echo "readonly"; } ?>>
-        </div>
+        <?php if (!isset($incpurchaseorder)) { ?>
+            <div class="form-group required date_due">
+                <label class="control-label">Down Payment</label>
+                <input type="text" class="form-control number-only" name="payment_price" value="0">
+            </div>
+        <?php } ?>
         
     </div>
 </div>

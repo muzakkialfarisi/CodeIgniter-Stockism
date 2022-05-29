@@ -5,35 +5,37 @@
                 <h5 class="modal-title">Change Status</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= site_url('PurchaseOrders/EditPurchaseOrderStatusPost') ?>" method="post">
+            <form action="<?= site_url('Utangs/EditUtangAngsuranPost') ?>" method="post">
                 <?php echo validation_errors(); ?>
                 <div class="modal-body m-3">
                     <input type="text" class="form-control" name="id_po" required readonly>
                     <div class="mb-3 form-group required">
-                        <div class="row">
-                            <div class="col">
-                                <label class="control-label fw-bold">Payment</label>
+                        <label class="control-label">Date Paid</label>
+                        <input type="datetime-local" class="form-control" name="date_created" required>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="status_payment" value="Debt" checked>
+                                <label class="form-check-label">
+                                    Angsur
+                                </label>
                             </div>
-                            <div class="col">
-                                <input name="payment_status" value="Debt" type="radio" class="form-check-input" id="payment_status0"> Debt
-                            </div>
-                            <div class="col">
-                                <input name="payment_status" value="Paid" type="radio" class="form-check-input" id="payment_status1"> Paid
+                        </div>
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="status_payment" value="Paid">
+                                <label class="form-check-label">
+                                    Lunasi
+                                </label>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group required">
-                        <div class="row">
-                            <div class="col">
-                                <label class="control-label fw-bold">Delivery</label>
-                            </div>
-                            <div class="col">
-                                <input name="delivery_status" value="On Going" type="radio" class="form-check-input" id="delivery_status0"> On Going
-                            </div>
-                            <div class="col">
-                                <input name="delivery_status" value="Done" type="radio" class="form-check-input" id="delivery_status1"> Done
-                            </div>
-                        </div>
+
+                    <div class="mb-3 form-group required">
+                        <label class="control-label">Payment Price</label>
+                        <input type="date-localtime" class="form-control" name="payment_price" required>
                     </div>
                 </div>
                 <div class="modal-footer">

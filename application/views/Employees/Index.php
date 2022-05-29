@@ -54,7 +54,7 @@
                                 <td><?= $item['email_tenant'] ?></td>
                             <?php } ?>
                             <td class="text-center">
-                                <div class="dropdown">
+                                <div class="dropstart">
                                     <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownactions">
                                         <li><a type="button" class="dropdown-item" href="<?= site_url('Employees/Activation/'.$email.'/'.$status) ?>"><?= $result_status ?></a></li>

@@ -3,7 +3,6 @@ $(".table").DataTable({
 });
 
 $('.btn-edit-status').on('click', function(){
-    console.log($(this).data('id'));
     $.ajax({
         type: 'POST',
         url: '/stockism/PurchaseOrders/GetPurchaseOrderById',
@@ -14,10 +13,9 @@ $('.btn-edit-status').on('click', function(){
         beforeSend: function(){
             $("input[name='delivery_status']").attr("disabled", false);
             $("input[name='payment_status']").attr("disabled", false);
-            $("input[name='id_po']").val();
+            $("input[name='id_po']").val("");
         },
         success: function (data) {
-            console.log(data);
             $("input[name='id_po']").val(data.id_po);
             
             if(data.delivery_status == "Done"){
@@ -39,6 +37,34 @@ $('.btn-edit-status').on('click', function(){
         }
     });
 });
+
+$('.btn-edit-poproduct-quantity').on('click', function(){
+    console.log($(this).data('id'));
+    $.ajax({
+        type: 'POST',
+        url: '/stockism/PurchaseOrders/GetPurchaseOrderById',
+        dataType: 'json',
+        data:{
+            id_po: $(this).data('id'),
+        },
+        beforeSend: function(){
+            $("input[name='delivery_status']").attr("disabled", false);
+            $("input[name='payment_status']").attr("disabled", false);
+            $("input[name='id_po']").val("");
+        },
+        success: function (data) {
+            console.log(data);
+            
+            $("input[name='id_po']").val(data.id_po);
+            
+            
+        },
+        error: function (response) {
+            console.log(response.responseText);
+        }
+    });
+});
+
 
 $('.btn-delete').on('click', function(){
     swal({

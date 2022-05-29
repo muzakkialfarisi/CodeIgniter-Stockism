@@ -66,7 +66,7 @@
                     </dt>
                     <dd class = "col-8">
                         : <?php
-                        echo number_format($this->db->query("SELECT SUM(subtotal) AS sumsubtotal FROM incpurchaseorderproduct where id_po = '$incpurchaseorder->id_po'")->row()->sumsubtotal);  
+                        echo number_format($this->db->query("SELECT SUM(subtotal) AS sumsubtotal FROM incpurchaseorderproduct where id_po = '$incpurchaseorder->id_po'")->row()->sumsubtotal + $incpurchaseorder->shipping_cost + $incpurchaseorder->tax_cost);  
                         ?>
                     </dd>
                 </dl>      

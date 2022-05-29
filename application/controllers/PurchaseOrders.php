@@ -47,7 +47,8 @@ class PurchaseOrders extends CI_Controller {
 
     public function CreatePost()
     {
-        if($this->input->post('id_product') == null){
+        if($this->input->post('id_product') == null)
+        {
             $this->session->set_flashdata('error', 'Product Notfound!');
 		    redirect('PurchaseOrders/Create');
         }
@@ -73,6 +74,11 @@ class PurchaseOrders extends CI_Controller {
         );
         $id_po = $this->IncPurchaseOrder->Insert($incpurchaseorder);
 
+        if($id_po == null){
+            $this->session->set_flashdata('error', 'Invalid Insert Purchase Order!');
+		    redirect('PurchaseOrders/Create');
+        }
+
         for($i=0; $i < count($this->input->post('id_product')); $i++){
             $quantity_accepted = 0;
             if($this->input->post('delivery_status') == "Done")
@@ -81,6 +87,10 @@ class PurchaseOrders extends CI_Controller {
             }
 
             $product = $this->MasProduct->GetProductById($this->input->post('id_product')[$i])->row();
+            if($product == null){
+                $this->session->set_flashdata('error', 'IProduct Notfound!');
+		        redirect('PurchaseOrders/Create');
+            }
             $incpurchaseorderproduct = array(
                 'id_po'             => $id_po,
                 'date_created'      => $this->input->post('date_created'),
@@ -93,14 +103,20 @@ class PurchaseOrders extends CI_Controller {
                 'expired_date'      => $this->input->post('expired_date')[$i],
                 'storage'           => $this->input->post('storage')[$i]
             );
-            $this->IncPurchaseOrderProduct->Insert($incpurchaseorderproduct);
+            if(!$this->IncPurchaseOrderProduct->Insert($incpurchaseorderproduct)){
+                $this->session->set_flashdata('error', 'Invalid Insert Purchase Order Product!');
+                redirect('PurchaseOrders/Create');
+            }
 
             $masproduct = array(
                 'id_product'    => $product->id_product,
                 'quantity'      => $product->quantity + $quantity_accepted,
                 'purchase_price'=> $this->input->post('purchase_price')[$i]
             );
-            $this->MasProduct->Update($masproduct);
+            if(!$this->MasProduct->Update($masproduct)){
+                $this->session->set_flashdata('error', 'Invalid Update Product!');
+                redirect('PurchaseOrders/Create');
+            }
         }
 
         if($this->input->post('payment_status') == "Debt")
@@ -109,11 +125,14 @@ class PurchaseOrders extends CI_Controller {
                 'id_po'             => $id_po,
                 'date_created'      => $this->input->post('date_created'),
                 'date_due'          => $this->input->post('date_due'),
-                'total_utang'       => $this->db->query("SELECT SUM(subtotal) AS sum FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->sum,
+                'total_utang'       => $this->db->query("SELECT SUM(subtotal) AS sum FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->sum + $this->input->post('shipping_cost') + $this->input->post('tax_cost'),
                 'sum_payment_price' => $this->input->post('payment_price'),
                 'email_tenant'      => $this->session->userdata['logged_in']['email_tenant']
             );
-            $this->MasUtang->Insert($masutang);
+            if(!$this->MasUtang->Insert($masutang)){
+                $this->session->set_flashdata('error', 'Invalid Insert Utang!');
+                redirect('PurchaseOrders/Create');
+            }
         }
 
         if($this->input->post('payment_price') > 0)
@@ -124,7 +143,10 @@ class PurchaseOrders extends CI_Controller {
                 'payment_price' => $this->input->post('payment_price')
             );
 
-            $this->MasUtangAngsuran->Insert($masutangangsuran);
+            if(!$this->MasUtangAngsuran->Insert($masutangangsuran)){
+                $this->session->set_flashdata('error', 'Invalid Insert Utang Angsuran!');
+                redirect('PurchaseOrders/Create');
+            }
         }
 
         $this->session->set_flashdata('success', 'Purchase Order Created Successfully!');

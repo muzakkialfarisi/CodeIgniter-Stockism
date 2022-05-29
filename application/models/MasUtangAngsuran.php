@@ -3,30 +3,48 @@ class MasUtangAngsuran extends CI_Model{
 
     public function GetAll(){
         $query = $this->db->query("SELECT * FROM masutangangsuran");
-        return $query;
+        if($query){
+            return $query;
+        }
+        return null;
     }
 
     public function Insert($data){
-        $this->db->insert('masutangangsuran', $data);
+        if($this->db->insert('masutangangsuran', $data)){
+            return true;
+        }
+        return false;
     }
 
     public function Update($data){
-        $this->db->where('id_po', $data['id_po']);
-        $this->db->update('masutangangsuran', $data);
+        $this->db->where('id_angsuran', $data['id_angsuran']);
+        if($this->db->update('masutangangsuran', $data)){
+            return true;
+        }
+        return false;
     }
 
     public function Delete($data){
-        $this->db->where('id_po', $data['id_po']);
-        $this->db->delete('masutangangsuran', $data);
+        $this->db->where('id_angsuran', $data);
+        if($this->db->delete('masutangangsuran', $data)){
+            return true;
+        }
+        return false;
 	}
 
-    public function GetUtangByIdPo($id){
+    public function GetUtangAngsuranByIdPo($id){
         $query = $this->db->query("SELECT * FROM masutangangsuran WHERE id_po = '$id'");
-        return $query;
+        if($query){
+            return $query;
+        }
+        return null;
     }
 
-    public function GetUtangById($id){
+    public function GetUtangAngsuranById($id){
         $query = $this->db->query("SELECT * FROM masutangangsuran WHERE id_angsuran = '$id'");
-        return $query;
+        if($query){
+            return $query;
+        }
+        return null;
     }
 }

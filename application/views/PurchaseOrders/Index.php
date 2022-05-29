@@ -2,12 +2,10 @@
     <div class="card-header bg-stockism">
         <div class="d-flex align-items-center py-1">
             <div class="flex-grow-1 ps-3">
-                <h5 class="card-title mb-0 text-light">Product Units</h5>
+                <h5 class="card-title mb-0 text-light">Purchase Orders</h5>
             </div>
-            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
-                <button type="button" class="btn btn-light btn-pill" id="btn-modal-create" data-bs-toggle="modal" data-bs-target="#ModalCreate">Create New</button>
-                <!-- <?php $this->load->view("ProductUnits/Create.php") ?>
-                <?php $this->load->view("ProductUnits/Edit.php") ?> -->
+            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                <a type="button" class="btn btn-light btn-pill" href="<?= site_url('PurchaseOrders/Create') ?>">Create New</a>
             <?php } ?>
         </div>
     </div>
@@ -18,58 +16,80 @@
                 <thead>
                     <tr class="text-center">
                         <th>Invoice</th>
-                        <th>Created</th>
-                        <th>Date Due</th>
-                        <th>Terhutang</th>
-                        <th>Terbayar</th>
-                        <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
-                            <th>Tenant</th>
-                        <?php } ?>
-                        <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
-                            <th>Action</th>
-                        <?php } ?>
+                        <th>Supplier</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>Delivery</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($masutang as $item) { ?>
+                    <?php foreach($incpurchaseorder as $item) { ?>
                         <tr>
+                            <td><?= $item['invoice_po'] ?></td>
                             <td>
                                 <?php 
-                                    $id_po = $item['id_po'];
-                                    echo $this->db->query("SELECT * FROM incpurchaseorder where id_po = '$id_po'")->row()->invoice_po;
+                                    $id_supplier = $item['id_supplier'];
+                                    echo $this->db->query("SELECT * FROM massupplier where id_supplier = '$id_supplier'")->row()->name;
                                 ?>
                             </td>
                             <td class="text-center">
-                                <?= date_format(date_create($item['date_created']), "d-m-Y") ?>
+                                <?php
+                                $date_created = $item['date_created'];
+                                echo date("H:i:s", strtotime($date_created));
+                                echo "<br>";
+                                echo date("d-m-Y", strtotime($date_created));
+                                ?>
                             </td>
-                            <td class="text-center">
-                                <?php if($item['date_due'] != '0000-00-00 00:00:00') { ?>
-                                    <?php if($item['date_due'] > date('Y-m-d H:i:s')) { ?>
-                                        <span class="text-danger"><?= date_format(date_create($item['date_due']), "d-m-Y") ?></span> <br>
-                                        <span class="text-danger text-sm">Terlambat</span>
-                                    <?php } else { ?>
-                                        <?= date_format(date_create($item['date_due']), "d-m-Y") ?>
-                                    <?php } ?>
+                            <td class="text-end">
+                                <?php 
+                                    $id_po = $item['id_po'];
+                                    echo number_format($this->db->query("SELECT SUM(subtotal) AS sum FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->sum);
+                                ?>
+                            </td>
+                            <td>
+                                <?php if($item['payment_status'] == "Debt") {?>
+                                    <span class="text-primary"><?= $item['payment_status'] ?></span>
+                                <?php } else { ?>
+                                    Done
                                 <?php } ?>
                             </td>
-                            <td class="text-end"><?= number_format($item['total_utang']) ?></td>
-                            <td class="text-end">
-                                <?= number_format($item['sum_payment_price']) ?>
+                            <td style="min-height:100px">
+                                <?php if($item['delivery_status'] == "On Going") { ?>
+                                    <?php 
+                                        $quantity_accepted   = $this->db->query("SELECT SUM(quantity_accepted) AS quantity_accepted FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->quantity_accepted;
+                                        $quantity            = $this->db->query("SELECT SUM(quantity) AS quantity FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->quantity;
+                                    ?>
+                                    <ul class="list-group text-primary">
+                                        <li class="d-flex justify-content-between align-items-center">
+                                            OnGoing
+                                            <span class="badge bg-danger rounded-pill"><?= $quantity - $quantity_accepted ?></span>
+                                        </li>
+                                        <li class="d-flex justify-content-between align-items-center">
+                                            Done
+                                            <span class="badge bg-success rounded-pill"><?= $quantity_accepted ?></span>
+                                        </li>
+                                    </ul>
+                                <?php } else { ?>
+                                    <?= $item['delivery_status'] ?>
+                                <?php } ?> 
                             </td>
-                            <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
-                                <td><?= $item['email_tenant'] ?></td>
-                            <?php } ?>
-                            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
-                                <td class="text-center">
-                                    <div class="dropdown">
-                                        <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                            <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['id_po'] ?>">Details</button></li>
-                                            <li><button type="button" class="dropdown-item btn-add-payment" data-bs-toggle="modal" data-id="<?= $item['id_po'] ?>" data-bs-target="#ModalAddPayment">Add Payment</button></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            <?php } ?>
+                            <td class="text-center">
+                                <div class="dropstart">
+                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                        <li><a type="button" class="dropdown-item" href="<?= site_url('PurchaseOrders/Detail/'.$item['id_po']) ?>">Details</a></li>
+                                        <?php if($item['delivery_status'] == "On Going") { ?>
+                                            <li><a type="button" class="dropdown-item btn-edit-poproduct-quantity" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProductQuantity" data-id="<?= $item['id_po'] ?>">Update Delivery</a></li>
+                                        <?php } ?>
+                                        <?php if($item['payment_status'] == "Debt" || $item['delivery_status'] == "On Going") { ?>
+                                            <li><a type="button" class="dropdown-item btn-edit-status" data-bs-toggle="modal" data-bs-target="#ModalEditStatus" data-id="<?= $item['id_po'] ?>">Change Status</a></li>
+                                        <?php } ?>
+                                        <li><button type="button" class="dropdown-item text-danger btn-delete" data-id="<?= $item['id_po'] ?>">Cancel Transaction</button></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
@@ -78,8 +98,9 @@
     </div>
 </div>
 
-<form action="<?= site_url('ProductUnits/DeletePost') ?>" method="post" id="DeletePost">
-    <input type="text" class="form-control" name="id_productunit" required hidden>
+<form action="<?= site_url('PurchaseOrders/DeletePost') ?>" method="post" id="DeletePost">
+    <input type="text" class="form-control" name="id_po" required hidden>
 </form>
 
-<?php $this->load->view("Utangs/ModalAddPayment.php") ?>
+<?php $this->load->view("PurchaseOrders/ModalEditPurchaseOrderProductQuantity.php") ?>
+<?php $this->load->view("PurchaseOrders/ModalEditStatus.php") ?>

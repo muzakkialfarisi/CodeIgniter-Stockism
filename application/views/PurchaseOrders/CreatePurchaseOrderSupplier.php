@@ -17,9 +17,9 @@
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group required">
             <label class="control-label">Tax Cost</label>
-            <input type="text" class="form-control number-only" name="tax_cost" value="<?php if (isset($incpurchaseorder)) { echo $incpurchaseorder->tax_cost; }?>">
+            <input type="text" class="form-control number-only" name="tax_cost" value="<?php if (isset($incpurchaseorder)) { echo $incpurchaseorder->tax_cost; } else { echo 0; }?>" required <?php if (isset($incpurchaseorder)) { echo "readonly"; }?>>
         </div>
     </div>
 </div>

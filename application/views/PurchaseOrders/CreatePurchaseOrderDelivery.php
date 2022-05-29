@@ -16,8 +16,8 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label">Shipping Cost</label>
-            <input type="text" class="form-control number-only" name="shipping_cost" value="<?php if (isset($incpurchaseorder)) { echo $incpurchaseorder->shipping_cost; }?>">
+            <label class="control-label required">Shipping Cost</label>
+            <input type="text" class="form-control number-only" name="shipping_cost" value="<?php if (isset($incpurchaseorder)) { echo $incpurchaseorder->shipping_cost; } else { echo 0; }?>" required <?php if (isset($incpurchaseorder)) { echo "readonly"; } ?>> 
         </div>
     </div>
 </div>

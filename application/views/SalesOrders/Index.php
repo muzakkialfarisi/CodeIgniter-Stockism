@@ -20,7 +20,8 @@
                         <th>Toko</th>
                         <th>Date</th>
                         <th>Total Penjualan</th>
-                        <th>Payment</th>
+                        <th>Status Payment</th>
+                        <th>Status Delivery</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -31,25 +32,43 @@
                             <td><?= $item['invoice_so'] ?></td>
                             <td>
                                 <?php 
-                                    $id_supplier = $item['invoice_so'];
-                                    echo $this->db->query("SELECT * FROM massupplier where id_marketplace = '$id_supplier'")->row()->name;
+                                    $id_customer = $item['id_customer'];
+                                    echo $this->db->query("SELECT * FROM mascustomer where id_customer = '$id_customer'")->row()->name;
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    $id_marketplace = $item['id_marketplace'];
+                                    echo $this->db->query("SELECT * FROM masmarketplace where id_marketplace = '$id_marketplace'")->row()->name;
+                                ?>
+                            </td>
+                            <td>
+                                <?php 
+                                    $id_toko = $item['id_toko'];
+                                    echo $this->db->query("SELECT * FROM mastoko where id_toko = '$id_toko'")->row()->name;
                                 ?>
                             </td>
                             <td><?= $item['date_created'] ?></td>
                             <td class="text-end">
                                 <?php 
-                                    $id_po = $item['id_po'];
-                                    echo number_format($this->db->query("SELECT SUM(subtotal) AS sum FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->sum);
+                                    $id_so = $item['id_so'];
+                                    echo number_format($this->db->query("SELECT SUM(subtotal) AS sum FROM outsalesorderproduct where id_so = '$id_so'")->row()->sum);
                                 ?>
                             </td>
-                            <td><?= $item['payment_status'] ?></td>
-                            <td><?= $item['delivery_status'] ?></td>
+                            <td><?= $item['status_payment'] ?></td>
+                            <td><?= $item['status_delivery'] ?></td>
                             <td class="text-center">
                                 <div class="dropdown">
                                     <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <li><a type="button" class="dropdown-item" href="<?= site_url('PurchaseOrders/Detail/'.$item['id_po']) ?>">Details</a></li>
-                                        <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_po'] ?>" data-bs-target="#ModalEdit">as</button></li>
+                                        <li><a type="button" class="dropdown-item" href="<?= site_url('SalesOrders/Detail/'.$item['id_so']) ?>">Details</a></li>
+                                        <?php if($item['status_delivery'] == "On Going") { ?>
+                                            <li><a type="button" class="dropdown-item btn-edit-poproduct-quantity" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProductQuantity" data-id="<?= $item['id_po'] ?>">Update Delivery</a></li>
+                                        <?php } ?>
+                                        <?php if($item['status_payment'] == "Debt" || $item['status_delivery'] == "On Going") { ?>
+                                            <li><a type="button" class="dropdown-item btn-edit-status" data-bs-toggle="modal" data-bs-target="#ModalEditStatus" data-id="<?= $item['id_po'] ?>">Change Status</a></li>
+                                        <?php } ?>
+                                        <li><button type="button" class="dropdown-item text-danger btn-delete" data-id="<?= $item['id_so'] ?>">Cancel Transaction</button></li>
                                     </ul>
                                 </div>
                             </td>

@@ -13,6 +13,7 @@
                         <?php $this->load->view("SalesOrders/CreateSalesOrderPayment.php") ?>
                         <?php $this->load->view("SalesOrders/CreateSalesOrderDelivery.php") ?>
                         <?php $this->load->view("SalesOrders/CreateSalesOrderChannel.php") ?>
+                        <?php $this->load->view("SalesOrders/CreateSalesOrderCustomer.php") ?>
                     </div>
                     <div class="tab-pane" id="tab-2" role="tabpanel">
                         <?php $this->load->view("SalesOrders/ListProduct.php") ?>

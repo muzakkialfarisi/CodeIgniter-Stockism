@@ -13,19 +13,19 @@
             </select>
         </div>
 
-        <div class="mb-3 form-group required">
-            <label class="control-label">Toko</label>
+        <div class="mb-3 form-group toko required">
+            <label class="control-label">Store</label>
             <select class="form-select" name="id_toko" required>
                 <option selected disabled value="">Select...</option>
-                <?php foreach ($masmarketplace as $item) { ?>
+                <?php foreach ($masstore as $item) { ?>
                     <option value="<?= $item["id_toko"] ?>"><?= $item["name"] ?></option>
                 <?php } ?>
             </select>
         </div>
 
-        <div class="form-group">
+        <div class="form-group tax_cost">
             <label class="control-label">Tax Cost</label>
-            <input type="text" class="form-control number-only" name="tax_cost">
+            <input type="text" class="form-control number-only" name="tax_cost" value="" readonly>
         </div>
     </div>
 </div>

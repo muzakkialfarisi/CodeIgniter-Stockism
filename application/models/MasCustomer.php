@@ -45,4 +45,8 @@ class MasCustomer extends CI_Model{
 		return $data;
     }
 
+    public function GetIdCustomertypeById($id_customer){
+        $data = $this->db->query("SELECT Id_CustomerType FROM mascustomer WHERE id_customer = '$id_customer'");
+		return $data;
+    }
 }

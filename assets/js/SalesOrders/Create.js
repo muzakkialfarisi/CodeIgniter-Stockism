@@ -1,11 +1,33 @@
 $('.date_due').hide();
-$("select[name='payment_status']").change(function(e){
+$('.toko').hide();
+$('.tax_cost').hide();
+// $('.airway_bill').hide();
+$("select[name='status_payment']").change(function(e){
     if($(this).val() == "Paid"){
         $('.date_due').hide();
     }else{
         $('.date_due').show();
     }
 });
+
+$("select[name='id_marketplace']").change(function(e){
+    if($(this).val() == ""){
+        $('.toko').hide();
+    }else{
+        $('.toko').show();
+        // $data['masstoremarketplace'] = $this->MasStore->GetStoreByMarketplace($data['masmarketplace']->id_marketplace)->row();
+    }
+});
+
+$("select[name='id_toko']").change(function(e){
+    if($(this).val() == ""){
+        $('.tax_cost').hide();
+    }else{
+        $('.tax_cost').show();
+    }
+});
+
+
 
 var index = 0;
 $('.table tbody tr').click(function () {
@@ -53,22 +75,8 @@ $('.table tbody tr').click(function () {
                                     '</div>'+
                                     '<div class="col-12 col-sm-6">'+
                                         '<div class="mb-3 form-group required">'+
-                                            '<label class="control-label">Purchase Price</label>'+
-                                            '<input type="number" class="form-control number-only" name="purchase_price[]" id="purchase_price'+index+'" value="'+data.purchase_price+'" required>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'+
-                                '<div class="row">'+
-                                    '<div class="col-12 col-sm-6">'+
-                                        '<div class="mb-3 form-group">'+
-                                            '<label class="control-label">Expired Date (opsional)</label>'+
-                                            '<input type="datetime-local" class="form-control number-only" name="expired_date[]" id="expired_date'+index+'">'+
-                                        '</div>'+
-                                    '</div>'+
-                                    '<div class="col-12 col-sm-6">'+
-                                        '<div class="mb-3 form-group">'+
-                                            '<label class="control-label">Storage (opsional)</label>'+
-                                            '<input type="text" class="form-control number-only" name="storage[]" id="storage'+index+'">'+
+                                            '<label class="control-label">Selling Price</label>'+
+                                            '<input type="number" class="form-control number-only" name="selling_price[]" id="selling_price'+index+'" value="'+data.selling_price+'" required>'+
                                         '</div>'+
                                     '</div>'+
                                 '</div>'+

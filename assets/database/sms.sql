@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 28/05/2022 00:06:22
+ Date: 30/05/2022 19:24:43
 */
 
 SET NAMES utf8mb4;
@@ -76,14 +76,18 @@ CREATE TABLE `incpurchaseorder`  (
   CONSTRAINT `FK_MasTenantIncPurchaseOrder` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `id_supplier` FOREIGN KEY (`id_supplier`) REFERENCES `massupplier` (`id_supplier`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `id_warehouse` FOREIGN KEY (`id_warehouse`) REFERENCES `maswarehouse` (`id_warehouse`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 42 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of incpurchaseorder
 -- ----------------------------
-INSERT INTO `incpurchaseorder` VALUES (39, '220527-044445', '2022-05-27 09:44:00', 'a@a', '220511-191240', 0, 'On Going', 'Debt', '0000-00-00 00:00:00', 4, 0, '0000001');
-INSERT INTO `incpurchaseorder` VALUES (40, '220527-044618', '2022-05-27 09:45:00', 'a@a', '220511-191240', 0, 'Done', 'Debt', '0000-00-00 00:00:00', 4, 0, '0000001');
+INSERT INTO `incpurchaseorder` VALUES (39, '220527-044445', '2022-05-27 09:44:00', 'a@a', '220511-191240', 0, 'Done', 'Paid', '0000-00-00 00:00:00', 4, 0, '0000001');
+INSERT INTO `incpurchaseorder` VALUES (40, '220527-044618', '2022-05-27 09:45:00', 'a@a', '220511-191240', 0, 'Done', 'Paid', '0000-00-00 00:00:00', 4, 0, '0000001');
 INSERT INTO `incpurchaseorder` VALUES (41, '220527-044703', '2022-05-27 09:45:00', 'a@a', '220511-191240', 0, 'Done', 'Paid', '0000-00-00 00:00:00', 4, 0, '0000001');
+INSERT INTO `incpurchaseorder` VALUES (42, '220528-123220', '2022-05-28 17:32:00', 'a@a', '220511-191240', 0, 'On Going', 'Paid', '0000-00-00 00:00:00', 4, 0, '0000001');
+INSERT INTO `incpurchaseorder` VALUES (43, '220528-132247', '2022-05-28 18:22:00', 'a@a', '220511-191240', 0, 'Done', 'Paid', '0000-00-00 00:00:00', 4, 0, '0000001');
+INSERT INTO `incpurchaseorder` VALUES (45, '220528-161802', '2022-05-28 21:17:00', 'a@a', '220511-191240', 0, 'On Going', 'Paid', '0000-00-00 00:00:00', 4, 0, '0000001');
+INSERT INTO `incpurchaseorder` VALUES (46, '220528-205735', '2022-05-27 01:57:00', 'a@a', '220511-191240', 0, 'Done', 'Paid', '2022-05-31 01:57:00', 4, 0, '0000001');
 
 -- ----------------------------
 -- Table structure for incpurchaseorderproduct
@@ -106,17 +110,24 @@ CREATE TABLE `incpurchaseorderproduct`  (
   INDEX `FK_IncPurchaseOrderIncPurchaseOrderProduct`(`id_po`) USING BTREE,
   CONSTRAINT `FK_IncPurchaseOrderIncPurchaseOrderProduct` FOREIGN KEY (`id_po`) REFERENCES `incpurchaseorder` (`id_po`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MasProductIncPurchaseOrderProduct` FOREIGN KEY (`id_product`) REFERENCES `masproduct` (`id_product`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of incpurchaseorderproduct
 -- ----------------------------
-INSERT INTO `incpurchaseorderproduct` VALUES (41, 39, '2022-05-27 09:44:00', '220512-035448', 19, 1, 0, 6800000, 6800000, '0000-00-00 00:00:00', '');
-INSERT INTO `incpurchaseorderproduct` VALUES (42, 39, '2022-05-27 09:44:00', '220513-083802', 21, 210, 0, 200000, 42000000, '0000-00-00 00:00:00', '');
+INSERT INTO `incpurchaseorderproduct` VALUES (41, 39, '2022-05-27 09:44:00', '220512-035448', 19, 1, 1, 6800000, 6800000, '0000-00-00 00:00:00', '');
+INSERT INTO `incpurchaseorderproduct` VALUES (42, 39, '2022-05-27 09:44:00', '220513-083802', 21, 210, 210, 200000, 42000000, '0000-00-00 00:00:00', '');
 INSERT INTO `incpurchaseorderproduct` VALUES (43, 40, '2022-05-27 09:45:00', '220513-081836', 20, 3, 3, 400000, 1200000, '0000-00-00 00:00:00', '');
 INSERT INTO `incpurchaseorderproduct` VALUES (44, 40, '2022-05-27 09:45:00', '220514-062158', 23, 3, 3, 1000, 3000, '0000-00-00 00:00:00', '');
 INSERT INTO `incpurchaseorderproduct` VALUES (45, 41, '2022-05-27 09:45:00', '220513-081836', 20, 3, 3, 400000, 1200000, '0000-00-00 00:00:00', '');
 INSERT INTO `incpurchaseorderproduct` VALUES (46, 41, '2022-05-27 09:45:00', '220514-062158', 23, 3, 3, 1000, 3000, '0000-00-00 00:00:00', '');
+INSERT INTO `incpurchaseorderproduct` VALUES (47, 42, '2022-05-28 17:32:00', '220512-035448', 19, 210, 0, 6800000, 1428000000, '0000-00-00 00:00:00', '');
+INSERT INTO `incpurchaseorderproduct` VALUES (48, 43, '2022-05-28 18:22:00', '220512-035448', 19, 10, 10, 6800000, 68000000, '0000-00-00 00:00:00', '');
+INSERT INTO `incpurchaseorderproduct` VALUES (49, 43, '2022-05-28 18:22:00', '220514-062210', 24, 100, 100, 1000, 100000, '0000-00-00 00:00:00', '');
+INSERT INTO `incpurchaseorderproduct` VALUES (52, 45, '2022-05-28 21:17:00', '220512-035448', 19, 2, 0, 6800000, 13600000, '0000-00-00 00:00:00', '');
+INSERT INTO `incpurchaseorderproduct` VALUES (53, 45, '2022-05-28 21:17:00', '220513-081836', 20, 2, 0, 400000, 800000, '0000-00-00 00:00:00', '');
+INSERT INTO `incpurchaseorderproduct` VALUES (54, 46, '2022-05-27 01:57:00', '220513-081836', 20, 1, 1, 400000, 400000, '0000-00-00 00:00:00', '');
+INSERT INTO `incpurchaseorderproduct` VALUES (55, 46, '2022-05-27 01:57:00', '220514-062158', 23, 1, 1, 1000, 1000, '0000-00-00 00:00:00', '');
 
 -- ----------------------------
 -- Table structure for invputaway
@@ -254,7 +265,12 @@ CREATE TABLE `masemployee`  (
   PRIMARY KEY (`id_employee`) USING BTREE,
   INDEX `FK_MasEmployeeMasTenant`(`email_tenant`) USING BTREE,
   CONSTRAINT `FK_MasEmployeeMasTenant` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of masemployee
+-- ----------------------------
+INSERT INTO `masemployee` VALUES (14, 'Far', 'w@w', '220511-191240', 'default-avatar.png', 'active', '', '085329981115');
 
 -- ----------------------------
 -- Table structure for masmarketplace
@@ -324,12 +340,12 @@ CREATE TABLE `masproduct`  (
 -- ----------------------------
 -- Records of masproduct
 -- ----------------------------
-INSERT INTO `masproduct` VALUES (19, '220512-035448', '61375487-DCA0-4E76-A4D7-11A0DDE79399', '61375487-DCA0-4E76-A4D7-11A0DDE79399.png', 'Aspire 5 Slim (A514-54)', 0, 6800000, 8900000, 0, 0, 0, 0, '', 3, 'Active', 8, 9, '220511-191240', 'default-product.png');
-INSERT INTO `masproduct` VALUES (20, '220513-081836', '1D430E8D-796C-4D0D-B6A1-E5AB097B6CA9', '1D430E8D-796C-4D0D-B6A1-E5AB097B6CA9.png', 'Box RAM Laptop Corsair DDR4 4gb 2400MHz Sodim', 6, 400000, 500000, 0, 0, 0, 0, '', 3, 'Active', 8, 9, '220511-191240', '1D430E8D-796C-4D0D-B6A1-E5AB097B6CA9.jpg');
-INSERT INTO `masproduct` VALUES (21, '220513-083802', 'D17B1636-04D9-44E6-8524-84810FE16379', 'D17B1636-04D9-44E6-8524-84810FE16379.png', 'Geoff Max Sandals Anniver 9 0 Black Pink', 0, 200000, 130000, 0, 0, 0, 0, '', 3, 'Active', 7, 10, '220511-191240', 'D17B1636-04D9-44E6-8524-84810FE16379.png');
+INSERT INTO `masproduct` VALUES (19, '220512-035448', '61375487-DCA0-4E76-A4D7-11A0DDE79399', '61375487-DCA0-4E76-A4D7-11A0DDE79399.png', 'Aspire 5 Slim (A514-54)', 11, 6800000, 8900000, 0, 0, 0, 0, '', 3, 'Active', 8, 9, '220511-191240', 'default-product.png');
+INSERT INTO `masproduct` VALUES (20, '220513-081836', '1D430E8D-796C-4D0D-B6A1-E5AB097B6CA9', '1D430E8D-796C-4D0D-B6A1-E5AB097B6CA9.png', 'Box RAM Laptop Corsair DDR4 4gb 2400MHz Sodim', 7, 400000, 500000, 0, 0, 0, 0, '', 3, 'Active', 8, 9, '220511-191240', '1D430E8D-796C-4D0D-B6A1-E5AB097B6CA9.jpg');
+INSERT INTO `masproduct` VALUES (21, '220513-083802', 'D17B1636-04D9-44E6-8524-84810FE16379', 'D17B1636-04D9-44E6-8524-84810FE16379.png', 'Geoff Max Sandals Anniver 9 0 Black Pink', 210, 200000, 130000, 0, 0, 0, 0, '', 3, 'Active', 7, 10, '220511-191240', 'D17B1636-04D9-44E6-8524-84810FE16379.png');
 INSERT INTO `masproduct` VALUES (22, '220513-152504', '36F9F672-F1F4-4EA3-9E54-B48DB50FAF30', '36F9F672-F1F4-4EA3-9E54-B48DB50FAF30.png', 'RAM Laptop Corsair DDR4 4gb 2400MHz Sodim', 0, 900000, 1000000, 1, 1, 1, 1, 'Ok', 3, 'Active', 10, 11, '220513-151635', '36F9F672-F1F4-4EA3-9E54-B48DB50FAF30.jpg');
-INSERT INTO `masproduct` VALUES (23, '220514-062158', 'EBA04A27-AD33-4B5D-A744-41883031AC3F', 'EBA04A27-AD33-4B5D-A744-41883031AC3F.png', 'as', 6, 1000, 1500, 0, 0, 0, 0, '', 3, 'Active', 7, 7, '220511-191240', 'default-product.png');
-INSERT INTO `masproduct` VALUES (24, '220514-062210', 'F630629C-657B-48D6-A622-CF18F204C1EC', 'F630629C-657B-48D6-A622-CF18F204C1EC.png', '12', 0, 1000, 1500, 0, 0, 0, 0, '', 3, 'Active', 7, 7, '220511-191240', 'default-product.png');
+INSERT INTO `masproduct` VALUES (23, '220514-062158', 'EBA04A27-AD33-4B5D-A744-41883031AC3F', 'EBA04A27-AD33-4B5D-A744-41883031AC3F.png', 'as', 7, 1000, 1500, 0, 0, 0, 0, '', 3, 'Active', 7, 7, '220511-191240', 'default-product.png');
+INSERT INTO `masproduct` VALUES (24, '220514-062210', 'F630629C-657B-48D6-A622-CF18F204C1EC', 'F630629C-657B-48D6-A622-CF18F204C1EC.png', '12', 100, 1000, 1500, 0, 0, 0, 0, '', 3, 'Active', 7, 7, '220511-191240', 'default-product.png');
 INSERT INTO `masproduct` VALUES (25, '220521-195746', 'D8B46FC4-CAE1-4EA5-8658-0E111108EDB0', 'D8B46FC4-CAE1-4EA5-8658-0E111108EDB0.png', '1', 0, 1000, 1500, 0, 0, 0, 0, '', 3, 'Active', 11, 12, '220512-035600', 'default-product.png');
 
 -- ----------------------------
@@ -486,9 +502,12 @@ CREATE TABLE `masutang`  (
 -- ----------------------------
 -- Records of masutang
 -- ----------------------------
-INSERT INTO `masutang` VALUES (39, 48800000, 0, '220511-191240', '2022-05-27 09:44:00', '0000-00-00 00:00:00');
-INSERT INTO `masutang` VALUES (40, 1203000, 30000, '220511-191240', '2022-05-27 09:45:00', '0000-00-00 00:00:00');
+INSERT INTO `masutang` VALUES (39, 48800000, 48800000, '220511-191240', '2022-05-27 09:44:00', '0000-00-00 00:00:00');
+INSERT INTO `masutang` VALUES (40, 1203000, 1203000, '220511-191240', '2022-05-27 09:45:00', '0000-00-00 00:00:00');
 INSERT INTO `masutang` VALUES (41, 1203000, 1203000, '220511-191240', '2022-05-27 09:45:00', '0000-00-00 00:00:00');
+INSERT INTO `masutang` VALUES (43, 68100000, 68100000, '220511-191240', '2022-05-28 18:22:00', '0000-00-00 00:00:00');
+INSERT INTO `masutang` VALUES (45, 14400000, 14400000, '220511-191240', '2022-05-28 21:17:00', '0000-00-00 00:00:00');
+INSERT INTO `masutang` VALUES (46, 401000, 401000, '220511-191240', '2022-05-27 01:57:00', '2022-05-31 01:57:00');
 
 -- ----------------------------
 -- Table structure for masutangangsuran
@@ -502,13 +521,26 @@ CREATE TABLE `masutangangsuran`  (
   PRIMARY KEY (`id_angsuran`) USING BTREE,
   INDEX `id_po`(`id_po`) USING BTREE,
   CONSTRAINT `FKid_po` FOREIGN KEY (`id_po`) REFERENCES `masutang` (`id_po`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of masutangangsuran
 -- ----------------------------
 INSERT INTO `masutangangsuran` VALUES (1, 41, '2022-05-27 09:45:00', 30000);
 INSERT INTO `masutangangsuran` VALUES (2, 41, '0000-00-00 00:00:00', 0);
+INSERT INTO `masutangangsuran` VALUES (3, 39, '0000-00-00 00:00:00', 48800000);
+INSERT INTO `masutangangsuran` VALUES (4, 40, '0000-00-00 00:00:00', 1173000);
+INSERT INTO `masutangangsuran` VALUES (5, 43, '2022-05-28 20:51:00', 1000);
+INSERT INTO `masutangangsuran` VALUES (6, 43, '2022-05-28 20:53:00', 1000);
+INSERT INTO `masutangangsuran` VALUES (7, 43, '2022-05-28 20:57:00', 1000);
+INSERT INTO `masutangangsuran` VALUES (8, 43, '2022-05-28 21:10:00', 100);
+INSERT INTO `masutangangsuran` VALUES (9, 43, '2022-05-28 21:11:00', 100);
+INSERT INTO `masutangangsuran` VALUES (10, 43, '2022-05-28 21:11:00', 100);
+INSERT INTO `masutangangsuran` VALUES (11, 43, '2022-05-28 21:15:00', 1000);
+INSERT INTO `masutangangsuran` VALUES (12, 45, '2022-05-28 21:17:00', 1000);
+INSERT INTO `masutangangsuran` VALUES (16, 45, '2022-05-29 01:32:00', 14399000);
+INSERT INTO `masutangangsuran` VALUES (17, 43, '2022-05-29 01:33:00', 68097700);
+INSERT INTO `masutangangsuran` VALUES (18, 46, '0000-00-00 00:00:00', 401000);
 
 -- ----------------------------
 -- Table structure for maswarehouse
@@ -552,6 +584,7 @@ CREATE TABLE `outsalesorder`  (
   `date_due` datetime(0) NULL DEFAULT NULL,
   `id_customer` int(11) NOT NULL,
   `Id_CustomerType` int(11) NOT NULL,
+  `shipping_cost` decimal(10, 0) NOT NULL,
   PRIMARY KEY (`id_so`) USING BTREE,
   INDEX `FK_MasMarketplaceOutSalesOrder`(`id_marketplace`) USING BTREE,
   INDEX `FK_MasTokoOutSalesOrder`(`id_toko`) USING BTREE,
@@ -561,8 +594,8 @@ CREATE TABLE `outsalesorder`  (
   CONSTRAINT `FK_MasMarketplaceOutSalesOrder` FOREIGN KEY (`id_marketplace`) REFERENCES `masmarketplace` (`id_marketplace`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MasTenantOutSalesOrder` FOREIGN KEY (`email_tenant`) REFERENCES `mastenant` (`email_tenant`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_MasTokoOutSalesOrder` FOREIGN KEY (`id_toko`) REFERENCES `mastoko` (`id_toko`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `id_customer` FOREIGN KEY (`id_customer`) REFERENCES `mascustomer` (`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Id_customerType` FOREIGN KEY (`Id_CustomerType`) REFERENCES `mascustomertype` (`Id_CustomerType`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `Id_customerType` FOREIGN KEY (`Id_CustomerType`) REFERENCES `mascustomertype` (`Id_CustomerType`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `id_customer` FOREIGN KEY (`id_customer`) REFERENCES `mascustomer` (`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -656,6 +689,7 @@ CREATE TABLE `secuser`  (
 INSERT INTO `secuser` VALUES ('a@a', '$2y$12$3iNJnE6iL6MEmkQaHGmeXe60xWHs74Gui.nhTkJbBxxXX5AoMGMe.', '9551507342fd6baf0e2a64a7800e84e0', 0, 'active', 2);
 INSERT INTO `secuser` VALUES ('admin', '$2y$12$c4cd4a1f900f538b77e01un3qNM3mgZ5A.sZPfdawzeyCqwS0t2bC', 'c4cd4a1f900f538b77e0125ffa60099b', 1, 'active', 1);
 INSERT INTO `secuser` VALUES ('stockism2022@gmail.com', '$2y$12$VfCd2qWYhTS/JTK1hS3liOdkN6HQVZEuX8hoFxAQMT8pqUtuTXLim', '', 0, 'active', 1);
+INSERT INTO `secuser` VALUES ('w@w', '$2y$12$jTVeznUwBFgk7Cy2yc.rcO4RRq9g0xMcjPfjswFoympNPAZZiW6TK', 'db4dca38987364a80cee4c6d89248cf5', 0, 'active', 3);
 
 -- ----------------------------
 -- Table structure for secuserrole

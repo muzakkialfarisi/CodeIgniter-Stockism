@@ -160,114 +160,111 @@ class SalesOrders extends CI_Controller {
         $this->load->view('Shared/_Layout', $data);
     }
 
-    // public function EditPurchaseOrderPost()
-    // {
-    //     if($this->IncPurchaseOrder->GetPurchaseOrderById($this->input->post('id_po'))->num_rows() < 1){
-	// 		$this->session->set_flashdata('error', 'Purchase Order Notfound!');
-	// 		redirect('PurchaseOrders/Index');
-    //     }
+    public function EditSalesOrderPost()
+    {
+        if($this->OutSalesOrder->GetSalesOrderById($this->input->post('id_so'))->num_rows() < 1){
+			$this->session->set_flashdata('error', 'Sales Order Notfound!');
+			redirect('SalesOrders/Index');
+        }
 
-    //     $incpurchaseorder = array(
-    //         'id_po'             => $this->input->post('id_po'),
-    //         'date_created'      => $this->input->post('date_created'),
-    //         'invoice_po'        => $this->input->post('invoice_po'),
-    //         'createdby'         => $this->session->userdata['logged_in']['email'],
-    //         'date_due'          => $this->input->post('date_due'),
-    //         'shipping_cost'     => $this->input->post('shipping_cost'),
-    //         'id_supplier'       => $this->input->post('id_supplier'),
-    //         'tax_cost'          => $this->input->post('tax_cost')
-    //     );
+        $incpurchaseorder = array(
+            'id_so'             => $this->input->post('id_so'),
+            'date_created'      => $this->input->post('date_created'),
+            'invoice_so'        => $this->input->post('invoice_so'),
+            'createdby'         => $this->session->userdata['logged_in']['email'],
+            'date_due'          => $this->input->post('date_due'),
+            'shipping_cost'     => $this->input->post('shipping_cost'),
+            'id_customer'       => $this->input->post('id_customer'),
+            'tax_cost'          => $this->input->post('tax_cost')
+        );
         
-    //     $this->IncPurchaseOrder->Update($incpurchaseorder);
+        $this->OutSalesOrder->Update($outsalesorder);
 
-    //     $incpurchaseorder = array(
-    //         'id_po'             => $this->input->post('id_po'),
-    //         'invoice_po'        => $this->input->post('invoice_po'),
-    //         'date_due'          => $this->input->post('date_due')
-    //     );
+        $outsalesorder = array(
+            'id_so'             => $this->input->post('id_so'),
+            'invoice_so'        => $this->input->post('invoice_so'),
+            'date_due'          => $this->input->post('date_due')
+        );
         
-    //     $this->session->set_flashdata('success', 'Updated Successfully!');
-    //     redirect('PurchaseOrders/Detail/'.$this->input->post('id_po'));
-    // }
+        $this->session->set_flashdata('success', 'Updated Successfully!');
+        redirect('SalesOrders/Detail/'.$this->input->post('id_so'));
+    }
 
-    // public function EditPurchaseOrderProductPost()
-    // {
-    //     $this->form_validation->set_rules('id_poproduct', 'id_poproduct', 'required');
-    //     $this->form_validation->set_rules('sku', 'sku', 'required');
-    //     $this->form_validation->set_rules('purchase_price', 'purchase_price', 'required');
+    public function EditSalesOrderProductPost()
+    {
+        $this->form_validation->set_rules('id_soproduct', 'id_soproduct', 'required');
+        $this->form_validation->set_rules('selling_price', 'selling_price', 'required');
 
-	// 	if ($this->form_validation->run() == FALSE) {
-	// 		$this->session->set_flashdata('error', 'Invalid Modelstate!');
-	// 		redirect('PurchaseOrders/Detail/'.$this->input->post('id_po'));
-	// 	}
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('SalesOrders/Detail/'.$this->input->post('id_so'));
+		}
 
-    //     $incpurchaseorderproduct = array(
-    //         'id_poproduct'      => $this->input->post('id_poproduct'),
-    //         'purchase_price'    => $this->input->post('purchase_price'),
-    //         'expired_date'      => $this->input->post('expired_date'),
-    //         'storage'           => $this->input->post('storage')
-    //     );
+        $outsalesorderproduct = array(
+            'id_soproduct'      => $this->input->post('id_soproduct'),
+            'selling_price'    => $this->input->post('selling_price')
+        );
 
-    //     $this->IncPurchaseOrderProduct->Update($incpurchaseorderproduct);
-    //     $this->session->set_flashdata('success', 'Updated Successfully!');
-    //     redirect('PurchaseOrders/Detail/'.$this->input->post('id_po'));
-    // }
+        $this->OutSalesOrderProduct->Update($outsalesorderproduct);
+        $this->session->set_flashdata('success', 'Updated Successfully!');
+        redirect('SalesOrders/Detail/'.$this->input->post('id_so'));
+    }
 
-    // public function EditPurchaseOrderStatusPost()
-    // {
-    //     if($this->input->post('payment_status') == "Paid"){
-    //         $incpurcahseorder = array(
-    //             'id_po'             => $this->input->post('id_po'),
-    //             'payment_status'    => $this->input->post('payment_status')
-    //         );
-    //         $this->IncPurchaseOrder->Update($incpurcahseorder);
+    public function EditSalesOrderStatusPost()
+    {
+        if($this->input->post('status_payment') == "Paid"){
+            $incpurcahseorder = array(
+                'id_so'             => $this->input->post('id_so'),
+                'status_payment'    => $this->input->post('status_payment')
+            );
+            $this->OutSalesOrder->Update($outsalesorder);
 
-    //         $utang = $this->MasUtang->GetUtangById($this->input->post('id_po'))->row();
+            $piutang = $this->MasPiutang->GetPiutangById($this->input->post('id_so'))->row();
 
-    //         $masutang = array(
-    //             'id_po'             => $this->input->post('id_po'),
-    //             'sum_payment_price' => $utang->total_utang
-    //         );
-    //         $this->MasUtang->Update($masutang);
+            $maspiutang = array(
+                'id_so'             => $this->input->post('id_so'),
+                'sum_payment_price' => $utang->total_piutang
+            );
+            $this->MasUtang->Update($masutang);
 
-    //         $masutangangsuran = array(
-    //             'id_po'             => $this->input->post('id_po'),
-    //             'date_created'      => date(),
-    //             'payment_price'     => $utang->total_utang - $utang->sum_payment_price
-    //         );
-    //         $this->MasUtangAngsuran->Insert($masutangangsuran);
-    //     }
+            $maspiutangangsuran = array(
+                'id_so'             => $this->input->post('id_so'),
+                'date_created'      => date(),
+                'payment_price'     => $piutang->total_utang - $piutang->sum_payment_price
+            );
+            $this->MasPiutangAngsuran->Insert($maspiutangangsuran);
+        }
 
-    //     if($this->input->post('delivery_status') == "Done"){
-    //         $incpurcahseorder = array(
-    //             'id_po'             => $this->input->post('id_po'),
-    //             'delivery_status'    => $this->input->post('delivery_status')
-    //         );
-    //         $this->IncPurchaseOrder->Update($incpurcahseorder);
+        if($this->input->post('status_delivery') == "Done"){
+            $incpurcahseorder = array(
+                'id_so'             => $this->input->post('id_so'),
+                'status_delivery'    => $this->input->post('status_delivery')
+            );
+            $this->OutSalesOrder->Update($outsalesorder);
 
-    //         $purchaseorderproduct = $this->IncPurchaseOrderProduct->GetPurchaseOrderProductByIdPo($this->input->post('id_po'))->result();
+            $salesorderproduct = $this->OutSalesOrderProduct->GetSalesOrderProductByIdSo($this->input->post('id_so'))->result();
 
-    //         foreach ($purchaseorderproduct as $poproduct) {
-    //             $incpurchaseorderproduct = array(
-    //                 'id_poproduct'      => $poproduct->id_poproduct,
-    //                 'quantity_accepted' => $poproduct->quantity
-    //             );
+            foreach ($salesorderproduct as $soproduct) {
+                $outsalesorderproduct = array(
+                    'id_soproduct'      => $soproduct->id_soproduct,
+                    'quantity_accepted' => $soproduct->quantity
+                );
 
-    //             $product = $this->MasProduct->GetProductById($poproduct->id_product)->row();
-    //             $masproduct = array(
-    //                 'id_product'        => $product->id_product,
-    //                 'quantity'          => $product->quantity + ($poproduct->quantity - $poproduct->quantity_accepted)
-    //             );
+                $product = $this->MasProduct->GetProductById($soproduct->id_product)->row();
+                $masproduct = array(
+                    'id_product'        => $product->id_product,
+                    'quantity'          => $product->quantity - ($poproduct->quantity - $poproduct->quantity_accepted)
+                );
                 
-    //             $this->IncPurchaseOrderProduct->Update($incpurchaseorderproduct);
-    //             $this->MasProduct->Update($masproduct);
+                $this->OutSalesOrderProduct->Update($outsalesorderproduct);
+                $this->MasProduct->Update($masproduct);
 
-    //         }
-    //     }
+            }
+        }
 
-    //     $this->session->set_flashdata('success', 'Status Updated Successfully');
-    //     redirect('PurchaseOrders/Index');
-    // }
+        $this->session->set_flashdata('success', 'Status Updated Successfully');
+        redirect('PurchaseOrders/Index');
+    }
 
     // public function DeletePost(){
     //     $this->form_validation->set_rules('id_po', 'id_po', 'required');

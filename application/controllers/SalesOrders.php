@@ -247,13 +247,13 @@ class SalesOrders extends CI_Controller {
             foreach ($salesorderproduct as $soproduct) {
                 $outsalesorderproduct = array(
                     'id_soproduct'      => $soproduct->id_soproduct,
-                    'quantity_accepted' => $soproduct->quantity
+                    'quantity_delivered' => $soproduct->quantity
                 );
 
                 $product = $this->MasProduct->GetProductById($soproduct->id_product)->row();
                 $masproduct = array(
                     'id_product'        => $product->id_product,
-                    'quantity'          => $product->quantity - ($poproduct->quantity - $poproduct->quantity_accepted)
+                    'quantity'          => $product->quantity - ($soproduct->quantity - $soproduct->quantity_delivered)
                 );
                 
                 $this->OutSalesOrderProduct->Update($outsalesorderproduct);
@@ -263,7 +263,7 @@ class SalesOrders extends CI_Controller {
         }
 
         $this->session->set_flashdata('success', 'Status Updated Successfully');
-        redirect('PurchaseOrders/Index');
+        redirect('SalesOrders/Index');
     }
 
     // public function DeletePost(){
@@ -302,11 +302,11 @@ class SalesOrders extends CI_Controller {
 	// 	redirect('PurchaseOrders/Index');
     // }
 
-    // public function GetPurchaseOrderById()
-    // {
-    //     $id_po = $this->input->post('id_po');
-    //     $incpurchaseorder = $this->IncPurchaseOrder->GetPurchaseOrderById($id_po);
-    //     echo json_encode($incpurchaseorder->row());
-    // }
+    public function GetSalesOrderById()
+    {
+        $id_so = $this->input->post('id_so');
+        $outsalesorder = $this->OutSalesOrder->GetSalesOrderById($id_so);
+        echo json_encode($outsalesorder->row());
+    }
 
 }

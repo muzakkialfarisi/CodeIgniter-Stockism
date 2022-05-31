@@ -63,10 +63,10 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownactions">
                                         <li><a type="button" class="dropdown-item" href="<?= site_url('SalesOrders/Detail/'.$item['id_so']) ?>">Details</a></li>
                                         <?php if($item['status_delivery'] == "On Going") { ?>
-                                            <li><a type="button" class="dropdown-item btn-edit-poproduct-quantity" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProductQuantity" data-id="<?= $item['id_po'] ?>">Update Delivery</a></li>
+                                            <li><a type="button" class="dropdown-item btn-edit-poproduct-quantity" data-bs-toggle="modal" data-bs-target="#ModalEditSalesOrderProductQuantity" data-id="<?= $item['id_so'] ?>">Update Delivery</a></li>
                                         <?php } ?>
                                         <?php if($item['status_payment'] == "Debt" || $item['status_delivery'] == "On Going") { ?>
-                                            <li><a type="button" class="dropdown-item btn-edit-status" data-bs-toggle="modal" data-bs-target="#ModalEditStatus" data-id="<?= $item['id_po'] ?>">Change Status</a></li>
+                                            <li><a type="button" class="dropdown-item btn-edit-status" data-bs-toggle="modal" data-bs-target="#ModalEditStatus" data-id="<?= $item['id_so'] ?>">Change Status</a></li>
                                         <?php } ?>
                                         <li><button type="button" class="dropdown-item text-danger btn-delete" data-id="<?= $item['id_so'] ?>">Cancel Transaction</button></li>
                                     </ul>
@@ -83,3 +83,5 @@
 <form action="<?= site_url('ProductCategories/DeletePost') ?>" method="post" id="DeletePost">
     <input type="text" class="form-control" name="id_productcategory" required hidden>
 </form>
+
+<?php $this->load->view("SalesOrders/ModalEditStatus.php") ?>

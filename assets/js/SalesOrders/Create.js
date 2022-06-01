@@ -1,7 +1,44 @@
+$("select[name='id_marketplace']").change(function(e){
+    $.ajax({
+        type: 'POST',
+        url: '/stockism/Stores/GetStoreByMarketplace/',
+        data: {
+            id_marketplace: $(this).val(),
+        },
+        dataType: 'json',
+        beforeSend: function () {
+            $("select[name='id_toko']").empty();
+            $("select[name='id_toko']").append('<option disabled_selected value="">Select...</option>');
+        },
+        success: function (data) {
+            for (let i = 0; i < data.length; i++) {
+                $("select[name='id_toko']").append('<option value="'+data[i].id_toko+'">'+data[i].name+'</option>');
+                
+            }
+        }
+    })
+});
+
+$("select[name='id_toko']").on('change',function(){
+    $.ajax({
+        type: 'POST',
+        url: '/stockism/Stores/GetStoreById/',
+        data: {
+            id_toko: $(this).val(),
+        },
+        dataType: 'json',
+        beforeSend: function () {
+            $("input[name='tax_cost']").val('');
+        },
+        success: function (data) {
+            $("input[name='tax_cost']").val(data.komisi);
+        }
+    })
+});
+
 $('.date_due').hide();
 $('.toko').hide();
 $('.tax_cost').hide();
-// $('.airway_bill').hide();
 $("select[name='status_payment']").change(function(e){
     if($(this).val() == "Paid"){
         $('.date_due').hide();
@@ -15,7 +52,6 @@ $("select[name='id_marketplace']").change(function(e){
         $('.toko').hide();
     }else{
         $('.toko').show();
-        // $data['masstoremarketplace'] = $this->MasStore->GetStoreByMarketplace($data['masmarketplace']->id_marketplace)->row();
     }
 });
 
@@ -26,7 +62,6 @@ $("select[name='id_toko']").change(function(e){
         $('.tax_cost').show();
     }
 });
-
 
 
 var index = 0;
@@ -92,6 +127,8 @@ $('.table tbody tr').click(function () {
         });
     }
 });
+
+
 
 $(document).on('click','.del-element',function (e) {        
     e.preventDefault()

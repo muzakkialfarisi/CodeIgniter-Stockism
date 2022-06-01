@@ -17,9 +17,7 @@
             <label class="control-label">Store</label>
             <select class="form-select" name="id_toko" required>
                 <option selected disabled value="">Select...</option>
-                <?php foreach ($masstore as $item) { ?>
-                    <option value="<?= $item["id_toko"] ?>"><?= $item["name"] ?></option>
-                <?php } ?>
+                
             </select>
         </div>
 

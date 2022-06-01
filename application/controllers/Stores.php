@@ -161,5 +161,13 @@ class Stores extends CI_Controller {
 	private function IdBuilder($temp)
     {
         return sprintf($temp+1);
-    }
+	}
+	
+	public function GetStoreByMarketplace()
+    {
+        $id_marketplace = $this->input->post('id_marketplace');
+        $masstore = $this->MasStore->GetStoreByMarketplace($id_marketplace);
+        echo json_encode($masstore->result_array());
+	}
+
 }

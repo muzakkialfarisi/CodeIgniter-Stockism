@@ -17,17 +17,6 @@
     
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav ms-auto">
-            <li class="nav-item dropdown active">
-                <a class="nav-link dropdown-toggle position-relative" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
-                    <i class="align-middle fas fa-envelope-open"></i>
-                </a>
-            </li>
-            <li class="nav-item dropdown ms-lg-2">
-                <a class="nav-link dropdown-toggle position-relative" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
-                    <i class="align-middle fas fa-bell"></i>
-                    <span class="indicator"></span>
-                </a>
-            </li>
             <li class="nav-item dropdown ms-lg-2">
                 <a class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="align-middle fas fa-cog"></i>

@@ -2,31 +2,40 @@
 class MasPiutangAngsuran extends CI_Model{
 
     public function GetAll(){
-        $query = $this->db->query("SELECT * FROM mas_piutangangsuran");
+        $query = $this->db->query("SELECT * FROM maspiutangangsuran");
         return $query;
     }
 
     public function Insert($data){
-        $this->db->insert('mas_piutangangsuran', $data);
+        if($this->db->insert('maspiutangangsuran', $data)){
+            return true;
+        }
+        return false;
     }
 
     public function Update($data){
         $this->db->where('id_so', $data['id_so']);
-        $this->db->update('mas_piutangangsuran', $data);
+        if($this->db->update('maspiutangangsuran', $data)){
+            return true;
+        }
+        return false;
     }
 
     public function Delete($data){
-        $this->db->where('id_so', $data['id_so']);
-        $this->db->delete('mas_piutangangsuran', $data);
+        $this->db->where('id_so', $data);
+        if($this->db->delete('maspiutangangsuran')){
+            return true;
+        }
+        return false;
 	}
 
     public function GetPiutangByIdSo($id){
-        $query = $this->db->query("SELECT * FROM mas_piutangangsuran WHERE id_so = '$id'");
+        $query = $this->db->query("SELECT * FROM maspiutangangsuran WHERE id_so = '$id'");
         return $query;
     }
 
     public function GetPiutangById($id){
-        $query = $this->db->query("SELECT * FROM mas_piutangangsuran WHERE id_angsuran = '$id'");
+        $query = $this->db->query("SELECT * FROM maspiutangangsuran WHERE id_angsuran = '$id'");
         return $query;
     }
 }

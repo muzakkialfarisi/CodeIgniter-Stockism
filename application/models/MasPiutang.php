@@ -7,17 +7,26 @@ class MasPiutang extends CI_Model{
     }
 
     public function Insert($data){
-        $this->db->insert('maspiutang', $data);
+        if($this->db->insert('maspiutang', $data)){
+            return true;
+        }
+        return false;
     }
 
     public function Update($data){
         $this->db->where('id_so',  $data['id_so']);
-        $this->db->update('maspiutang', $data);
+        if($this->db->update('maspiutang', $data)){
+            return true;
+        }
+        return false;
     }
 
     public function Delete($data){
-        $this->db->where('id_so', $data['id_so']);
-        $this->db->delete('maspiutang', $data);
+        $this->db->where('id_so', $data);
+        if($this->db->delete('maspiutang')){
+            return true;
+        }
+        return false;
 	}
 
     public function GetPiutangByTenant($email_tenant){

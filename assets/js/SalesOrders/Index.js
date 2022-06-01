@@ -8,7 +8,7 @@ $('.btn-edit-status').on('click', function(){
         url: '/stockism/SalesOrders/GetSalesOrderById',
         dataType: 'json',
         data:{
-            id_po: $(this).data('id'),
+            id_so: $(this).data('id'),
         },
         beforeSend: function(){
             $("input[name='status_delivery']").attr("disabled", false);

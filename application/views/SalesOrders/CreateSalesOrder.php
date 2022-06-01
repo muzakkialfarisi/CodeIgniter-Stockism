@@ -13,7 +13,7 @@
             <div class="col-12 col-sm-6">
                 <div class="mb-3 form-group">
                     <label class="control-label">Invoice</label>
-                    <input type="text" class="form-control number-only" name="invoice_so" value="<?php if (isset($outsalesorder)) { echo $outsalesorder->invoice_so; }?>">
+                    <input type="text" class="form-control" name="invoice_so" value="<?php if (isset($outsalesorder)) { echo $outsalesorder->invoice_so; }?>">
                 </div>
             </div>
         </div>

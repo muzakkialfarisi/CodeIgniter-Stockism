@@ -41,12 +41,9 @@ class SalesOrders extends CI_Controller {
         $data['javascripts'] = "SalesOrders/Create";
 		$data['content'] = "SalesOrders/Create";
 
-        $data['masstore'] = $this->MasStore->GetStoreByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
         $data['masmarketplace'] = $this->MasMarketplace->GetAll()->result_array();
-        // $data['masstoremarketplace'] = $this->MasStore->GetStoreByMarketplace($data['masmarketplace']->id_marketplace)->row();
         $data['mascustomer'] = $this->MasCustomer->GetCustomerByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
         $data['masproduct'] = $this->MasProduct->GetProductByTenant($this->session->userdata['logged_in']['email_tenant'])->result_array();
-        // $data['masstoretax'] = $this->MasStore->GetTaxCostByIdTokoByIdMarketplace($data['masstore']->name,$data['masmarketplace']->id_marketplace)->row();
         $this->load->view('Shared/_Layout', $data);
     }
 
@@ -62,8 +59,6 @@ class SalesOrders extends CI_Controller {
         {
             $invoice_so = date("ymd-His");
         }
-
-        $tax_cost = 10;
         
         $outsalesorder = array(
             'invoice_so'        => $invoice_so,
@@ -78,18 +73,12 @@ class SalesOrders extends CI_Controller {
             'status_payment'    => $this->input->post('status_payment'),
             'date_due'          => $this->input->post('date_due'),
             'id_customer'       => $this->input->post('id_customer'),
-            'Id_CustomerType'   => $this->MasCustomer->GetIdCustomertypeById($this->input->post('id_customer'))->row()->Id_CustomerType,
+            'Id_CustomerType'   => $this->MasCustomer->GetCustomerById($this->input->post('id_customer'))->row()->id_customertype,
             'shipping_cost'	    => $this->input->post('shipping_cost')
         );
         $id_so = $this->OutSalesOrder->Insert($outsalesorder);
 
         for($i=0; $i < count($this->input->post('id_product')); $i++){
-            $quantity_delivered = 0;
-            if($this->input->post('status_delivery') == "Done")
-            {
-                $quantity_delivered = $this->input->post('quantity')[$i];
-            }
-
             $product = $this->MasProduct->GetProductById($this->input->post('id_product')[$i])->row();
             if($product == null){
                 $this->session->set_flashdata('error', 'Product Notfound!');
@@ -101,8 +90,10 @@ class SalesOrders extends CI_Controller {
                 'id_product'        => $product->id_product,
                 'quantity'          => $this->input->post('quantity')[$i],
                 'selling_price'     => $this->input->post('selling_price')[$i],
-                'subtotal'          => $this->input->post('quantity')[$i] * $this->input->post('selling_price')[$i]
+                // plus tax
+                'subtotal'          => $this->input->post('quantity')[$i] * $this->input->post('selling_price')[$i] + ($this->input->post('selling_price')[$i] * ($this->input->post('tax_cost') / 100))
             );
+
             if(!$this->OutSalesOrderProduct->Insert($outsalesorderproduct)){
                 $this->session->set_flashdata('error', 'Invalid Insert Sales Order Product!');
                 redirect('SalesOrders/Create');
@@ -110,24 +101,35 @@ class SalesOrders extends CI_Controller {
 
             $masproduct = array(
                 'id_product'    => $product->id_product,
-                'quantity'      => $product->quantity - $quantity_delivered,
-                'purchase_price'=> $this->input->post('purchase_price')[$i]
+                'quantity'      => $product->quantity - $this->input->post('quantity')[$i],
             );
-            // $this->MasProduct->Update($masproduct);
+            
+            if(!$this->MasProduct->Update($masproduct)){
+                $this->session->set_flashdata('error', 'Invalid Update Product!');
+                redirect('SalesOrders/Create');
+            }
         }
 
-        if($this->input->post('payment_status') == "Debt")
+        if($this->input->post('status_payment') == "Debt")
         {
+            $total_piutang = $this->db->query("SELECT SUM(subtotal) AS sum FROM outsalesorderproduct where id_so = '$id_so'")->row()->sum + $this->input->post('shipping_cost');
+            $payment_price = $this->input->post('payment_price');
+            if($payment_price >= $total_piutang){
+                $payment_price = $total_piutang - 1;
+            }
             $maspiutang = array(
                 'id_so'             => $id_so,
-                'total_piutang'     => $this->db->query("SELECT SUM(subtotal) AS sum FROM outsalesorderproduct where id_so = '$id_so'")->row()->sum,
-                'sum_payment_price' => $this->input->post('payment_price'),
-                'status'            => $this->input->post('status'),
+                'total_piutang'     => $total_piutang,
+                'sum_payment_price' => $payment_price,
+                'status'            => $this->input->post('status_payment'),
                 'email_tenant'      => $this->session->userdata['logged_in']['email_tenant'],
                 'date_created'      => $this->input->post('date_created'),
                 'date_due'          => $this->input->post('date_due')
             );
-            $this->MasPiutang->Insert($maspiutang);
+            if(!$this->MasPiutang->Insert($maspiutang)){
+                $this->session->set_flashdata('error', 'Invalid Insert Piutang!');
+                redirect('SalesOrders/Create');
+            }
         }
 
         if($this->input->post('payment_price') > 0)
@@ -138,13 +140,16 @@ class SalesOrders extends CI_Controller {
                 'payment_price' => $this->input->post('payment_price')
             );
 
-            $this->MasPiutangAngsuran->Insert($maspiutangangsuran);
+            if(!$this->MasPiutangAngsuran->Insert($maspiutangangsuran)){
+                $this->session->set_flashdata('error', 'Invalid Insert Piutang Angsuran!');
+                redirect('SalesOrders/Create');
+            }
         }
 
         $this->session->set_flashdata('success', 'Sales Order Created Successfully!');
         redirect('SalesOrders/Index');
     }
-        //belum
+
     public function Detail($id_so)
     {
         $data['menukey'] = "Sales Orders";
@@ -158,56 +163,6 @@ class SalesOrders extends CI_Controller {
         $data['outsalesorder'] = $this->OutSalesOrder->GetSalesOrderById($id_so)->row();
         $data['outsalesorderproduct'] = $this->OutSalesOrderProduct->GetSalesOrderProductByIdSo($id_so)->result_array();
         $this->load->view('Shared/_Layout', $data);
-    }
-
-    public function EditSalesOrderPost()
-    {
-        if($this->OutSalesOrder->GetSalesOrderById($this->input->post('id_so'))->num_rows() < 1){
-			$this->session->set_flashdata('error', 'Sales Order Notfound!');
-			redirect('SalesOrders/Index');
-        }
-
-        $incpurchaseorder = array(
-            'id_so'             => $this->input->post('id_so'),
-            'date_created'      => $this->input->post('date_created'),
-            'invoice_so'        => $this->input->post('invoice_so'),
-            'createdby'         => $this->session->userdata['logged_in']['email'],
-            'date_due'          => $this->input->post('date_due'),
-            'shipping_cost'     => $this->input->post('shipping_cost'),
-            'id_customer'       => $this->input->post('id_customer'),
-            'tax_cost'          => $this->input->post('tax_cost')
-        );
-        
-        $this->OutSalesOrder->Update($outsalesorder);
-
-        $outsalesorder = array(
-            'id_so'             => $this->input->post('id_so'),
-            'invoice_so'        => $this->input->post('invoice_so'),
-            'date_due'          => $this->input->post('date_due')
-        );
-        
-        $this->session->set_flashdata('success', 'Updated Successfully!');
-        redirect('SalesOrders/Detail/'.$this->input->post('id_so'));
-    }
-
-    public function EditSalesOrderProductPost()
-    {
-        $this->form_validation->set_rules('id_soproduct', 'id_soproduct', 'required');
-        $this->form_validation->set_rules('selling_price', 'selling_price', 'required');
-
-		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('error', 'Invalid Modelstate!');
-			redirect('SalesOrders/Detail/'.$this->input->post('id_so'));
-		}
-
-        $outsalesorderproduct = array(
-            'id_soproduct'      => $this->input->post('id_soproduct'),
-            'selling_price'    => $this->input->post('selling_price')
-        );
-
-        $this->OutSalesOrderProduct->Update($outsalesorderproduct);
-        $this->session->set_flashdata('success', 'Updated Successfully!');
-        redirect('SalesOrders/Detail/'.$this->input->post('id_so'));
     }
 
     public function EditSalesOrderStatusPost()
@@ -266,41 +221,42 @@ class SalesOrders extends CI_Controller {
         redirect('SalesOrders/Index');
     }
 
-    // public function DeletePost(){
-    //     $this->form_validation->set_rules('id_po', 'id_po', 'required');
+    public function DeletePost(){
+        $this->form_validation->set_rules('id_so', 'id_so', 'required');
 
-	// 	if ($this->form_validation->run() == FALSE) {
-	// 		$this->session->set_flashdata('error', 'Invalid Modelstate!');
-	// 		redirect('PurchaseOrders/Index');
-	// 	}
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('error', 'Invalid Modelstate!');
+			redirect('SalesOrders/Index');
+		}
 
-    //     $incpurchaseorderproduct = $this->IncPurchaseOrderProduct->GetPurchaseOrderProductByIdPo($this->input->post('id_po'))->result();
+        $salesorderproducts = $this->OutSalesOrderProduct->GetSalesOrderProductByIdSo($this->input->post('id_so'))->result();
 
-    //     foreach ($incpurchaseorderproduct as $incpoproduct) {
-    //         $product = $this->MasProduct->GetProductById($incpoproduct->id_product)->row();
-    //         $masproduct = array(
-    //             'id_product'        => $product->id_product,
-    //             'quantity'          => $product->quantity - $incpoproduct->quantity_accepted,
-    //         );
-    //         $this->MasProduct->Update($masproduct);
+        foreach ($salesorderproducts as $salesorderproduct) {
+            $product = $this->MasProduct->GetProductById($salesorderproduct->id_product)->row();
+            $masproduct = array(
+                'id_product'        => $product->id_product,
+                'quantity'          => $product->quantity + $salesorderproduct->quantity,
+            );
+            $this->MasProduct->Update($masproduct);
 
-    //         $this->IncPurchaseOrderProduct->Delete($incpoproduct->id_poproduct);
-    //     }
+            $this->OutSalesOrderProduct->Delete($salesorderproduct->id_soproduct);
+        }
 
-    //     $id_po = array(
-    //         'id_po'  => $this->input->post('id_po')
-    //     );
+        if($this->MasPiutang->GetPiutangById($this->input->post('id_so'))->num_rows() > 0){
+            if(!$this->MasPiutang->Delete($this->input->post('id_so'))){
+                $this->session->set_flashdata('error', 'Invalid Delete Piutang!');
+                redirect('SalesOrders/Index');
+            }
+        }
 
-    //     $masutang = $this->MasUtang->GetUtangById($this->input->post('id_po'))->num_rows();
-    //     if($masutang > 0){
-    //         $this->MasUtang->Delete($id_po);
-    //     }
+        if(!$this->OutSalesOrder->Delete($this->input->post('id_so'))){
+            $this->session->set_flashdata('error', 'Invalid Delete Sales Order!');
+            redirect('SalesOrders/Index');
+        }
 
-    //     $this->IncPurchaseOrder->Delete($id_po);
-
-    //     $this->session->set_flashdata('success', 'Purchase Order Deleted Successfully!');
-	// 	redirect('PurchaseOrders/Index');
-    // }
+        $this->session->set_flashdata('success', 'Purchase Order Deleted Successfully!');
+		redirect('SalesOrders/Index');
+    }
 
     public function GetSalesOrderById()
     {

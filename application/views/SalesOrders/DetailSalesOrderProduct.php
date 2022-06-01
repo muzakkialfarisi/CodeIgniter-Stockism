@@ -10,7 +10,6 @@
                         <th>Product</th>
                         <th>Sales Price</th>
                         <th>Quantity</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,9 +34,6 @@
                             </td>
                             <td class="text-center">
                                 <?= $item['quantity'] ?>     
-                            </td>
-                            <td class="text-center">
-                                <button class="btn btn-sm text-primary btn-edit-purchaseorderproduct" data-id="<?= $item['id_soproduct'] ?>" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProduct"><i class="align-middle me-2 fas fa-fw fa-edit"></i></button>
                             </td>
                         </tr>
                     <?php } ?>

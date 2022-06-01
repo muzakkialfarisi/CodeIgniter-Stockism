@@ -26,12 +26,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($masutang as $item) { ?>
+                    <?php foreach($maspiutang as $item) { ?>
                         <tr>
                             <td>
                                 <?php 
-                                    $id_po = $item['id_po'];
-                                    echo $this->db->query("SELECT * FROM incpurchaseorder where id_po = '$id_po'")->row()->invoice_po;
+                                    $id_so = $item['id_so'];
+                                    echo $this->db->query("SELECT * FROM outsalesorder where id_so = '$id_so'")->row()->invoice_so;
                                 ?>
                             </td>
                             <td class="text-center">
@@ -47,7 +47,7 @@
                                     <?php } ?>
                                 <?php } ?>
                             </td>
-                            <td class="text-end"><?= number_format($item['total_utang']) ?></td>
+                            <td class="text-end"><?= number_format($item['total_piutang']) ?></td>
                             <td class="text-end">
                                 <?= number_format($item['sum_payment_price']) ?>
                             </td>
@@ -59,9 +59,9 @@
                                     <div class="dropstart">
                                         <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                            <li><a type="button" class="dropdown-item" href="<?= site_url('Utangs/Detail/'.$item['id_po']) ?>">Details</a></li>
-                                            <?php if($item['total_utang'] >$item['sum_payment_price']) { ?>
-                                                <li><button type="button" class="dropdown-item btn-add-payment" data-bs-toggle="modal" data-id="<?= $item['id_po'] ?>" data-bs-target="#ModalAddPayment">Add Payment</button></li>
+                                            <li><a type="button" class="dropdown-item" href="<?= site_url('Utangs/Detail/'.$item['id_so']) ?>">Details</a></li>
+                                            <?php if($item['total_piutang'] >$item['sum_payment_price']) { ?>
+                                                <li><button type="button" class="dropdown-item btn-add-payment" data-bs-toggle="modal" data-id="<?= $item['id_so'] ?>" data-bs-target="#ModalAddPayment">Add Payment</button></li>
                                             <?php } ?>
                                         </ul>
                                     </div>
@@ -75,4 +75,4 @@
     </div>
 </div>
 
-<?php $this->load->view("Utangs/ModalAddPayment.php") ?>
+<?php $this->load->view("Piutangs/ModalAddPayment.php") ?>

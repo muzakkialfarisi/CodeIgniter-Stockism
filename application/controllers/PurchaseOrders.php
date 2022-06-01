@@ -121,12 +121,17 @@ class PurchaseOrders extends CI_Controller {
 
         if($this->input->post('payment_status') == "Debt")
         {
+            $total_utang = $this->db->query("SELECT SUM(subtotal) AS sum FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->sum + $this->input->post('shipping_cost') + $this->input->post('tax_cost');
+            $payment_price = $this->input->post('payment_price');
+            if($payment_price >= $total_utang){
+                $payment_price = $total_utang - 1;
+            }
             $masutang = array(
                 'id_po'             => $id_po,
                 'date_created'      => $this->input->post('date_created'),
                 'date_due'          => $this->input->post('date_due'),
-                'total_utang'       => $this->db->query("SELECT SUM(subtotal) AS sum FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->sum + $this->input->post('shipping_cost') + $this->input->post('tax_cost'),
-                'sum_payment_price' => $this->input->post('payment_price'),
+                'total_utang'       => $total_utang,
+                'sum_payment_price' => $payment_price,
                 'email_tenant'      => $this->session->userdata['logged_in']['email_tenant']
             );
             if(!$this->MasUtang->Insert($masutang)){

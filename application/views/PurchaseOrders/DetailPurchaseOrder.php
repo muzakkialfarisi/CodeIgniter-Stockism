@@ -32,7 +32,10 @@
                         Date Created
                     </dt>
                     <dd class = "col-8">
-                        : <?= $incpurchaseorder->date_created; ?>
+                        : <?php
+                            $date_created = $incpurchaseorder->date_created;
+                            echo date("d-m-Y", strtotime($date_created)).' '.date("H:i:s", strtotime($date_created));
+                        ?>
                     </dd>
                     <dt class = "col-4">
                         Invoice

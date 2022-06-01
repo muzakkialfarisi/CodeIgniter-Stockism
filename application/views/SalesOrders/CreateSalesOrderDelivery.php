@@ -10,14 +10,13 @@
                 <option value="On Going">On Going</option>
             </select>
         </div>
-
-        <div class="form-group">
+        <div class="mb-3 form-group required">
             <label class="control-label">Shipping Cost</label>
-            <input type="text" class="form-control number-only" name="shipping_cost">
+            <input type="text" class="form-control number-only" name="shipping_cost" value="0" required>
         </div>
         <div class="form-group airway_bill">
             <label class="control-label">Airway Bill</label>
-            <input type="text" class="form-control number-only" name="airway_bill" value="0">
+            <input type="text" class="form-control" name="airway_bill">
         </div>
     </div>
 </div>

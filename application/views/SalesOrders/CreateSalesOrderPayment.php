@@ -22,7 +22,7 @@
         
         <div class="form-group required date_due">
             <label class="control-label">Down Payment</label>
-            <input type="text" class="form-control number-only" name="airway_bill" value="<?php if (isset($outsalesorder)) { echo $outsalesorder->status_payment; }else{ echo 0; } ?>" required <?php if (isset($outsalesorder)) { echo "readonly"; } ?>>
+            <input type="text" class="form-control number-only" name="payment_price" value="<?php if (isset($outsalesorder)) { echo $outsalesorder->status_payment; }else{ echo 0; } ?>" required <?php if (isset($outsalesorder)) { echo "readonly"; } ?>>
         </div>
         
     </div>

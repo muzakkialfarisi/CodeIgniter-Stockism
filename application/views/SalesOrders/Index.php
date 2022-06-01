@@ -13,22 +13,20 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
-                        <th>ID Sales Order</th>
                         <th>Invoice</th>
                         <th>Customer</th>
                         <th>Channel</th>
-                        <th>Toko</th>
+                        <th>Store</th>
                         <th>Date</th>
-                        <th>Total Penjualan</th>
-                        <th>Status Payment</th>
-                        <th>Status Delivery</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>Delivery</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach($outsalesorder as $item) { ?>
                         <tr>
-                            <td><?= $item['id_so'] ?></td>
                             <td><?= $item['invoice_so'] ?></td>
                             <td>
                                 <?php 
@@ -48,23 +46,39 @@
                                     echo $this->db->query("SELECT * FROM mastoko where id_toko = '$id_toko'")->row()->name;
                                 ?>
                             </td>
-                            <td><?= $item['date_created'] ?></td>
+                            <td class="text-center">
+                                <?php
+                                    $date_created = $item['date_created'];
+                                    echo date("d-m-Y", strtotime($date_created));
+                                    echo "<br>";
+                                    echo date("H:i:s", strtotime($date_created));
+                                    ?>
+                                </td>
                             <td class="text-end">
                                 <?php 
                                     $id_so = $item['id_so'];
                                     echo number_format($this->db->query("SELECT SUM(subtotal) AS sum FROM outsalesorderproduct where id_so = '$id_so'")->row()->sum);
                                 ?>
                             </td>
-                            <td><?= $item['status_payment'] ?></td>
-                            <td><?= $item['status_delivery'] ?></td>
+                            <td>
+                                <?php if($item['status_payment'] == "Debt") {?>
+                                    <span class="text-warning"><?= $item['status_payment'] ?></span>
+                                <?php } else { ?>
+                                    Done
+                                <?php } ?>
+                            </td>
+                            <td>
+                                <?php if($item['status_delivery'] == "On Going") {?>
+                                    <span class="text-warning"><?= $item['status_delivery'] ?></span>
+                                <?php } else { ?>
+                                    Done
+                                <?php } ?>
+                            </td>
                             <td class="text-center">
                                 <div class="dropstart">
                                     <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownactions">
                                         <li><a type="button" class="dropdown-item" href="<?= site_url('SalesOrders/Detail/'.$item['id_so']) ?>">Details</a></li>
-                                        <?php if($item['status_delivery'] == "On Going") { ?>
-                                            <li><a type="button" class="dropdown-item btn-edit-poproduct-quantity" data-bs-toggle="modal" data-bs-target="#ModalEditSalesOrderProductQuantity" data-id="<?= $item['id_so'] ?>">Update Delivery</a></li>
-                                        <?php } ?>
                                         <?php if($item['status_payment'] == "Debt" || $item['status_delivery'] == "On Going") { ?>
                                             <li><a type="button" class="dropdown-item btn-edit-status" data-bs-toggle="modal" data-bs-target="#ModalEditStatus" data-id="<?= $item['id_so'] ?>">Change Status</a></li>
                                         <?php } ?>
@@ -80,8 +94,8 @@
     </div>
 </div>
 
-<form action="<?= site_url('ProductCategories/DeletePost') ?>" method="post" id="DeletePost">
-    <input type="text" class="form-control" name="id_productcategory" required hidden>
+<form action="<?= site_url('SalesOrders/DeletePost') ?>" method="post" id="DeletePost">
+    <input type="text" class="form-control" name="id_so" required hidden>
 </form>
 
 <?php $this->load->view("SalesOrders/ModalEditStatus.php") ?>

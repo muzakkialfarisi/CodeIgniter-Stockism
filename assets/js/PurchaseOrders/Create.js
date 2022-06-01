@@ -62,13 +62,13 @@ $('.table tbody tr').on('click', function () {
                                     '<div class="col-12 col-sm-6">'+
                                         '<div class="mb-3 form-group">'+
                                             '<label class="control-label">Expired Date (opsional)</label>'+
-                                            '<input type="datetime-local" class="form-control number-only" name="expired_date[]" id="expired_date'+index+'">'+
+                                            '<input type="datetime-local" class="form-control" name="expired_date[]" id="expired_date'+index+'">'+
                                         '</div>'+
                                     '</div>'+
                                     '<div class="col-12 col-sm-6">'+
                                         '<div class="mb-3 form-group">'+
                                             '<label class="control-label">Storage (opsional)</label>'+
-                                            '<input type="text" class="form-control number-only" name="storage[]" id="storage'+index+'">'+
+                                            '<input type="text" class="form-control" name="storage[]" id="storage'+index+'">'+
                                         '</div>'+
                                     '</div>'+
                                 '</div>'+

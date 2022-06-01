@@ -7,17 +7,26 @@ class OutSalesOrderProduct extends CI_Model{
 	}
 
     public function Insert($data){
-        $this->db->insert('outsalesorderproduct', $data);
+        if($this->db->insert('outsalesorderproduct', $data)){
+            return true;
+        }
+        return false;
     }
 
     public function Update($data){
         $this->db->where('id_soproduct', $data['id_soproduct']);
-        $this->db->update('outsalesorderproduct', $data);
+        if($this->db->update('outsalesorderproduct', $data)){
+            return true;
+        }
+        return false;
     }
 
     public function Delete($data){
-        $this->db->where('id_soproduct', $data['id_soproduct']);
-        $this->db->delete('outsalesorderproduct', $data);
+        $this->db->where('id_soproduct', $data);
+        if($this->db->delete('outsalesorderproduct')){
+            return true;
+        }
+        return false;
     }
 
     public function GetSalesOrderProductById($id){

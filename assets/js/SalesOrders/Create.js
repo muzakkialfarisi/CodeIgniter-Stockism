@@ -66,7 +66,6 @@ $("select[name='id_toko']").change(function(e){
 
 var index = 0;
 $('.table tbody tr').click(function () {
-    //console.log($(this).data("id"));
     if ($("#id_product"+$(this).data("id")).val() == null)
     {
         $.ajax({
@@ -105,7 +104,7 @@ $('.table tbody tr').click(function () {
                                     '<div class="col-12 col-sm-6">'+
                                         '<div class="mb-3 form-group required">'+
                                             '<label class="control-label">Quantity</label>'+
-                                            '<input type="number" class="form-control number-only" name="quantity[]" id="quantity'+index+'" value="1" min="1" required>'+
+                                            '<input type="number" class="form-control number-only" name="quantity[]" id="'+data.id_product+'" value="1" min="1" required onkeyup=check_product_quantity(\'' + data.id_product + '\',\'' + (data.quantity) +'\')>'+
                                         '</div>'+
                                     '</div>'+
                                     '<div class="col-12 col-sm-6">'+
@@ -128,12 +127,15 @@ $('.table tbody tr').click(function () {
     }
 });
 
-
+function check_product_quantity(id, max){
+    if(parseInt($('#'+ id +'').val()) > parseInt(max)){
+        $('#'+ id +'').val(max);
+    }
+}
 
 $(document).on('click','.del-element',function (e) {        
     e.preventDefault()
     index--;
-    //$(this).parents('.rec-element').fadeOut(400);
     $(this).parents('.rec-element').remove();
     $('#jumlahkolom').val(index-1);
 }); 

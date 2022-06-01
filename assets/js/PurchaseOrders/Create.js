@@ -1,5 +1,5 @@
 $('.date_due').hide();
-$("select[name='payment_status']").change(function(e){
+$("select[name='payment_status']").on('change', function(){
     if($(this).val() == "Paid"){
         $('.date_due').hide();
     }else{
@@ -8,7 +8,7 @@ $("select[name='payment_status']").change(function(e){
 });
 
 var index = 0;
-$('.table tbody tr').click(function () {
+$('.table tbody tr').on('click', function () {
     //console.log($(this).data("id"));
     if ($("#id_product"+$(this).data("id")).val() == null)
     {
@@ -88,7 +88,6 @@ $('.table tbody tr').click(function () {
 $(document).on('click','.del-element',function (e) {        
     e.preventDefault()
     index--;
-    //$(this).parents('.rec-element').fadeOut(400);
     $(this).parents('.rec-element').remove();
     $('#jumlahkolom').val(index-1);
 }); 

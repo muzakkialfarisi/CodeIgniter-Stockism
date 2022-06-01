@@ -5,11 +5,12 @@
                 <h5 class="modal-title">Change Status</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= site_url('PurchaseOrders/EditPurchaseOrderStatusPost') ?>" method="post">
+            <form action="<?= site_url('PurchaseOrderProducts/EditPurchaseOrderProductQuantityPost') ?>" method="post">
                 <?php echo validation_errors(); ?>
                 <div class="modal-body m-3">
-                    <input type="text" class="form-control" name="id_po" required readonly>
-                    masok
+                    <input name="id_po" required hidden>
+                    <div id="nextkolom" name="nextkolom"></div>
+                    <button type="button" id="jumlahkolom" value="0" style="display:none"></button>
                 </div>
                 <div class="modal-footer">
                     <div class="text-center">

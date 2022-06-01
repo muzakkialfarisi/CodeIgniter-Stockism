@@ -8,7 +8,8 @@
             <form action="<?= site_url('Utangs/EditUtangAngsuranPost') ?>" method="post">
                 <?php echo validation_errors(); ?>
                 <div class="modal-body m-3">
-                    <input type="text" class="form-control" name="id_po" required readonly>
+                    <input type="text" class="form-control" name="id_po" required hidden>
+                    <input type="text" class="form-control" name="type" required hidden>
                     <div class="mb-3 form-group required">
                         <label class="control-label">Date Paid</label>
                         <input type="datetime-local" class="form-control" name="date_created" required>
@@ -35,7 +36,7 @@
 
                     <div class="mb-3 form-group required">
                         <label class="control-label">Payment Price</label>
-                        <input type="date-localtime" class="form-control" name="payment_price" required>
+                        <input type="number" class="form-control number-only" name="payment_price" required>
                     </div>
                 </div>
                 <div class="modal-footer">

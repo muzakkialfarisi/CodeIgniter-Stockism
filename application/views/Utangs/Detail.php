@@ -7,6 +7,8 @@
     </div>
 </div>
 
-<form action="<?= site_url('UtangAngsurans/DeletePost') ?>" id="DeletePost">
-    <input type="text" class="form-control" name="id_angsuran" readonly required>
+<form action="<?= site_url('UtangAngsurans/DeletePost') ?>" id="DeletePost" method="post">
+    <input type="text" class="form-control" name="id_angsuran" hidden required>
 </form>
+
+<?php $this->load->view("Utangs/ModalAddPayment.php") ?>

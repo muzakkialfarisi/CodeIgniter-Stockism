@@ -37,9 +37,9 @@
                             <td class="text-center">
                                 <?php
                                 $date_created = $item['date_created'];
-                                echo date("H:i:s", strtotime($date_created));
-                                echo "<br>";
                                 echo date("d-m-Y", strtotime($date_created));
+                                echo "<br>";
+                                echo date("H:i:s", strtotime($date_created));
                                 ?>
                             </td>
                             <td class="text-end">
@@ -50,7 +50,7 @@
                             </td>
                             <td>
                                 <?php if($item['payment_status'] == "Debt") {?>
-                                    <span class="text-primary"><?= $item['payment_status'] ?></span>
+                                    <span class="text-warning"><?= $item['payment_status'] ?></span>
                                 <?php } else { ?>
                                     Done
                                 <?php } ?>
@@ -61,7 +61,7 @@
                                         $quantity_accepted   = $this->db->query("SELECT SUM(quantity_accepted) AS quantity_accepted FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->quantity_accepted;
                                         $quantity            = $this->db->query("SELECT SUM(quantity) AS quantity FROM incpurchaseorderproduct where id_po = '$id_po'")->row()->quantity;
                                     ?>
-                                    <ul class="list-group text-primary">
+                                    <ul class="list-group text-warning">
                                         <li class="d-flex justify-content-between align-items-center">
                                             OnGoing
                                             <span class="badge bg-danger rounded-pill"><?= $quantity - $quantity_accepted ?></span>

@@ -24,9 +24,9 @@ class MasUtangAngsuran extends CI_Model{
         return false;
     }
 
-    public function Delete($data){
-        $this->db->where('id_angsuran', $data);
-        if($this->db->delete('masutangangsuran', $data)){
+    public function Delete($id){
+        $this->db->where('id_angsuran', $id);
+        if($this->db->delete('masutangangsuran')){
             return true;
         }
         return false;

@@ -90,13 +90,11 @@ $('.btn-edit-poproduct-quantity').on('click', function(){
     });
 });
 
-
 function update_quantity_accepted(id, max){
     if(parseInt($('#'+ id +'').val()) > parseInt(max)){
         $('#'+ id +'').val(max);
     }
 }
-
 
 $('.btn-delete').on('click', function(){
     swal({

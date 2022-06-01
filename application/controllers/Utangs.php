@@ -41,10 +41,15 @@ class Utangs extends CI_Controller {
             'payment_price' => $this->input->post('payment_price')
         );
 
+        $redirect = "Utangs/Index";
+        if($this->input->post('type') == "inside"){
+            $redirect = "Utangs/Detail/".$this->input->post('id_po');
+        }
+
         if(!$this->MasUtangAngsuran->Insert($masutangangsuran))
         {
             $this->session->set_flashdata('error', 'Invalid Modelstate Angsuran!');
-            redirect('Utangs/Index');
+            redirect($redirect);
         }
         
         $utang = $this->MasUtang->GetUtangById($this->input->post('id_po'))->row();
@@ -57,7 +62,7 @@ class Utangs extends CI_Controller {
         if(!$this->MasUtang->Update($masutang))
         {
             $this->session->set_flashdata('error', 'Invalid Modelstate Utang!');
-            redirect('Utangs/Index');
+            redirect($redirect);
         }
 
         $incpurchaseorder = array(
@@ -68,11 +73,11 @@ class Utangs extends CI_Controller {
         if(!$this->IncPurchaseOrder->Update($incpurchaseorder))
         {
             $this->session->set_flashdata('error', 'Invalid Modelstate Purchase Order!');
-            redirect('Utangs/Index');
+            redirect($redirect);
         }
 
         $this->session->set_flashdata('success', 'Paid Seccessully!');
-        redirect('Utangs/Index');
+        redirect($redirect);
     }
 
     public function Detail($id_po)

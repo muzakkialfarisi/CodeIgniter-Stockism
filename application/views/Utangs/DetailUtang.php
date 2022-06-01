@@ -1,6 +1,10 @@
 <div class="card">
     <div class="card-header bg-stockism">
-        <h5 class="card-title mb-0 text-light">Detail Utang</h5>
+        <div class="d-flex align-items-center py-1">
+            <div class="flex-grow-1 ps-3 my-1">
+                <h5 class="card-title mb-0 text-light">Detail Utang</h5>
+            </div>
+        </div>
     </div>
     <div class="card-body m-3">
         <dl class="row">
@@ -25,32 +29,32 @@
                 foreach ($incpurchaseorderproduct->result() as $poproduct) {
                     $subtotal = $subtotal + $poproduct->subtotal;
                 }
-                echo $subtotal;
+                echo number_format($subtotal);
                 ?>
             </dd>
             <dt class = "col-4">
                 Tax Cost
             </dt>
             <dd class = "col-8">
-                : <?= $incpurchaseorder->tax_cost ?>
+                : <?= number_format($incpurchaseorder->tax_cost) ?>
             </dd>
             <dt class = "col-4">
                 Shipping Cost
             </dt>
             <dd class = "col-8">
-                : <?= $incpurchaseorder->shipping_cost; ?>
+                : <?= number_format($incpurchaseorder->shipping_cost); ?>
             </dd>
             <dt class = "col-4">
                 Total Utang
             </dt>
             <dd class = "col-8">
-                : <?= $masutang->total_utang; ?>
+                : <?= number_format($masutang->total_utang); ?>
             </dd>
             <dt class = "col-4">
                 Total Terbayar
             </dt>
             <dd class = "col-8">
-                : <?= $masutang->sum_payment_price; ?>
+                : <?= number_format($masutang->sum_payment_price); ?>
             </dd>
             <dt class = "col-4">
                 Date Due

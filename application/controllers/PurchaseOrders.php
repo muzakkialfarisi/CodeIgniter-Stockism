@@ -240,7 +240,7 @@ class PurchaseOrders extends CI_Controller {
 
             $masutangangsuran = array(
                 'id_po'             => $this->input->post('id_po'),
-                'date_created'      => date(),
+                'date_created'      => date('Y-m-d'),
                 'payment_price'     => $utang->total_utang - $utang->sum_payment_price
             );
             $this->MasUtangAngsuran->Insert($masutangangsuran);

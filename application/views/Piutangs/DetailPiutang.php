@@ -12,7 +12,7 @@
                 Invoice
             </dt>
             <dd class = "col-8">
-                : <?= $outsalesorder->invoice_po; ?>
+                : <?= $outsalesorder->invoice_so; ?>
             </dd>
             <dt class = "col-4">
                 Total Item

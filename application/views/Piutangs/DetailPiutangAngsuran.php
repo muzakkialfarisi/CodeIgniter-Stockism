@@ -4,7 +4,7 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Angsuran</h5>
             </div>
-            <button type="button" class="btn btn-light btn-pill btn-add-payment" data-bs-toggle="modal" data-id="<?= $masutang->id_po ?>" data-bs-target="#ModalAddPayment">Add Payment</button>
+            <button type="button" class="btn btn-light btn-pill btn-add-payment" data-bs-toggle="modal" data-id="<?= $maspiutang->id_so ?>" data-bs-target="#ModalAddPayment">Add Payment</button>
         </div>
     </div>
     <div class="card-body m-3">

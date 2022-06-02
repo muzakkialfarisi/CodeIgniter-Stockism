@@ -29,13 +29,19 @@ class MasPiutangAngsuran extends CI_Model{
         return false;
 	}
 
-    public function GetPiutangByIdSo($id){
+    public function GetPiutangAngsuranByIdSo($id){
         $query = $this->db->query("SELECT * FROM maspiutangangsuran WHERE id_so = '$id'");
-        return $query;
+        if($query){
+            return $query;
+        }
+        return null;
     }
 
-    public function GetPiutangById($id){
+    public function GetPiutangAngsuranById($id){
         $query = $this->db->query("SELECT * FROM maspiutangangsuran WHERE id_angsuran = '$id'");
-        return $query;
+        if($query){
+            return $query;
+        }
+        return null;
     }
 }

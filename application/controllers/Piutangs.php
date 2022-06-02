@@ -12,7 +12,7 @@ class Piutangs extends CI_Controller {
         $this->load->model('MasPiutang');
         $this->load->model('MasPiutangAngsuran');
         $this->load->model('OutSalesOrder');
-        $this->load->model('OutsalesOrderProduct');
+        $this->load->model('OutSalesOrderProduct');
     }
 	
 	public function Index()
@@ -87,9 +87,9 @@ class Piutangs extends CI_Controller {
 		$data['content'] = "Piutangs/Detail";
 
         $data['maspiutang'] = $this->MasPiutang->GetPiutangById($id_so)->row();
-        $data['outsalesorder'] = $this->IncPurchaseOrder->GetPurchaseOrderById($id_so)->row();
-        $data['maspiutangangsurans'] = $this->MasUtangAngsuran->GetUtangAngsuranByIdPo($id_so);
-        $data['outsalesorderproducts'] = $this->IncPurchaseOrderProduct->GetPurchaseOrderProductByIdPo($id_so);
+        $data['outsalesorder'] = $this->OutSalesOrder->GetSalesOrderById($id_so)->row();
+        $data['maspiutangangsurans'] = $this->MasPiutangAngsuran->GetPiutangAngsuranByIdSo($id_so);
+        $data['outsalesorderproducts'] = $this->OutSalesOrderProduct->GetSalesOrderProductByIdSo($id_so);
         $this->load->view('Shared/_Layout', $data);
     }
 

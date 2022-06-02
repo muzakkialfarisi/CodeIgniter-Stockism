@@ -77,8 +77,10 @@ class Stores extends CI_Controller {
         $this->form_validation->set_rules('name', 'name', 'required');
 		$this->form_validation->set_rules('phone_number', 'phone_number');
 		$this->form_validation->set_rules('komisi', 'komisi');
-		// $IdMarketplace = $this->MasStore->GetIdMarketplaceByName($this->input->post('id_marketplace'))->row()->id_marketplace;
 
+		// echo($this->input->post('id_marketplace'));
+		// $IdMarketplace = $this->MasStore->GetIdMarketplaceByName($this->input->post('name'))->row()->id_marketplace;
+		// echo($IdMarketplace);
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('error', 'Invalid Modelstate!');
 			redirect('Stores/Index');
@@ -106,7 +108,7 @@ class Stores extends CI_Controller {
 			'phone_number' => $this->input->post('phone_number'),
 			'komisi' => $this->input->post('komisi'),
 			'picture' => $picture,
-			'id_marketplace' => $IdMarketplace,
+			'id_marketplace' => $this->input->post('id_marketplace'),
 			'email_tenant' => $this->session->userdata['logged_in']['email_tenant'],
 			'status' => 'active'
 		);

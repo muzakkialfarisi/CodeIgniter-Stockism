@@ -80,23 +80,23 @@ class Piutangs extends CI_Controller {
     //     redirect($redirect);
     // }
 
-    // public function Detail($id_po)
-    // {
-    //     $data['menukey'] = "Utang";
-    //     $data['javascripts'] = "Utangs/Detail";
-	// 	$data['content'] = "Utangs/Detail";
+    public function Detail($id_so)
+    {
+        $data['menukey'] = "Piutang";
+        $data['javascripts'] = "Piutangs/Detail";
+		$data['content'] = "Piutangs/Detail";
 
-    //     $data['masutang'] = $this->MasUtang->GetUtangById($id_po)->row();
-    //     $data['incpurchaseorder'] = $this->IncPurchaseOrder->GetPurchaseOrderById($id_po)->row();
-    //     $data['masutangangsuran'] = $this->MasUtangAngsuran->GetUtangAngsuranByIdPo($id_po);
-    //     $data['incpurchaseorderproduct'] = $this->IncPurchaseOrderProduct->GetPurchaseOrderProductByIdPo($id_po);
-    //     $this->load->view('Shared/_Layout', $data);
-    // }
+        $data['maspiutang'] = $this->MasPiutang->GetPiutangById($id_so)->row();
+        $data['outsalesorder'] = $this->IncPurchaseOrder->GetPurchaseOrderById($id_so)->row();
+        $data['maspiutangangsurans'] = $this->MasUtangAngsuran->GetUtangAngsuranByIdPo($id_so);
+        $data['outsalesorderproducts'] = $this->IncPurchaseOrderProduct->GetPurchaseOrderProductByIdPo($id_so);
+        $this->load->view('Shared/_Layout', $data);
+    }
 
-    // public function GetUtangById()
-    // {
-    //     $id_po = $this->input->post('id_po');
-    //     $masutang = $this->MasUtang->GetUtangById($id_po);
-    //     echo json_encode($masutang->row());
-    // }
+    public function GetPiutangById()
+    {
+        $id_so = $this->input->post('id_so');
+        $maspiutang = $this->MasPiutang->GetPiutangById($id_so);
+        echo json_encode($maspiutang->row());
+    }
 }

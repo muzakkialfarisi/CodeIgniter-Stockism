@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-12 col-lg-5">
-        <?php $this->load->view("Utangs/DetailUtang.php") ?>
+        <?php $this->load->view("Piutangs/DetailPiutang.php") ?>
     </div>
     <div class="col-12 col-lg-7">
-        <?php $this->load->view("Utangs/DetailUtangAngsuran.php") ?>
+        <?php $this->load->view("Piutangs/DetailPiutangAngsuran.php") ?>
     </div>
 </div>
 
@@ -11,4 +11,4 @@
     <input type="text" class="form-control" name="id_angsuran" hidden required>
 </form>
 
-<?php $this->load->view("Utangs/ModalAddPayment.php") ?>
+<?php $this->load->view("Piutangs/ModalAddPayment.php") ?>

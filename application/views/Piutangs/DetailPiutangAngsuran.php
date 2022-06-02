@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($masutangangsuran->result_array() as $item) { ?>
+                    <?php foreach($maspiutangangsurans->result_array() as $item) { ?>
                         <tr>
                             <td><?= date_format(date_create($item['date_created']), "d-m-Y"); ?></td>
                             <td class="text-end"><?= number_format($item['payment_price']) ?></td>

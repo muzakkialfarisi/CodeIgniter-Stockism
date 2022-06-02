@@ -167,53 +167,48 @@ class SalesOrders extends CI_Controller {
 
     public function EditSalesOrderStatusPost()
     {
+        echo $this->input->post('status_payment');
+        echo $this->input->post('status_delivery');
         if($this->input->post('status_payment') == "Paid"){
-            $incpurcahseorder = array(
+            $outsalesorder = array(
                 'id_so'             => $this->input->post('id_so'),
                 'status_payment'    => $this->input->post('status_payment')
             );
-            $this->OutSalesOrder->Update($outsalesorder);
+            if(!$this->OutSalesOrder->Update($outsalesorder)){
+                $this->session->set_flashdata('error', 'Invalid Update Sales Order Payment!');
+		        redirect('SalesOrders/Index');
+            }
 
             $piutang = $this->MasPiutang->GetPiutangById($this->input->post('id_so'))->row();
 
             $maspiutang = array(
                 'id_so'             => $this->input->post('id_so'),
-                'sum_payment_price' => $utang->total_piutang
+                'sum_payment_price' => $piutang->total_piutang
             );
-            $this->MasUtang->Update($masutang);
+            if(!$this->MasPiutang->Update($maspiutang)){
+                $this->session->set_flashdata('error', 'Invalid Update Piutang!');
+		        redirect('SalesOrders/Index');
+            }
 
             $maspiutangangsuran = array(
                 'id_so'             => $this->input->post('id_so'),
-                'date_created'      => date(),
-                'payment_price'     => $piutang->total_utang - $piutang->sum_payment_price
+                'date_created'      => date("Y-m-d"),
+                'payment_price'     => $piutang->total_piutang - $piutang->sum_payment_price
             );
-            $this->MasPiutangAngsuran->Insert($maspiutangangsuran);
+            if(!$this->MasPiutangAngsuran->Insert($maspiutangangsuran)){
+                $this->session->set_flashdata('error', 'Invalid Insert Piutang Angsuran!');
+		        redirect('SalesOrders/Index');
+            }
         }
 
         if($this->input->post('status_delivery') == "Done"){
-            $incpurcahseorder = array(
+            $outsalesorder = array(
                 'id_so'             => $this->input->post('id_so'),
                 'status_delivery'    => $this->input->post('status_delivery')
             );
-            $this->OutSalesOrder->Update($outsalesorder);
-
-            $salesorderproduct = $this->OutSalesOrderProduct->GetSalesOrderProductByIdSo($this->input->post('id_so'))->result();
-
-            foreach ($salesorderproduct as $soproduct) {
-                $outsalesorderproduct = array(
-                    'id_soproduct'      => $soproduct->id_soproduct,
-                    'quantity_delivered' => $soproduct->quantity
-                );
-
-                $product = $this->MasProduct->GetProductById($soproduct->id_product)->row();
-                $masproduct = array(
-                    'id_product'        => $product->id_product,
-                    'quantity'          => $product->quantity - ($soproduct->quantity - $soproduct->quantity_delivered)
-                );
-                
-                $this->OutSalesOrderProduct->Update($outsalesorderproduct);
-                $this->MasProduct->Update($masproduct);
-
+            if(!$this->OutSalesOrder->Update($outsalesorder)){
+                $this->session->set_flashdata('error', 'Invalid Update Sales Order Delivery!');
+		        redirect('SalesOrders/Index');
             }
         }
 

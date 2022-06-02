@@ -59,7 +59,7 @@
                                     <div class="dropstart">
                                         <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                            <li><a type="button" class="dropdown-item" href="<?= site_url('Utangs/Detail/'.$item['id_so']) ?>">Details</a></li>
+                                            <li><a type="button" class="dropdown-item" href="<?= site_url('Piutangs/Detail/'.$item['id_so']) ?>">Details</a></li>
                                             <?php if($item['total_piutang'] >$item['sum_payment_price']) { ?>
                                                 <li><button type="button" class="dropdown-item btn-add-payment" data-bs-toggle="modal" data-id="<?= $item['id_so'] ?>" data-bs-target="#ModalAddPayment">Add Payment</button></li>
                                             <?php } ?>

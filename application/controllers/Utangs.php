@@ -65,17 +65,19 @@ class Utangs extends CI_Controller {
             redirect($redirect);
         }
 
-        $incpurchaseorder = array(
-            'id_po'             => $this->input->post('id_po'),
-            'payment_status'    => "Paid"
-        );
-
-        if(!$this->IncPurchaseOrder->Update($incpurchaseorder))
+        if($masutang['sum_payment_price'] == $utang->total_utang)
         {
-            $this->session->set_flashdata('error', 'Invalid Modelstate Purchase Order!');
-            redirect($redirect);
+            $incpurchaseorder = array(
+                'id_po'             => $this->input->post('id_po'),
+                'payment_status'    => "Paid"
+            );
+    
+            if(!$this->IncPurchaseOrder->Update($incpurchaseorder))
+            {
+                $this->session->set_flashdata('error', 'Invalid Modelstate Purchase Order!');
+                redirect($redirect);
+            }
         }
-
         $this->session->set_flashdata('success', 'Paid Seccessully!');
         redirect($redirect);
     }

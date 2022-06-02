@@ -85,34 +85,37 @@ class SalesOrders extends CI_Controller {
 		        redirect('SalesOrders/Create');
             }
 
-            $outsalesorderproduct = array(
-                'id_so'             => $id_so,
-                'id_product'        => $product->id_product,
-                'quantity'          => $this->input->post('quantity')[$i],
-                'selling_price'     => $this->input->post('selling_price')[$i],
-                // plus tax
-                'subtotal'          => $this->input->post('quantity')[$i] * $this->input->post('selling_price')[$i] + ($this->input->post('selling_price')[$i] * ($this->input->post('tax_cost') / 100))
-            );
-
-            if(!$this->OutSalesOrderProduct->Insert($outsalesorderproduct)){
-                $this->session->set_flashdata('error', 'Invalid Insert Sales Order Product!');
-                redirect('SalesOrders/Create');
-            }
-
-            $masproduct = array(
-                'id_product'    => $product->id_product,
-                'quantity'      => $product->quantity - $this->input->post('quantity')[$i],
-            );
-            
-            if(!$this->MasProduct->Update($masproduct)){
-                $this->session->set_flashdata('error', 'Invalid Update Product!');
-                redirect('SalesOrders/Create');
+            if($product->quantity >= $this->input->post('quantity')[$i])
+            {
+                $outsalesorderproduct = array(
+                    'id_so'             => $id_so,
+                    'id_product'        => $product->id_product,
+                    'quantity'          => $this->input->post('quantity')[$i],
+                    'selling_price'     => $this->input->post('selling_price')[$i],
+                    'subtotal'          => $this->input->post('quantity')[$i] * $this->input->post('selling_price')[$i] 
+                );
+    
+                if(!$this->OutSalesOrderProduct->Insert($outsalesorderproduct)){
+                    $this->session->set_flashdata('error', 'Invalid Insert Sales Order Product!');
+                    redirect('SalesOrders/Create');
+                }
+    
+                $masproduct = array(
+                    'id_product'    => $product->id_product,
+                    'quantity'      => $product->quantity - $this->input->post('quantity')[$i],
+                );
+                
+                if(!$this->MasProduct->Update($masproduct)){
+                    $this->session->set_flashdata('error', 'Invalid Update Product!');
+                    redirect('SalesOrders/Create');
+                }
             }
         }
 
         if($this->input->post('status_payment') == "Debt")
         {
-            $total_piutang = $this->db->query("SELECT SUM(subtotal) AS sum FROM outsalesorderproduct where id_so = '$id_so'")->row()->sum + $this->input->post('shipping_cost');
+            $total_piutang = $this->db->query("SELECT SUM(subtotal) AS sum FROM outsalesorderproduct where id_so = '$id_so'")->row()->sum;
+            $total_piutang = $total_piutang + ($total_piutang * ($this->input->post('tax_cost') / 100)) + $this->input->post('shipping_cost');
             $payment_price = $this->input->post('payment_price');
             if($payment_price >= $total_piutang){
                 $payment_price = $total_piutang - 1;

@@ -40,7 +40,7 @@
                         <div class="col-12 col-sm-6">
                             <label class="control-label">Komisi</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" name="komisi">
+                                <input type="number" class="form-control number-only" max="100" name="komisi">
                                 <span class="input-group-text">%</span>
                             </div>
                         </div>

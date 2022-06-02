@@ -116,9 +116,23 @@ $('.table tbody tr').click(function () {
                                 '</div>'+
                                 '<hr>'+
                             '</div>';
-                $(row).insertBefore("#nextkolom");
-                $('#jumlahkolom').val(index+1);
-                index++;
+                if(data.quantity > 0)
+                {
+                    $(row).insertBefore("#nextkolom");
+                    $('#jumlahkolom').val(index+1);
+                    index++;
+                }
+                else
+                {
+                    toastr.error('Cant Add This Product!','', {
+                        positionClass: 'toast-top-right',
+                        closeButton: false,
+                        progressBar: false,
+                        newestOnTop: true,
+                        rtl: $("body").attr("dir") === "rtl" || $("html").attr("dir") === "rtl",
+                        timeOut: 3000
+                    });
+                }
             },
             error: function (response) {
                 console.log(response.responseText);

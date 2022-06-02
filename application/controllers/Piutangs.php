@@ -17,7 +17,7 @@ class Piutangs extends CI_Controller {
 	
 	public function Index()
 	{
-		$data['menukey'] = "Pitangs";
+		$data['menukey'] = "Piutang";
 		$data['javascripts'] = "Piutangs/Index";
 		$data['content'] = "Piutangs/Index";
 
@@ -33,52 +33,56 @@ class Piutangs extends CI_Controller {
         $this->load->view('Shared/_Layout', $data);
 	}
 
-    // public function EditUtangAngsuranPost()
-    // {
-    //     $masutangangsuran = array(
-    //         'id_po'         => $this->input->post('id_po'),
-    //         'date_created'  => $this->input->post('date_created'),
-    //         'payment_price' => $this->input->post('payment_price')
-    //     );
+    public function EditPiutangAngsuranPost()
+    {
+        $maspiutangangsuran = array(
+            'id_so'         => $this->input->post('id_so'),
+            'date_created'  => $this->input->post('date_created'),
+            'payment_price' => $this->input->post('payment_price')
+        );
 
-    //     $redirect = "Utangs/Index";
-    //     if($this->input->post('type') == "inside"){
-    //         $redirect = "Utangs/Detail/".$this->input->post('id_po');
-    //     }
+        $redirect = "Piutangs/Index";
+        if($this->input->post('type') == "inside"){
+            $redirect = "Piutangs/Detail/".$this->input->post('id_so');
+        }
 
-    //     if(!$this->MasUtangAngsuran->Insert($masutangangsuran))
-    //     {
-    //         $this->session->set_flashdata('error', 'Invalid Modelstate Angsuran!');
-    //         redirect($redirect);
-    //     }
+        if(!$this->MasPiutangAngsuran->Insert($maspiutangangsuran))
+        {
+            $this->session->set_flashdata('error', 'Invalid Modelstate Angsuran!');
+            redirect($redirect);
+        }
         
-    //     $utang = $this->MasUtang->GetUtangById($this->input->post('id_po'))->row();
+        $piutang = $this->MasPiutang->GetPiutangById($this->input->post('id_so'))->row();
 
-    //     $masutang = array(
-    //         'id_po'             => $this->input->post('id_po'),
-    //         'sum_payment_price' => $utang->sum_payment_price + $this->input->post('payment_price')
-    //     );
+        $maspiutang = array(
+            'id_so'             => $this->input->post('id_so'),
+            'sum_payment_price' => $piutang->sum_payment_price + $this->input->post('payment_price')
+        );
 
-    //     if(!$this->MasUtang->Update($masutang))
-    //     {
-    //         $this->session->set_flashdata('error', 'Invalid Modelstate Utang!');
-    //         redirect($redirect);
-    //     }
+        if(!$this->MasPiutang->Update($maspiutang))
+        {
+            $this->session->set_flashdata('error', 'Invalid Modelstate Piutang!');
+            redirect($redirect);
+        }
 
-    //     $incpurchaseorder = array(
-    //         'id_po'             => $this->input->post('id_po'),
-    //         'payment_status'    => "Paid"
-    //     );
+        if($maspiutang['sum_payment_price'] == $piutang->total_piutang)
+        {
+            $outsalesorder = array(
+                'id_so'             => $this->input->post('id_so'),
+                'status_payment'    => "Paid"
+            );
+    
+            if(!$this->OutSalesOrder->Update($outsalesorder))
+            {
+                $this->session->set_flashdata('error', 'Invalid Modelstate Purchase Order!');
+                redirect($redirect);
+            }
+        }
+        
 
-    //     if(!$this->IncPurchaseOrder->Update($incpurchaseorder))
-    //     {
-    //         $this->session->set_flashdata('error', 'Invalid Modelstate Purchase Order!');
-    //         redirect($redirect);
-    //     }
-
-    //     $this->session->set_flashdata('success', 'Paid Seccessully!');
-    //     redirect($redirect);
-    // }
+        $this->session->set_flashdata('success', 'Paid Seccessully!');
+        redirect($redirect);
+    }
 
     public function Detail($id_so)
     {

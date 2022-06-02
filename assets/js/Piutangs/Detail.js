@@ -31,21 +31,6 @@ $("input[name='payment_price']").on('keyup', function(){
     }
 });
 
-$('.btn-delete-angsuran').on('click', function(){
-    swal({
-        title:"Are you sure?",
-        text:"You want to delete this record?",
-        icon:"warning",
-        buttons:true,
-        dangerMode:true
-    }).then((confirm) =>{
-        if(confirm){
-            $("input[name='id_angsuran']").val($(this).data("id"));
-            $('#DeletePost').submit();
-        }
-    });
-});
-
 $('input[name="status_payment"]').on('change', function() {
     if($(this).val() == "Debt"){
         $("input[name='payment_price']").attr("readonly", false);
@@ -72,4 +57,19 @@ $('input[name="status_payment"]').on('change', function() {
             }
         });
     }
+});
+
+$('.btn-delete-angsuran').on('click', function(){
+    swal({
+        title:"Are you sure?",
+        text:"You want to delete this record?",
+        icon:"warning",
+        buttons:true,
+        dangerMode:true
+    }).then((confirm) =>{
+        if(confirm){
+            $("input[name='id_angsuran']").val($(this).data("id"));
+            $('#DeletePost').submit();
+        }
+    });
 });

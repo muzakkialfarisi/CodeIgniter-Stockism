@@ -2,7 +2,7 @@
     <div class="card-header bg-stockism">
         <div class="d-flex align-items-center py-1">
             <div class="flex-grow-1 ps-3 my-1">
-                <h5 class="card-title mb-0 text-light">Detail Utang</h5>
+                <h5 class="card-title mb-0 text-light">Detail Piutang</h5>
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@
                 Tax Cost
             </dt>
             <dd class = "col-8">
-                : <?= number_format($outsalesorder->tax_cost) ?>
+                : <?= number_format($outsalesorder->tax_cost) ?> %
             </dd>
             <dt class = "col-4">
                 Shipping Cost
@@ -45,7 +45,7 @@
                 : <?= number_format($outsalesorder->shipping_cost); ?>
             </dd>
             <dt class = "col-4">
-                Total Utang
+                Total Piutang
             </dt>
             <dd class = "col-8">
                 : <?= number_format($maspiutang->total_piutang); ?>

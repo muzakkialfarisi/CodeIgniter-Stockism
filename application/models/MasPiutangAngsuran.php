@@ -14,7 +14,7 @@ class MasPiutangAngsuran extends CI_Model{
     }
 
     public function Update($data){
-        $this->db->where('id_so', $data['id_so']);
+        $this->db->where('id_angsuran', $data['id_angsuran']);
         if($this->db->update('maspiutangangsuran', $data)){
             return true;
         }
@@ -22,7 +22,7 @@ class MasPiutangAngsuran extends CI_Model{
     }
 
     public function Delete($data){
-        $this->db->where('id_so', $data);
+        $this->db->where('id_angsuran', $data);
         if($this->db->delete('maspiutangangsuran')){
             return true;
         }

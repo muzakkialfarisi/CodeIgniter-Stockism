@@ -7,7 +7,7 @@
     </div>
 </div>
 
-<form action="<?= site_url('UtangAngsurans/DeletePost') ?>" id="DeletePost" method="post">
+<form action="<?= site_url('PiutangAngsurans/DeletePost') ?>" id="DeletePost" method="post">
     <input type="text" class="form-control" name="id_angsuran" hidden required>
 </form>
 

@@ -37,7 +37,7 @@
                             <td><?= $item['address'] ?></td>
                             <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
                                 <td class="text-center">
-                                    <div class="dropdown">
+                                    <div class="dropstart">
                                         <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownactions">
                                             <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_warehouse'] ?>" data-bs-target="#ModalEdit">Edit</button></li>

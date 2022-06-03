@@ -2,7 +2,7 @@
     <div class="card-header bg-stockism">
         <div class="d-flex align-items-center py-1">
             <div class="flex-grow-1 ps-3">
-                <h5 class="card-title mb-0 text-light">Utang</h5>
+                <h5 class="card-title mb-0 text-light">Piutang</h5>
             </div>
         </div>
     </div>

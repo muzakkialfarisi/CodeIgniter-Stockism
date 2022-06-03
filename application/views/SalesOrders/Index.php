@@ -4,7 +4,9 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Sales Orders</h5>
             </div>
-            <a type="button" class="btn btn-light btn-pill" href="<?= site_url('SalesOrders/Create') ?>">Create New</a>
+            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                <a type="button" class="btn btn-light btn-pill" href="<?= site_url('SalesOrders/Create') ?>">Create New</a>
+            <?php } ?>
         </div>
     </div>
     <div class="card-body m-3">
@@ -21,7 +23,12 @@
                         <th>Total</th>
                         <th>Payment</th>
                         <th>Delivery</th>
-                        <th>Action</th>
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
+                            <th>Tenant</th>
+                        <?php } ?>
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                            <th>Action</th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,18 +81,23 @@
                                     Done
                                 <?php } ?>
                             </td>
-                            <td class="text-center">
-                                <div class="dropstart">
-                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <li><a type="button" class="dropdown-item" href="<?= site_url('SalesOrders/Detail/'.$item['id_so']) ?>">Details</a></li>
-                                        <?php if($item['status_payment'] == "Debt" || $item['status_delivery'] == "On Going") { ?>
-                                            <li><a type="button" class="dropdown-item btn-edit-status" data-bs-toggle="modal" data-bs-target="#ModalEditStatus" data-id="<?= $item['id_so'] ?>">Change Status</a></li>
-                                        <?php } ?>
-                                        <li><button type="button" class="dropdown-item text-danger btn-delete" data-id="<?= $item['id_so'] ?>">Cancel Transaction</button></li>
-                                    </ul>
-                                </div>
-                            </td>
+                            <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
+                                <td><?= $item['email_tenant'] ?></td>
+                            <?php } ?>
+                            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                                <td class="text-center">
+                                    <div class="dropstart">
+                                        <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                            <li><a type="button" class="dropdown-item" href="<?= site_url('SalesOrders/Detail/'.$item['id_so']) ?>">Details</a></li>
+                                            <?php if($item['status_payment'] == "Debt" || $item['status_delivery'] == "On Going") { ?>
+                                                <li><a type="button" class="dropdown-item btn-edit-status" data-bs-toggle="modal" data-bs-target="#ModalEditStatus" data-id="<?= $item['id_so'] ?>">Change Status</a></li>
+                                            <?php } ?>
+                                            <li><button type="button" class="dropdown-item text-danger btn-delete" data-id="<?= $item['id_so'] ?>">Cancel Transaction</button></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            <?php } ?>
                         </tr>
                     <?php } ?>
                 </tbody>

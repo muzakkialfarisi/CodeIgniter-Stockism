@@ -18,7 +18,6 @@
                         <th>Email</th>
                         <th>Address</th>
                         <th>Phone Number</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,15 +30,6 @@
                             <td><?= $item['email'] ?></td>
                             <td><?= $item['address'] ?></td>
                             <td><?= $item['phone_number'] ?></td>
-                            <td class="text-center">
-                                <div class="dropdown">
-                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <!-- <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['email_tenant'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
-                                        <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['email_tenant'] ?>">Delete</button></li> -->
-                                    </ul>
-                                </div>
-                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

@@ -21,7 +21,12 @@
                         <th>Total</th>
                         <th>Payment</th>
                         <th>Delivery</th>
-                        <th>Action</th>
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
+                            <th>Tenant</th>
+                        <?php } ?>
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin") { ?>
+                            <th>Action</th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,21 +80,26 @@
                                     <?= $item['delivery_status'] ?>
                                 <?php } ?> 
                             </td>
-                            <td class="text-center">
-                                <div class="dropstart">
-                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <li><a type="button" class="dropdown-item" href="<?= site_url('PurchaseOrders/Detail/'.$item['id_po']) ?>">Details</a></li>
-                                        <?php if($item['delivery_status'] == "On Going") { ?>
-                                            <li><a type="button" class="dropdown-item btn-edit-poproduct-quantity" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProductQuantity" data-id="<?= $item['id_po'] ?>">Update Delivery</a></li>
-                                        <?php } ?>
-                                        <?php if($item['payment_status'] == "Debt" || $item['delivery_status'] == "On Going") { ?>
-                                            <li><a type="button" class="dropdown-item btn-edit-status" data-bs-toggle="modal" data-bs-target="#ModalEditStatus" data-id="<?= $item['id_po'] ?>">Change Status</a></li>
-                                        <?php } ?>
-                                        <li><button type="button" class="dropdown-item text-danger btn-delete" data-id="<?= $item['id_po'] ?>">Cancel Transaction</button></li>
-                                    </ul>
-                                </div>
-                            </td>
+                            <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
+                                <td><?= $item['email_tenant'] ?></td>
+                            <?php } ?>
+                            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                                <td class="text-center">
+                                    <div class="dropstart">
+                                        <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                            <li><a type="button" class="dropdown-item" href="<?= site_url('PurchaseOrders/Detail/'.$item['id_po']) ?>">Details</a></li>
+                                            <?php if($item['delivery_status'] == "On Going") { ?>
+                                                <li><a type="button" class="dropdown-item btn-edit-poproduct-quantity" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProductQuantity" data-id="<?= $item['id_po'] ?>">Update Delivery</a></li>
+                                            <?php } ?>
+                                            <?php if($item['payment_status'] == "Debt" || $item['delivery_status'] == "On Going") { ?>
+                                                <li><a type="button" class="dropdown-item btn-edit-status" data-bs-toggle="modal" data-bs-target="#ModalEditStatus" data-id="<?= $item['id_po'] ?>">Change Status</a></li>
+                                            <?php } ?>
+                                            <li><button type="button" class="dropdown-item text-danger btn-delete" data-id="<?= $item['id_po'] ?>">Cancel Transaction</button></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            <?php } ?>
                         </tr>
                     <?php } ?>
                 </tbody>

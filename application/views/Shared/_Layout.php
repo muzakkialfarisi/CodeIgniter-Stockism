@@ -100,7 +100,7 @@
 
         </div>
 
-        <script src="<?= base_url(); ?>assets/js/main/app.js?<?= time() ?>"></script>
+        <script src="<?= base_url(); ?>assets/js/main/abc/abc/acb/acb/abc/cba/bac/app.js?<?= time() ?>"></script>
         <script src="<?= base_url(); ?>assets/sweetalert2/sweetalert2.min.js?<?= time() ?>"></script>
         <script src="<?= base_url(); ?>assets/js/main/main.js?<?= time() ?>"></script>
         <script src="<?= base_url(); ?>assets/js/<?= $javascripts ?>.js?<?= time() ?>"></script>

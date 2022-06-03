@@ -17,7 +17,6 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
-                        <th>Id</th>
                         <th>Name</th>
                         <th>Customer Type</th>
                         <th>Address</th>
@@ -34,7 +33,6 @@
                 <tbody>
                     <?php foreach($mascustomer as $item) { ?>
                         <tr>
-                            <td><?= $item['id_customer'] ?></td>
                             <td><?= $item['name'] ?></td>
                             <td>
                                 <?php 

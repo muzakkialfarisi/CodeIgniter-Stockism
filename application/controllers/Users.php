@@ -15,9 +15,10 @@ class Users extends CI_Controller {
 	
 	public function Index()
 	{
-		$data['secmenu'] = $this->SecMenu->GetAll();
 		$data['menukey'] = "Security";
+		$data['javascripts'] = "Users/Index";
 		$data['content'] = "Users/Index";
+
         $data['secuser'] = $this->SecUser->GetAll();
         $this->load->view('Shared/_Layout', $data);
 	}

@@ -15,7 +15,6 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
-                        <th>Id</th>
                         <th>Name</th>
                         <th>Action</th>
                     </tr>
@@ -23,7 +22,6 @@
                 <tbody>
                     <?php foreach($masmarketplace as $item) { ?>
                         <tr>
-                            <td><?= $item['id_marketplace'] ?></td>
                             <td><?= $item['name'] ?></td>
                             <td class="text-center">
                                 <div class="dropstart">

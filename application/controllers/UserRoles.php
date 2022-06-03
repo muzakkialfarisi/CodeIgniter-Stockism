@@ -17,6 +17,7 @@ class UserRoles extends CI_Controller {
 	public function Index()
 	{
 		$data['menukey'] = "Security";
+		$data['javascripts'] = "UserRoles/Index";
 		$data['content'] = "UserRoles/Index";
         $data['secuserrole'] = $this->SecUserRole->GetAll()->result_array();
         $this->load->view('Shared/_Layout', $data);

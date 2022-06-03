@@ -9,7 +9,9 @@
                 <th>Stock</th>
                 <th>Purchase Price</th>
                 <th>Storage</th>
-                <th>Action</th>
+                <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                    <th>Action</th>
+                <?php } ?>
             </tr>
         </thead>
         <tbody>
@@ -17,15 +19,17 @@
             $i = 1;
             foreach($incpurchaseorderproduct as $item) { ?>
                 <tr>
-                    <td><?= $item['date_created'] ?></td>
+                    <td><?= date_format(date_create($item['date_created']), "d-m-Y") ?></td>
                     <td><?= $item['sku'] ?></td>
-                    <td><?php if($item['expired_date'] != '0000-00-00 00:00:00') { echo $item['expired_date']; } ?></td>
+                    <td><?php if($item['expired_date'] != '0000-00-00 00:00:00') { echo date_format(date_create($item['expired_date']), "d-m-Y"); } ?></td>
                     <td><?= $item['quantity'] ?></td>
                     <td class="text-end"><?= number_format($item['purchase_price']) ?></td>
                     <td><?= $item['storage'] ?></td>
-                    <td class="text-center">
-                        <button class="btn btn-sm text-primary btn-edit-purchaseorderproduct" data-id="<?= $item['id_poproduct'] ?>" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProduct"><i class="align-middle me-2 fas fa-fw fa-edit"></i></button>
-                    </td> 
+                    <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                        <td class="text-center">
+                            <button class="btn btn-sm text-primary btn-edit-purchaseorderproduct" data-id="<?= $item['id_poproduct'] ?>" data-bs-toggle="modal" data-bs-target="#ModalEditPurchaseOrderProduct"><i class="align-middle me-2 fas fa-fw fa-edit"></i></button>
+                        </td> 
+                    <?php } ?>
                 </tr>
             <?php
             $i++; } ?>

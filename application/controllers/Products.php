@@ -13,6 +13,7 @@ class Products extends CI_Controller {
 		$this->load->model('MasProductUnit');
         $this->load->model('MasProductCategory');
         $this->load->model('IncPurchaseOrderProduct');
+        $this->load->model('OutSalesOrderProduct');
     }
 	
 	public function Index()
@@ -125,6 +126,7 @@ class Products extends CI_Controller {
         $data['masproductcategory'] = $this->MasProductCategory->GetProductCategoryById($data['masproduct']->id_productcategory)->row();
         
         $data['incpurchaseorderproduct'] = $this->IncPurchaseOrderProduct->GetPurchaseOrderProductByProductId($id_product)->result_array();
+        $data['outsalesorderproduct'] = $this->OutSalesOrderProduct->GetSalesOrderProductByProductId($id_product)->result_array();
         $this->load->view('Shared/_Layout', $data);
     }
 

@@ -17,6 +17,7 @@
                         <th>Email Confirmed</th>
                         <th>Status</th>
                         <th>User Role</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,7 +32,14 @@
                                     echo $this->db->query("SELECT * FROM secuserrole where id_usertype = '$id_usertype'")->row()->name;
                                 ?>
                             </td>
-                            
+                            <td class="text-center">
+                                <div class="dropstart">
+                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                        <li><button type="button btn-activation" class="dropdown-item" data-id="<?= $item['id_po'] ?>"></button></li>
+                                    </ul>
+                                </div>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>

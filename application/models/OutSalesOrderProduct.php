@@ -35,7 +35,7 @@ class OutSalesOrderProduct extends CI_Model{
     }
 
     public function GetSalesOrderProductByProductId($id){
-        $data = $this->db->query("SELECT * FROM outsalesorderproduct WHERE id_soproduct = '$id' ");
+        $data = $this->db->query("SELECT * FROM outsalesorderproduct WHERE id_product = '$id' ");
 		return $data;
     }
 

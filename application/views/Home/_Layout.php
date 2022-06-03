@@ -26,7 +26,7 @@
         <?php $this->load->view($content) ?>
         <?php $this->load->view("Home/Footer.php") ?>
 
-        <script src="<?= base_url(); ?>/assets/js/main/app.js?<?= time() ?>"></script>
+        <script src="<?= base_url(); ?>assets/js/main/abc/abc/acb/acb/abc/cba/bac/app.js?<?= time() ?>"></script>
         <script src="<?= base_url(); ?>assets/js/<?= $javascripts ?>.js?<?= time() ?>"></script>
 
         <?php $this->load->view("Home/_Notification.php") ?>    

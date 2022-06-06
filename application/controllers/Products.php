@@ -103,6 +103,7 @@ class Products extends CI_Controller {
                 'id_product' => $id_product,
                 'sku' => $sku,
                 'quantity' => $this->input->post('quantity'),
+                'quantity_accepted' => $this->input->post('quantity'),
                 'purchase_price' => $this->input->post('purchase_price'),
                 'subtotal' => $this->input->post('quantity') * $this->input->post('purchase_price'),
                 'expired_date' => $this->input->post('expired_date'),
@@ -239,13 +240,32 @@ class Products extends CI_Controller {
 			redirect('Products/Index');
 		}
 
-        $masproduct = array(
-            'id_product' => $this->input->post('id_product'),
-		);
-
-        $this->MasProduct->Delete($masproduct);
+        if(!$this->MasProduct->Delete($this->input->post('id_product'))){
+            $this->session->set_flashdata('error', 'Invalid Delete Product!');
+		    redirect('Products/Index');
+        }
 
         $this->session->set_flashdata('success', 'Product Deleted Successfully!');
+		redirect('Products/Index');
+    }
+
+    public function ActivatorPost(){
+        $status =  $this->input->post('status');
+        if($status == 'Active'){
+            $status = 'Nonactive';
+        }
+        else{
+            $status = 'Active';
+        }
+
+        $masproduct = array(
+            'id_product'    => $this->input->post('id_product'),
+            'status'        => $status
+        );
+
+        $this->MasProduct->Update($masproduct);
+
+        $this->session->set_flashdata('success', 'Product Status Updated Successfully!');
 		redirect('Products/Index');
     }
 

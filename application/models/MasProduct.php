@@ -35,8 +35,8 @@ class MasProduct extends CI_Model{
     }
 
     public function Delete($data){
-        $this->db->where('id_product', $data['id_product']);
-        if($this->db->delete('masproduct', $data)){
+        $this->db->where('id_product', $data);
+        if($this->db->delete('masproduct')){
             return true;
         }
         return false;

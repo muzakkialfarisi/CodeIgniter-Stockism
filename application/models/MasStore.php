@@ -45,6 +45,11 @@ class MasStore extends CI_Model{
 		return $data;
     }
 
+	public function GetIdStoreByNameByTenantByMarketplace($name, $tenant, $id_marketplace){
+        $data = $this->db->query("SELECT * FROM mastoko WHERE name = '$name' AND email_tenant = '$tenant' AND id_marketplace = '$id_marketplace'");
+		return $data;
+    }
+
 	public function GetAllMarketplace(){
 		$data = $this->db->query("SELECT * FROM masmarketplace");
 		return $data;

@@ -8,8 +8,8 @@
             <form action="<?= site_url('Piutangs/EditPiutangAngsuranPost') ?>" method="post">
                 <?php echo validation_errors(); ?>
                 <div class="modal-body m-3">
-                    <input type="text" class="form-control" name="id_so" required readonly>
-                    <input type="text" class="form-control" name="type" required readonly>
+                    <input type="text" class="form-control" name="id_so" required hidden>
+                    <input type="text" class="form-control" name="type" required hidden>
                     <div class="mb-3 form-group required">
                         <label class="control-label">Date Paid</label>
                         <input type="datetime-local" class="form-control" name="date_created" required>

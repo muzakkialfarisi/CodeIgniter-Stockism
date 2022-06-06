@@ -38,7 +38,7 @@ class Stores extends CI_Controller {
 			redirect('Stores/Index');
 		}	
 
-		if ($this->MasStore->GetIdStoreByNameByTenant($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'])->row() > 0){
+		if ($this->MasStore->GetIdStoreByNameByTenantByMarketplace($this->input->post('name'), $this->session->userdata['logged_in']['email_tenant'], $IdMarketplace)->row() > 0){
 			$this->session->set_flashdata('error', 'Store Already Exist!');
 			redirect('Stores/Index');
 		}

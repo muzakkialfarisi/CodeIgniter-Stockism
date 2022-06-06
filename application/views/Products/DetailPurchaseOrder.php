@@ -22,7 +22,7 @@
                     <td><?= date_format(date_create($item['date_created']), "d-m-Y") ?></td>
                     <td><?= $item['sku'] ?></td>
                     <td><?php if($item['expired_date'] != '0000-00-00 00:00:00') { echo date_format(date_create($item['expired_date']), "d-m-Y"); } ?></td>
-                    <td><?= $item['quantity'] ?></td>
+                    <td><?= $item['quantity_accepted'] ?></td>
                     <td class="text-end"><?= number_format($item['purchase_price']) ?></td>
                     <td><?= $item['storage'] ?></td>
                     <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>

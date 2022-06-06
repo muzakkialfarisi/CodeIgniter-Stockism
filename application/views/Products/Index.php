@@ -61,11 +61,11 @@
                                         <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
                                             <li><a href="<?= site_url('Products/Edit/'.$item['id_product']) ?>" type="button" class="dropdown-item btn-edit">Edit</a></li>
                                             <?php if($item['status'] == "Active") { ?>
-                                                <li><button type="button" class="dropdown-item btn-activator text-warning" data-id="<?= $item['id_productunit'] ?>" data-value="<?= $item['status'] ?>">Deactivate</button></li>
+                                                <li><button type="button" class="dropdown-item btn-activator text-warning" data-id="<?= $item['id_product'] ?>" data-status="<?= $item['status'] ?>">Deactivate</button></li>
                                             <?php } else { ?>
-                                                <li><button type="button" class="dropdown-item btn-activator text-success" data-id="<?= $item['id_productunit'] ?>" data-value="<?= $item['status'] ?>">Activate</button></li>
+                                                <li><button type="button" class="dropdown-item btn-activator text-success" data-id="<?= $item['id_product'] ?>" data-status="<?= $item['status'] ?>">Activate</button></li>
                                             <?php } ?>
-                                            <li><button type="button" class="dropdown-item btn-delete text-danger" data-id="<?= $item['id_productunit'] ?>">Delete</button></li>
+                                            <li><button type="button" class="dropdown-item btn-delete text-danger" data-id="<?= $item['id_product'] ?>">Delete</button></li>
                                         <?php } ?>
                                     </ul>
                                 </div>
@@ -81,4 +81,9 @@
 
 <form action="<?= site_url('Products/DeletePost') ?>" method="post" id="DeletePost">
     <input type="text" class="form-control" name="id_product" required hidden>
+</form>
+
+<form action="<?= site_url('Products/ActivatorPost') ?>" method="post" id="ActivatorPost">
+    <input type="text" class="form-control" name="id_product" required hidden>
+    <input type="text" class="form-control" name="status" required hidden>
 </form>

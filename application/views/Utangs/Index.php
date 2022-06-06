@@ -60,7 +60,7 @@
                                         <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownactions">
                                             <li><a type="button" class="dropdown-item" href="<?= site_url('Utangs/Detail/'.$item['id_po']) ?>">Details</a></li>
-                                            <?php if($item['total_utang'] >$item['sum_payment_price']) { ?>
+                                            <?php if($item['total_utang'] > $item['sum_payment_price']) { ?>
                                                 <li><button type="button" class="dropdown-item btn-add-payment" data-bs-toggle="modal" data-id="<?= $item['id_po'] ?>" data-bs-target="#ModalAddPayment">Add Payment</button></li>
                                             <?php } ?>
                                         </ul>

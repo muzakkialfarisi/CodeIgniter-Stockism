@@ -1,4 +1,4 @@
-$('.btn-delete').click(function(e){
+$('.btn-delete').on('click', function(){
     swal({
         title:"Are you sure?",
         text:"You want to delete this record?",
@@ -22,8 +22,9 @@ $('.btn-activator').click(function(e){
         dangerMode:true
     }).then((confirm) =>{
         if(confirm){
-            $("input[name='id_employee']").val($(this).data("id"));
-            $('#DeletePost').submit();
+            $("input[name='id_product']").val($(this).data("id"));
+            $("input[name='status']").val($(this).data("status"));
+            $('#ActivatorPost').submit();
         }
     });
 });

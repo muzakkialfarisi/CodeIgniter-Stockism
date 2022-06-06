@@ -5,19 +5,20 @@ $(".table").DataTable({
 $('.btn-add-payment').on('click', function(){
     $.ajax({
         type: 'POST',
-        url: '/stockism/Utangs/GetUtangById',
+        url: '/stockism/Piutangs/GetPiutangById',
         dataType: 'json',
         data:{
-            id_po: $(this).data('id'),
+            id_so: $(this).data('id'),
         },
         beforeSend: function(){
-            $("input[name='id_po']").val("");
+            $("input[name='id_so']").val("");
             $("input[name='type']").val("");
         },
         success: function (data) {
-            $("input[name='id_po']").val(data.id_po);
+            console.log(data);
+            $("input[name='id_so']").val(data.id_so);
             $("input[name='type']").val("inside");
-            $("input[name='payment_price']").attr("data-max", data.total_utang - data.sum_payment_price);
+            $("input[name='payment_price']").attr("data-max", data.total_piutang - data.sum_payment_price);
         },
         error: function (response) {
             console.log(response.responseText);
@@ -40,17 +41,17 @@ $('input[name="status_payment"]').on('change', function() {
     if($(this).val() == "Paid"){
         $.ajax({
             type: 'POST',
-            url: '/stockism/Utangs/GetUtangById',
+            url: '/stockism/Piutangs/GetPiutangById',
             dataType: 'json',
             data:{
-                id_po: $("input[name='id_po']").val(),
+                id_so: $("input[name='id_so']").val(),
             },
             beforeSend: function(){
                 $("input[name='payment_price']").attr("readonly", true);
                 $("input[name='payment_price']").val("").change();
             },
             success: function (data) {
-                $("input[name='payment_price']").val(data.total_utang - data.sum_payment_price).change();
+                $("input[name='payment_price']").val(data.total_piutang - data.sum_payment_price).change();
             },
             error: function (response) {
                 console.log(response.responseText);

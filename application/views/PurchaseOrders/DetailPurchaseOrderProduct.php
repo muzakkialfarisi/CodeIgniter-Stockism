@@ -36,7 +36,7 @@
                                 <?= number_format($item['purchase_price']) ?>     
                             </td>
                             <td class="text-center">
-                                <?= $item['quantity'] ?>     
+                                <?= $item['quantity_accepted'] ?>     
                             </td>
                             <td class="text-end">
                                 <?php if($item['expired_date'] != '0000-00-00 00:00:00') { echo $item['expired_date']; } ?>   

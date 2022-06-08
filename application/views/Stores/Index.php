@@ -13,10 +13,10 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
-                        <th>Photo</th>
+                        <th>Picture</th>
                         <th>Name</th>
                         <th>Phone Number</th>
-                        <th>Komisi</th>
+                        <th>Commission</th>
                         <th>Marketplace</th>
                         <th>Email Tenant</th>
                         <th>Action</th>

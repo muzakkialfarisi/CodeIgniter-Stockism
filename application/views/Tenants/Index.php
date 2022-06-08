@@ -13,7 +13,7 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
-                        <th>Pict</th>
+                        <th>Picture</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Address</th>

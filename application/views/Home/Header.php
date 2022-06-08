@@ -7,7 +7,7 @@
             Stockism
         </a>
         <button type="button" class="btn btn-light btn-lg btn-pill" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
-            Masuk
+            Login
         </button>
     </div>
 </nav>
@@ -21,9 +21,9 @@
                         <div class="d-block my-4">
                             <h1 class="display-4 fw-bold mb-3 text-white">Stockism</h1>
                             <p class="lead fw-light mb-3 landing-text">
-                                Tingkatkan omset penjualan tanpa harus bingung kelola stok barang dagangan hanya dengan satu sistem!
+                                Increase sales turnover without having to be confused, manage merchandise stock with only one system!
                             </p>
-                            <a href="<?= site_url('Home/SignUp') ?>" class="btn-link text-white">Daftar Sekarang!</a>
+                            <a href="<?= site_url('Home/SignUp') ?>" class="btn-link text-white">SignUp Now!</a>
                         </div>
                     </div>
                 </div>
@@ -36,16 +36,16 @@
     <?php if($content == "Home/MainBody") { ?>
         <div class="container text-center">
             <a href="<?= base_url(); ?>" class="btn btn-lg btn-pill btn-link text-dark">Home</a>
-            <a href="#AboutUs" class="btn btn-lg btn-pill btn-link text-dark">Tentang Kami</a>
-            <a href="#Help" class="btn btn-lg btn-pill btn-link text-dark">Bantuan</a>
-            <a href="#ContactUs" class="btn btn-lg btn-pill btn-link text-dark">Hubungi Kami</a>
+            <a href="#AboutUs" class="btn btn-lg btn-pill btn-link text-dark">About Us</a>
+            <a href="#Help" class="btn btn-lg btn-pill btn-link text-dark">Help</a>
+            <a href="#ContactUs" class="btn btn-lg btn-pill btn-link text-dark">Contact Us</a>
         </div>
     <?php } else { ?>
         <div class="container text-center">
             <a href="<?= base_url(); ?>" class="btn btn-lg btn-pill btn-link text-dark">Home</a>
-            <a href="<?= base_url(); ?>" class="btn btn-lg btn-pill btn-link text-dark">Tentang Kami</a>
-            <a href="<?= base_url(); ?>" class="btn btn-lg btn-pill btn-link text-dark">Bantuan</a>
-            <a href="<?= base_url(); ?>" class="btn btn-lg btn-pill btn-link text-dark">Hubungi Kami</a>
+            <a href="<?= base_url(); ?>" class="btn btn-lg btn-pill btn-link text-dark">About Us</a>
+            <a href="<?= base_url(); ?>" class="btn btn-lg btn-pill btn-link text-dark">Help</a>
+            <a href="<?= base_url(); ?>" class="btn btn-lg btn-pill btn-link text-dark">Contact Us</a>
         </div>
     <?php } ?>
 </div>

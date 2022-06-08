@@ -38,7 +38,7 @@
                             <input type="text" class="form-control" name="phone_number">
                         </div>
                         <div class="col-12 col-sm-6">
-                            <label class="control-label">Komisi</label>
+                            <label class="control-label">Commission</label>
                             <div class="input-group">
                                 <input type="number" class="form-control number-only" max="100" name="komisi">
                                 <span class="input-group-text">%</span>

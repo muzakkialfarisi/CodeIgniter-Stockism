@@ -17,7 +17,7 @@
                     </div>
 
                     <div class="text-end">
-                        <button class="btn bg-stockism text-white btn-lg btn-pill" type="submit">Kirim</button>
+                        <button class="btn bg-stockism text-white btn-lg btn-pill" type="submit">Send</button>
                     </div>
                 </div>
             </div>

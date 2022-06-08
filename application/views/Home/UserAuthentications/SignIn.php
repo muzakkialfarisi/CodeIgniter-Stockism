@@ -17,10 +17,10 @@
                     <input type="text" class="form-control form-control-lg" name="email_user" required>
                 </div>
                 <div class="mb-3 form-group required">
-                    <label class="control-label">Kata Sandi</label>
+                    <label class="control-label">Password</label>
                     <input type="password" class="form-control form-control-lg" name="password" required>
                 </div>
-                <a href="<?= site_url('Home/ForgotPassword'); ?>" class="btn btn-sm btn-pill btn-link">Lupa Kata Sandi</a>
+                <a href="<?= site_url('Home/ForgotPassword'); ?>" class="btn btn-sm btn-pill btn-link">Forgot Password</a>
             </div>
             <div class="modal-footer">
                 <div class="text-center">

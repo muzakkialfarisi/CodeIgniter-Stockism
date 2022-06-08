@@ -20,7 +20,7 @@
 
             <div class="col-12 col-sm-6 text-end">
                 <h2 class="mb-3 display-4 fw-bold mb-3 text-white">
-                    Hubungi Kami
+                    Contact Us
                 </h2>
                 <div class="mb-2">
                     <a class="text-white" target="_blank" href="https://www.instagram.com/mzkalfarisi/">

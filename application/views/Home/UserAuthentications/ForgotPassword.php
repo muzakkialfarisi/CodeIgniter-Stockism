@@ -1,8 +1,8 @@
 <section class="py-6">
     <div class="container">
         <div class="mb-5 text-center">
-            <h2>Lupa Kata Sandi?</h2>
-            <p class="text-muted">Kirim Permintaan Atur Ulang Kata Sandi!</p>
+            <h2>Forgot Password?</h2>
+            <p class="text-muted">Send Password Reset Request!</p>
         </div>
         <form action="<?= site_url('Home/ForgotPasswordPost') ?>" method="post">
             <div class="row pb-3 d-flex justify-content-center">
@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="text-end">
-                        <button class="btn bg-stockism text-white btn-lg btn-pill" type="submit">Kirim</button>
+                        <button class="btn bg-stockism text-white btn-lg btn-pill" type="submit">Send</button>
                     </div>
                 </div>
             </div>

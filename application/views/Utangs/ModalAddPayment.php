@@ -20,7 +20,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status_payment" value="Debt" checked>
                                 <label class="form-check-label">
-                                    Angsur
+                                    Installment
                                 </label>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="status_payment" value="Paid">
                                 <label class="form-check-label">
-                                    Lunasi
+                                    Paid
                                 </label>
                             </div>
                         </div>

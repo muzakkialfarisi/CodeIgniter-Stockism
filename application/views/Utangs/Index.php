@@ -15,8 +15,8 @@
                         <th>Invoice</th>
                         <th>Created</th>
                         <th>Date Due</th>
-                        <th>Terhutang</th>
-                        <th>Terbayar</th>
+                        <th>Debt</th>
+                        <th>Paid</th>
                         <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
                             <th>Tenant</th>
                         <?php } ?>

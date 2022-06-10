@@ -45,13 +45,13 @@
                 : <?= number_format($incpurchaseorder->shipping_cost); ?>
             </dd>
             <dt class = "col-4">
-                Total Utang
+                Total Debt
             </dt>
             <dd class = "col-8">
                 : <?= number_format($masutang->total_utang); ?>
             </dd>
             <dt class = "col-4">
-                Total Terbayar
+                Total Paid
             </dt>
             <dd class = "col-8">
                 : <?= number_format($masutang->sum_payment_price); ?>

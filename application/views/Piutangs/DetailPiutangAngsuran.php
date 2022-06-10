@@ -2,7 +2,7 @@
     <div class="card-header bg-stockism">
         <div class="d-flex align-items-center py-1">
             <div class="flex-grow-1 ps-3">
-                <h5 class="card-title mb-0 text-light">Angsuran</h5>
+                <h5 class="card-title mb-0 text-light">Debt Installment</h5>
             </div>
             <?php if($maspiutang->total_piutang > $maspiutang->sum_payment_price) { ?>
             <button type="button" class="btn btn-light btn-pill btn-add-payment" data-bs-toggle="modal" data-id="<?= $maspiutang->id_so ?>" data-bs-target="#ModalAddPayment">Add Payment</button>

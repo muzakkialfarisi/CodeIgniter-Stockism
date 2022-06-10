@@ -21,7 +21,7 @@
                         ?>
                     </dd>
                     <dt class = "col-4">
-                        Gudang
+                        Warehouse
                     </dt>
                     <dd class = "col-8">
                         : <?php

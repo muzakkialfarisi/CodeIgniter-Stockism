@@ -15,8 +15,8 @@
                         <th>Invoice</th>
                         <th>Created</th>
                         <th>Date Due</th>
-                        <th>Terhutang</th>
-                        <th>Terbayar</th>
+                        <th>Debt</th>
+                        <th>Paid</th>
                         <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
                             <th>Tenant</th>
                         <?php } ?>
@@ -41,7 +41,7 @@
                                 <?php if($item['date_due'] != '0000-00-00 00:00:00') { ?>
                                     <?php if($item['date_due'] < date('Y-m-d H:i:s')) { ?>
                                         <span class="text-danger"><?= date_format(date_create($item['date_due']), "d-m-Y") ?></span> <br>
-                                        <span class="text-danger text-sm">Terlambat</span>
+                                        <span class="text-danger text-sm">Late</span>
                                     <?php } else { ?>
                                         <?= date_format(date_create($item['date_due']), "d-m-Y") ?>
                                     <?php } ?>

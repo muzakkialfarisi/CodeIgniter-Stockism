@@ -30,9 +30,9 @@
                                         <?= $item['quantity'] ?><br>
                                         <div style="font-size:10px">
                                             <?php if($item['quantity'] == 0) { ?>
-                                                <span class="text-danger">Stok Habis</span>
+                                                <span class="text-danger">Out of Stock</span>
                                             <?php } elseif($item['quantity'] <= $item['minimum_stock']) {?>
-                                                <span class="text-warning">Stok Menipis</span>
+                                                <span class="text-warning">Stock is Running Low</span>
                                             <?php }?>
                                         </div>
                                     </div>

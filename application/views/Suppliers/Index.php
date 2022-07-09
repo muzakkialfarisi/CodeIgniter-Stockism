@@ -17,7 +17,6 @@
             <table class="table table-striped" style="width:100%">
                 <thead>
                     <tr class="text-center">
-                        <th>Id</th>
                         <th>Name</th>
                         <th>Address</th>
                         <th>Phone Number</th>
@@ -33,7 +32,6 @@
                 <tbody>
                     <?php foreach($massupplier as $item) { ?>
                         <tr>
-                            <td><?= $item['id_supplier'] ?></td>
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['address'] ?></td>
                             <td><?= $item['phone_number'] ?></td>

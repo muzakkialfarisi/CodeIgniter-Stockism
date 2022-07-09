@@ -4,7 +4,9 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Stores</h5>
             </div>
-            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate" id="btn-modal-create">Create New</button>
+            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate" id="btn-modal-create">Create New</button>
+            <?php } ?>
         </div>
     </div>
     <div class="card-body m-3">
@@ -18,8 +20,12 @@
                         <th>Phone Number</th>
                         <th>Commission</th>
                         <th>Marketplace</th>
-                        <th>Email Tenant</th>
-                        <th>Action</th>
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
+                            <th>Email Tenant</th>
+                        <?php } ?>
+                        <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                            <th>Action</th>
+                        <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,21 +37,27 @@
                             <td><?= $item['name'] ?></td>
                             <td><?= $item['phone_number'] ?></td>
                             <td><?= $item['komisi'] ?> %</td>
-                            <?php   if ($item['id_marketplace'] == 1) { ?>
-                                <td>Tokopedia</td>
-                            <?php } if ($item['id_marketplace'] == 2) { ?>
-                                <td>Bukalapak</td>
-                            <?php } ?>
-                            <td><?= $item['email_tenant'] ?></td>
-                            <td class="text-center">
-                                <div class="dropstart">
-                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_toko'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
-                                        <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['id_toko'] ?>">Delete</button></li>
-                                    </ul>
-                                </div>
+                            <td>
+                                <?php 
+                                    $id_marketplace = $item['id_marketplace'];
+                                    $marketplace = $this->db->query("SELECT * FROM masmarketplace where id_marketplace = '$id_marketplace'")->row()->name;
+                                    echo $marketplace;
+                                ?>
                             </td>
+                            <?php if($this->session->userdata['logged_in']['id_usertype'] == "Admin"){ ?>
+                                <td><?= $item['email_tenant'] ?></td>
+                            <?php } ?>
+                            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                                <td class="text-center">
+                                    <div class="dropstart">
+                                        <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                            <li><button type="button" class="dropdown-item btn-edit" data-bs-toggle="modal" data-id="<?= $item['id_toko'] ?>" data-bs-target="#ModalEdit">Edit</button></li>
+                                            <li><button type="button" class="dropdown-item btn-delete" data-id="<?= $item['id_toko'] ?>">Delete</button></li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            <?php } ?>
                         </tr>
                     <?php } ?>
                 </tbody>

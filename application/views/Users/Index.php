@@ -14,7 +14,7 @@
                 <thead>
                     <tr class="text-center">
                         <th>Email</th>
-                        <th>Email Confirmed</th>
+                        <!-- <th>Email Confirmed</th> -->
                         <th>Status</th>
                         <th>User Role</th>
                         <th>Action</th>
@@ -23,9 +23,29 @@
                 <tbody>
                     <?php foreach($secuser as $item) { ?>
                         <tr>
-                            <td><?= $item['email_user'] ?></td>
-                            <td><?= $item['email_confirmed'] ?></td>
-                            <td><?= $item['status'] ?></td>
+                            <td>
+                                <?php 
+                                    $email_user = $item['email_user'];
+                                    echo $email_user;
+                                ?>
+                            </td>
+                            <!-- <td>
+                                <?= $item['email_confirmed'] ?>
+                            </td> -->
+                            <td>
+                                <?php 
+                                    $status = $item['status'];
+                                    echo $status;
+                                    if($status == "active")
+                                    {
+                                        $result_status = "Deactivate";
+                                    }
+                                    else
+                                    {
+                                        $result_status = "Activate";
+                                    }
+                                ?>
+                            </td>
                             <td>
                                 <?php 
                                     $id_usertype = $item['id_usertype'];
@@ -33,12 +53,14 @@
                                 ?>
                             </td>
                             <td class="text-center">
-                                <div class="dropstart">
-                                    <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownactions">
-                                        <li><button type="button btn-activation" class="dropdown-item" data-id="<?= $item['id_po'] ?>"></button></li>
-                                    </ul>
-                                </div>
+                                <?php if($id_usertype != 1){ ?>
+                                    <div class="dropstart">
+                                        <button class="btn bg-light dropdown-toggle" type="button" id="dropdownactions" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownactions">
+                                            <li><a type="button" class="dropdown-item" href="<?= site_url('Users/Activation/'.$email_user.'/'.$status) ?>"><?= $result_status ?></a></li>
+                                        </ul>
+                                    </div>
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php } ?>

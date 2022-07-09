@@ -4,7 +4,9 @@
             <div class="flex-grow-1 ps-3">
                 <h5 class="card-title mb-0 text-light">Employees</h5>
             </div>
-            <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate" id="btn-modal-create">Create New</button>
+            <?php if($this->session->userdata['logged_in']['id_usertype'] != "Admin"){ ?>
+                <button type="button" class="btn btn-light btn-pill" data-bs-toggle="modal" data-bs-target="#ModalCreate" id="btn-modal-create">Create New</button>
+            <?php } ?>
         </div>
     </div>
     <div class="card-body m-3">

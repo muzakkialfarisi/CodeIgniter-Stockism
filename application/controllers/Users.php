@@ -23,4 +23,21 @@ class Users extends CI_Controller {
         $this->load->view('Shared/_Layout', $data);
 	}
 
+	public function Activation($email_user, $status){
+		if($status == "active"){
+			$status = "nonactive";
+		}
+		else{
+			$status = "active";
+		}
+
+		$secuser = array(
+			'email_user'	=> $email_user,
+			'status'		=> $status
+		);
+		$this->SecUser->Update($secuser);
+
+		$this->session->set_flashdata('success', 'Status Updated Successfully!');
+		redirect('Users/Index');
+	}
 }
